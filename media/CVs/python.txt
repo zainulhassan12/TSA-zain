@@ -1,0 +1,87 @@
+Model
+
+
+from django.db import models
+from django.core.validators import RegexValidator
+
+alphabatic = RegexValidator(r'^[a-zA-Z]*$', 'Only alphanumeric characters are allowed.')
+phone = RegexValidator(r'^((\+92)|(0092))-{0,1}\d{3}-{0,1}\d{7}$|^\d{11}$|^\d{4}-\d{7}$')
+landline = RegexValidator(r'^((\+92)|(0092))-{0,1}\d{2}-{0,1}\d{7}$|^\d{10}$|^\d{3}-\d{7}$')
+cnic = RegexValidator(r'^[0-9]{5}-[0-9]{7}-[0-9]{1}$')
+GENDER_CHOICES = [
+    ('female', 'Female'),
+    ('male', 'Male'),
+    ('other', 'Other'),
+]
+QUALIFICATION_CHOICES = [
+    {'phd', 'PHD'},
+    {'master', 'Master'},
+    {'bachlor', 'Bachlor'},
+]
+INTEREST_CHOICES = [
+    {'please select', 'Please Select'},
+    {'networking', 'Networking'},
+    {'database', 'Database'},
+    {'programming', 'Programming'},
+]
+MASTER_CHOICES = [
+    {'please select', 'Please Select'},
+    {'cs' , 'CS'},
+    {'se', 'SE'},
+    {'it', 'IT'},
+]
+
+class UserApplication(models.Model):
+    First_Name = models.CharField(max_length=20, blank=True, null=True, validators=[alphabatic])
+    Last_Name = models.CharField(max_length=20, blank=True, null=True, validators=[alphabatic])
+    Father_Name = models.CharField(max_length=20, blank=True, null=True, validators=[alphabatic])
+    Domicile = models.CharField(max_length=15, blank=True, null=True, validators=[alphabatic])
+    Age = models.IntegerField()
+    Date_of_Birth = models.DateField( editable=True)
+    Gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
+    Phone_no = models.IntegerField(max_length=20, validators=[phone])
+    Land_Line = models.IntegerField(max_length=15, validators=[landline])
+    Matric = models.CharField(max_length=10, default="Result of 10th class")
+    Intermediate = models.CharField(max_length=10, default="Result of 12th class")
+    Graduation = models.CharField(max_length=10, default="Result of 16th class")
+    Total = models.IntegerField(max_length=5)
+    Obtain = models.IntegerField(max_length=5)
+    Subject = models.CharField(max_length=15, blank=True, null=True)
+    Percentage = models.FloatField(max_length=5)
+    Grades = models.CharField(max_length=5, blank=True, null=True)
+    Year = models.IntegerField(max_length=5)
+    Matrics_Result = models.FilePathField(default="upload your 10th result")
+    Graduations_result = models.FilePathField(default="Upload your Transcript", allow_files=True)
+    Image = models.ImageField()
+    Qualify = models.CharField(max_length=10, choices=QUALIFICATION_CHOICES)
+    Speclization = models.CharField(max_length=30, choices=INTEREST_CHOICES)
+    Experience = models.FilePathField(max_length=20,default="Upload your CV", allow_files=True)
+    Master_Specialization = models.CharField(max_length=15, choices=MASTER_CHOICES)
+
+
+
+
+Form
+
+from django.forms import Form
+from formfieldset.forms import FieldsetMixin
+from .models import *
+
+class applicationForm(Form.ModelForm):
+    class Meta:
+        model = UserApplication
+        fields = [
+            'First_Name', 'Last_Name', 'Father_Name', 'Domicile', 'Age', 'Date_of_Birth', 'Gender', ' Phone_no', 'Land_Line', '  Matric', ' Intermediate', ' Graduation', ' Total', ' Obtain ', '  Subject', ' Percentage', ' Grades', ' Year', ' Matrics_Result', ' Graduations_result', '  Image', '  Qualify', ' Speclization', 'Experience',
+            'Master_Specialization',
+        ]
+
+        class MyForm(Form, FieldsetMixin):
+            fieldsets = (
+                (u'Primary Information', {'fields': ['First_Name', 'Last_Name', 'Father_Name', 'Domicile', 'Age', 'Date_of_Birth', 'Gender', ' Phone_no', 'Land_Line']}),
+                (u'Study Information', {'fields': [ ' Matric', ' Intermediate', ' Graduation', ' Total', ' Obtain ', 'Subject', ' Percentage', ' Grades', ' Year', ' Matric_Result', ' Graduation_result', '  Image']}),
+                ( u'Matric', {'fields': [ ' Total', ' Obtain ', '  Subject', ' Percentage', ' Grades', ' Year']}),
+                (u'Intermediate', {'fields': [' Total', ' Obtain ', '  Subject', ' Percentage', ' Grades', ' Year']}),
+                (u'Graduation', {'fields': [' Total', ' Obtain ', '  Subject', ' Percentage', ' Grades', ' Year']}),
+                (u'Short Information', {'fields': [' Graduations_result', '  Image', '  Qualify', ' Speclization', 'Experience', 'Master_Specialization']}),
+            )
+

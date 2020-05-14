@@ -1,0 +1,110 @@
+<!doctype html>
+{%load static%}
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<link rel="script" href="{% static 'js/testing.js'%}">
+	
+	<title>{%block title%}Hello, world!{%endblock%}</title>
+	
+	<style>
+		{%block css%}
+		{%endblock%}
+	</style>
+	<script>
+		$(document).ready(function(){
+		  $("#b1").click(function(){
+		   $("#a1").hide();
+		    $("#a2").show();
+		  });
+		  $("#b2").click(function(){
+		    $("#a1").show();
+		     $("#a2").hide();
+		
+		  });
+		  $("#b3").click(function(){
+		    $("#a1").hide();
+		     $("#a2").hide();
+		     $("#a3").show();
+		
+		  });
+		  $("#b4").click(function(){
+		    $("#a1").show();
+		     $("#a2").show();
+		     $("#a3").show();
+		
+		  });
+		});
+		
+		$(document).ready(function(){
+		    $("#a2").hide();
+		     $("#a3").hide();
+		  });
+			
+	
+	
+	</script>
+</head>
+<body>
+{%load static%}
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+	<a href="" class="navbar-brand">
+		<img src="{%static 'images/icons/icon.jpg'%}" height="30" alt="UOG">
+	</a>
+	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+		<div class="navbar-nav">
+			<a href="{% url 'UserViews:UserHome'%}" class="nav-item nav-link active">Home</a>
+			<a href="{%url 'UserViews:Profile'%}" class="nav-item nav-link">Profile</a>
+			<a href="{%url 'UserViews:Profile2' user%}" class="nav-item nav-link">Profile2</a>
+			<a href="{%url 'UserViews:testing'%}" class="nav-item nav-link">Application</a>
+			<a href="{%url 'UserViews:test'%}" class="nav-item nav-link">TestCase</a>
+<!--			<a href="{%url 'UserViews:application'%}" class="nav-item nav-link">Applications</a>-->
+		</div>
+		
+		<div class="navbar-nav ml-auto dropleft">
+			<div style="margin-right:10px" class="btn-group">
+				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Actions
+				</button>
+				<div class="dropdown-menu" style="margin-top:40px">
+					<a href="{%url 'password_change'%}" class="dropdown-item">Change Your password</a>
+					<a href="{%url 'password_reset'%}" class="dropdown-item">Reset password</a>
+					<div class="dropdown-divider"></div>
+					<a href="{%url 'logout'%}" class="dropdown-item">Log Out</a>
+				</div>
+			</div>
+		
+		
+		</div>
+	</div>
+</nav>
+
+
+{%block body%}
+
+{%endblock%}
+<!-- Optional JavaScript -->
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>

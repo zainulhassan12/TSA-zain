@@ -1,0 +1,23 @@
+{%extends 'basic3.html'%}
+{%block title%}Profile{%endblock%}
+{%block css%}
+{%endblock%}
+
+{%block body%}
+
+{%for ab in object%}
+
+{%if request.user == ab.user%}
+
+{{ab.First_Name}}
+{{ab.Last_Name}}
+{{ab.id}}
+{{request.user.id}}
+{%endif%}
+{%endfor%}
+{%if request.user != ab.user%}
+<div class="alert alert-danger" role="alert">
+  Please fill the application First!
+</div>
+{%endif%}
+{%endblock%}

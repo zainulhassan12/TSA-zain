@@ -1,0 +1,306 @@
+{% extends 'basic3.html'%}
+{%block title%} Application form {%endblock%}
+{%load static%}
+{% load crispy_forms_tags %}
+{%block css%}
+.abc{
+border-style: outset;
+border-radius:12px;
+margin-top:1%;
+padding:1%
+}
+.ground{
+position:relative;
+height:100%;
+width:100%;
+
+}
+.fore{
+position:absolute;
+top:0%
+right:10%;left:10%;
+
+}
+
+table, th, td {
+border: 1px groove black;
+border-collapse:collapse;
+}
+th, td {
+padding: 5px;
+text-align: left;
+}
+.column {
+float: left;
+width: 30%;
+padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+.column {
+width: 100%;
+display: block;
+margin-bottom: 20px;
+}
+}
+
+/* Style the counter cards */
+.card {
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+padding: 10px;
+width:80%;
+height:100%;
+text-align: center;
+background-color:;
+}
+
+
+
+.previous {
+background-color: #f1f1f1;
+color: black;
+}
+
+.next {
+background-color: #4CAF50;
+color: white;
+}
+
+.asteriskField{
+display:none;
+}
+{%endblock%}
+{%block body%}
+{% if form.errors %}
+<div class="alert alert-danger alert-dismissible col-12 mx-1" role="alert">
+	<div id="form_errors">
+		{% for key, value in form.errors.items %}
+		<span class="fieldWrapper">
+                    {{ key }}:{{ value }}
+                </span>
+		{% endfor %}
+	</div>
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+</div>
+{% endif %}
+{% if messages %}
+{% for message in messages %}
+<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	{{ message }}
+</div>
+{% endfor %}
+{%endif%}
+<div>
+	<form method="POST" enctype="multipart/form-data">
+		<div class="container col-md-10 abc" id="a1">
+			<strong style="font-size:25px">Primary Information</strong>
+			{% csrf_token %}
+			<div class="form-row">
+				<div class="form-group col-md-5">
+					{{vv.First_Name|as_crispy_field}}
+				</div>
+				<div class="form-group col-md-5">
+					{{vv.Last_Name|as_crispy_field }}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					{{vv.Father_Name|as_crispy_field }}
+				</div>
+				
+				<div class="form-group col-md-4">
+					{{vv.Email|as_crispy_field }}
+				</div>
+				<div class="form-group col-md-2">
+					{{vv.Gender|as_crispy_field }}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-3">
+					{{vv.Date_of_Birth|as_crispy_field}}
+				</div>
+				<div style="margin-left:15px" class="form-group col-md-2">
+					{{vv.Age|as_crispy_field}}
+					{{vv.Domicile|as_crispy_field }}
+				</div>
+			
+			</div>
+			<div class="form-row">
+				
+				
+				<div class="form-group col-md-4">
+					<label >Phone Number (format: xxxx-xxx-xxxx):</label>
+					<input type="number" name="Phone_no" pattern="/[0-9]{3}-[0-9]{7}/" class="numberinput form-control" required="" id="id_Phone_no">
+<!--					<input type="text" name="phone no" pattern="/[0-9]{3}-[0-9]{7}/" required="field mudt required">-->
+<!--					{{vv.Phone_no|as_crispy_field }}-->
+				</div>
+				<div class="form-group col-md-4">
+					<label>Land line (format:xxx-xxxxxxx) </label>
+<!--					<input type="text" name="phone no" pattern="/[0-9]{3}-[0-9]{7}/" required="field mudt required">-->
+					<input type="number" name="Land_Line" class="numberinput form-control"  pattern="/[0-9]{3}-[0-9]{7}/"  required="" id="id_Land_Line">
+<!--					{{vv.Land_Line|as_crispy_field }}-->
+				</div>
+			</div>
+			<div style="margin-left:94%;">
+				<button title="Next" id="b1"
+				        class="btn btn-outline-secondary">->>
+				</button>
+			</div>
+		</div>
+		
+		
+		<div class="container abc" id="a2">
+			<strong style="font-size:25px">Study Information</strong>
+			{% csrf_token %}
+			<div class="form-row">
+				<div class="form-group">
+					<table class="table table-bordered" style="width:auto">
+						<tr>
+							<strong><label class="label" style="font-size:21px;">Matric</label></strong>
+						</tr>
+						<!--						<tr>-->
+						<!--&lt;!&ndash;							<th>Total</th>&ndash;&gt;-->
+						<!--&lt;!&ndash;							<th>Obtain</th>&ndash;&gt;-->
+						<!--&lt;!&ndash;							<th>Percentage</th>&ndash;&gt;-->
+						<!--&lt;!&ndash;							<th>Subject</th>&ndash;&gt;-->
+						<!--&lt;!&ndash;							<th>Grade</th>&ndash;&gt;-->
+						<!--						</tr>-->
+						<tr>
+							<th>{{vv.MatricTotal|as_crispy_field}}</th>
+							<td>{{vv.MatricObtain|as_crispy_field}}</td>
+							<td>{{vv.MatricPercentage|as_crispy_field}}</td>
+							<td>{{vv.MatricSubject|as_crispy_field}}</td>
+							<td>{{vv.MatricGrades|as_crispy_field}}</td>
+							<td>{{vv.MatricYear|as_crispy_field}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group">
+					<table class="table table-bordered  expand-sm" style="width:auto;">
+						<tr>
+							<strong><label class="label" style="font-size:21px;">Intermediate</label></strong></tr>
+						<!--						</tr>-->
+						<!--						<tr>-->
+						<!--							<th>Total</th>-->
+						<!--							<th>Obtain</th>-->
+						<!--							<th>Percentage</th>-->
+						<!--							<th>Subject</th>-->
+						<!--							<th>Grade</th>-->
+						<!--							&lt;!&ndash;						<th>Year</th>&ndash;&gt;-->
+						<!--						</tr>-->
+						<tr>
+							<td>{{vv.IntermediateTotal|as_crispy_field}}</td>
+							<td>{{vv.IntermediateObtain|as_crispy_field}}</td>
+							<td>{{vv.IntermediatePercentage|as_crispy_field}}</td>
+							<td>{{vv.IntermediateSubject|as_crispy_field}}</td>
+							<td>{{vv.IntermediateGrades|as_crispy_field}}</td>
+							<td>{{vv.IntermediateYear|as_crispy_field}}</td>
+							<!--						<th>{{vv.IntermediateYear}}</th>-->
+						</tr>
+					</table>
+				</div>
+			
+			</div>
+			<div class="form-row">
+				<div class="form-group">
+					<table class="table table-bordered" style="width=auto;">
+						<tr>
+							<strong><label class="label" style="font-size:21px;">Graduation</label></strong>
+						</tr>
+						<!--						<tr>-->
+						<!--							<th>Total</th>-->
+						<!--							<th>Obtain</th>-->
+						<!--							<th>Percentage</th>-->
+						<!--							<th>Subject</th>-->
+						<!--							<th>Grade</th>-->
+						<!--						</tr>-->
+						<tr>
+							<td>{{vv.GraduationTotal|as_crispy_field}}</td>
+							<td>{{vv.GraduationObtain|as_crispy_field}}</td>
+							<td>{{vv.GraduationPercentage|as_crispy_field}}</td>
+							<td>{{vv.GraduationSubject|as_crispy_field}}</td>
+							<td>{{vv.GraduationGrades|as_crispy_field}}</td>
+							<td>{{vv.GraduationYear|as_crispy_field}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="column">
+					<div class="card">
+						<h5>Matric Result</h5>
+						{{vv.Matrics_Result}}
+					</div>
+				</div>
+				<div class="column">
+					<div class="card">
+						<h5>Intermediate Result</h5>
+						{{vv.Intermediate_result}}
+					</div>
+				</div>
+				<div class="column">
+					<div class="card">
+						<h5>Graduation Result</h5>
+						{{vv.Graduations_result}}
+					</div>
+				</div>
+			</div>
+			<div>
+				<button title="previous" style="margin-top:10px;margin-left;" id="b2" class="btn btn-outline-secondary">
+					<<-
+				</button>
+				<button title="Next" style="margin-top:10px;margin-left:89%;" id="b3" class="btn btn-outline-secondary">
+					->>
+				</button>
+			</div>
+		</div>
+		
+		<div class="container col-md-10 abc" id="a3">
+			<strong style="font-size:25px">Extra Information</strong>
+			{% csrf_token %}
+			<div class="form-row">
+				
+				<div class="form-group col-md-4">
+					{{vv.Qualify|as_crispy_field }}
+					{{vv.Speclization|as_crispy_field }}
+					{{vv.Master_Specialization|as_crispy_field }}
+				</div>
+				<div style="margin-left:200px" class="form-group col-md-4">
+					{{vv.Image|as_crispy_field }}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					{{vv.Experience|as_crispy_field }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="ml-auto" style="float:left;margin-top:auto">
+					<button title="Verify Your Data" style="" id="b4" class="btn btn-outline-secondary">Verify</button>
+					<button title="Finish" style="" id="b5" class="btn btn-outline-secondary">Submit</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+{% endblock %}

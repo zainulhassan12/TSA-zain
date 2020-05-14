@@ -1,0 +1,200 @@
+
+<!doctype html>
+{%load static%}
+<html lang="en">
+  <head>
+    
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{%static 'css/UserStyle.css' %}">
+
+    <title>{%block title%}{%endblock%}</title>
+      <style>
+          {%block css%}
+          
+          {%endblock%}
+      </style>
+  </head>
+
+  <body>
+    {%block body%}
+          
+          {%endblock%}
+  
+  <div class="nav">
+   <header style="position:absolute; width:100%;">
+         <nav class="navbar navbar-expand-lg navbar-light  fixed-top">
+              <li class="logo">UserView</li>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav ml-auto">
+                      <li class="items"> <a href="#" ></a></li>
+                        <li ><a href="{%url 'logout'%}" class="btn btn-primary my-0">LogOut</a></li>
+                        <li style="margin:3px"><a href="{%url 'password_change'%}" class="btn btn-primary my-0">Change</a></li>
+                        <li><a href="{%url 'password_reset'%}" class="btn btn-primary my-0">Reset</a></li>
+                      </ul>
+                     </div>
+             
+             
+       </nav>
+      </header>
+      
+      <div class="container col-md-4">
+      {%block content%}
+          
+          {%endblock%}
+      </div>
+      
+    <div class="nav container-fluid">
+    
+          <footer class="footer site-footer" style="margin-top:30%; width:100%; background-color:rgba(0,0,0,0.3);">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-9">
+                  <div class="row">
+                    <div class="col-md-5">
+                      <h2 class="footer-heading mb-4">About Us</h2>
+                      <p>The goal of this project is to give the information about the teachers to end-user and easy for the interview by end-user, spend less time, using only single platform and also suggest  the teacher according their experiences and grades in specific course.</p>
+                    </div>
+                      <div class="col-md-3 ml-auto">
+                        <h2 class="footer-heading mb-4">Quick Links</h2>
+                        <ul class="list-unstyled">
+                          <li><a href="#about-section" class="smoothscroll">About Us</a></li>
+                          <li><a href="#Application-section" class="smoothscroll">Application</a></li>
+                          <li><a href="#Validator-section" class="smoothscroll">Validator</a></li>
+                          <li><a href="#Admin-section" class="smoothscroll">Admin</a></li>
+                          <li><a href="#contact-section" class="smoothscroll">Contact Us</a></li>
+                        </ul>
+                      </div>
+                        <div class="col-md-3">
+                          <h2 class="footer-heading mb-4">Follow Us</h2>
+                          <a href="#" class="pl-0 pr-3"><span class="icon-facebook"></span></a>
+                          <a href="#" class="pl-3 pr-3"><span class="icon-twitter"></span></a>
+                          <a href="#" class="pl-3 pr-3"><span class="icon-instagram"></span></a>
+                          <a href="#" class="pl-3 pr-3"><span class="icon-linkedin"></span></a>
+                        </div>
+                  </div>
+                      </div>
+                  <div class="col-md-3">
+                    <h2 class="footer-heading mb-4">Subscribe Newsletter</h2>
+                    <form action="#" method="post" class="footer-subscribe">
+                      <div class="input-group mb-3">
+                        <input type="text" class="form-control border-secondary text-white bg-transparent" placeholder="Enter Email" aria-label="Enter Email" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                          <button class="btn btn-primary text-black" type="button" id="button-addon2">Send</button>
+                        </div>
+                      </div>
+                  </form>
+                </div>
+              </div>
+                <div class="row pt-5 mt-5 text-center">
+                  <div class="col-md-12">
+                    <div class="border-top pt-2">
+                    </div>
+                  </div>
+                  
+                </div>
+               </div>
+          </footer>
+
+   </div>
+  </div>
+  
+
+  
+  <!-- Optional JavaScript -->
+   <script type="text/javascript">
+   	
+   	 var  nav = document.getElementById('nav1');
+      
+      window.onscroll = function(){
+
+      	if (window.pageYOffset >22) {
+
+      		$(".navbar").addClass("bg-light");
+      	}
+      	else{
+      		$(".navbar").removeClass("bg-light");
+      	}
+      }
+
+
+
+   </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+
+
+
+<!--              	<a class="navbar-brand" href="{%url 'index'%}" style="font-weight: bold; font-size: 25px;">Teacher Selection</a>-->
+<!--              	<li><a href="#home-section" class="nav-link">Home</a></li>-->
+<!--                <li><a href="#about-section" class="nav-link">About Us</a></li>-->
+<!--                <li><a href="admin/" class="nav-link">Admin</a></li>-->
+<!--                <li><a href="#Contact-section" class="nav-link">contact</a></li>-->
+<!--                <li><a href="{%url 'logout'%}" class="btn btn-primary my-0">log Out</a></li>-->
+<!--                <li><a href="{%url 'signup' %}" class="btn btn-primary my-0">Sign up</a></li>-->
+<!--                <li><a href="{%url 'login' %}" class="btn btn-primary my-0">log in</a></li>-->
+
+<!--  q\&lt;!&ndash;                 <li class="nav-item">&ndash;&gt;-->
+<!--              <a href="signin.html">-->
+<!--                <button-->
+<!--                  class="btn btn-success btn-sm"-->
+<!--                  style="margin-right: 5px;"-->
+<!--                >-->
+<!--                  Sign in-->
+<!--                </button>-->
+<!--              </a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a href="signup.html">-->
+<!--                <button class="btn btn-primary btn-sm">Sign up</button></a-->
+<!--              >-->
+<!--            </li>-->
+
+
+<!--	  .bg-text {-->
+<!--  background-color: rgb(0,0,0); /* Fallback color */-->
+<!--  background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */-->
+<!--  color: white;-->
+<!--  font-weight: bold;-->
+<!--  border: 3px solid #f1f1f1;-->
+<!--  position: absolute;-->
+<!--  top:10%;-->
+<!--  left: 10%;-->
+<!--  transform: translate(-50%, -50%);-->
+<!--  z-index: 2;-->
+<!--  width: 80%;-->
+<!--  padding: 20px;-->
+<!--  text-align: center;-->
+<!--}-->
+
+
+<!--	  -->
+<!--	  body{-->
+<!--	  background-image: url({%static 'images/background_uog001.jpg'%});-->
+<!--	  background-image:no-repeat;-->
+<!--	  background-size: cover;-->
+<!--	  background-position: absolute;-->
+<!--	  -->
+<!--	 -->
+<!--}-->
+<!--	  .box {-->
+<!--    background: #CCCCCC;-->
+<!--    -webkit-transition: background 0.5s linear;-->
+<!--    -moz-transition: background 0.5s linear;-->
+<!--    -o-transition: background 0.5s linear;-->
+<!--    transition: background 0.5s linear;-->
+<!--    }-->
+<!--.box:hover {-->
+<!--    background: url({%static 'images/background_uog001.jpg'%}) no-repeat #CCCCCC;-->
+<!--    }-->
+

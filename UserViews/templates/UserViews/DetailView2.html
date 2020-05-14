@@ -1,0 +1,256 @@
+{%extends 'basic3.html'%}
+{%block title%}Profile{%endblock%}
+{%block css %}
+body{
+height:100%;
+width:100%;
+}
+.box{
+margin-top:5px;
+}
+.style {
+border-style: inset;
+border-radius:13px;
+border-color:;
+}
+
+table {
+width:90%;
+}
+table,th,td{
+
+border-collapse: collapse;
+}
+
+th, td {
+padding: 15px;
+text-align: left;
+}
+table tr:nth-child(even) {
+background-color: #eee;
+
+}
+table tr:nth-child(odd) {
+background-color: #fff;
+}
+table,th,td{
+border: 0.9px solid black;
+
+}
+caption{
+font: 19px Arial, sans-serif;}
+
+table.center {
+margin-left:auto;
+margin-right:auto;
+}
+
+
+talbe#qua
+h3
+{
+text-decoration: underline;
+text-align:center;
+}
+h1{
+text-align:center;
+text-decoration: underline;
+}
+a {
+text-decoration: none;
+display: inline-block;
+
+}
+
+img{
+margin-left:px;
+float:right;
+}
+a,img{
+float:right;
+}
+{%endblock%}
+
+
+{%block body%}
+{%load static%}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	{{ message }}
+	<a class="btn btn-secondary btn-sm" role="button" href="{%url 'UserViews:testing'%}">Application</a>
+</div>
+{% endfor %}
+{%endif%}
+
+
+{%if obj.id != null%}
+<div class="container-fluid">
+	<div class="row" style="margin-top: 3px">
+		<div>
+			<form action="{%url 'UserViews:Update' obj.id%}">
+				<!--		<buuton class="btn btn-primary" type="submit">Update</buuton>-->
+				<input class="btn btn-success" type="submit" value="Update">
+			</form>
+		
+		</div>
+		<form action="{%url 'UserViews:Delete' obj.id%}">
+			<!--		<buuton class="btn btn-primary" type="submit">Update</buuton>-->
+			<input style="margin-left:2px" class="btn btn-success" type="submit" value="Delete">
+		</form>
+	
+	</div>
+</div>
+
+<div class="container style col-sm-10 text-align-center box">
+	<h3 style="text-align:center;">Application</h3>
+	
+	<table id="t4" class="center">
+		<h1> User Information </h1>
+		<h4 style="text-align:center"><b>Personal Information</b></h4>
+		<tr>
+			<th>Name</th>
+			<td>{{obj.First_Name}} {{obj.Last_Name}}<img style="height:25px" src="{%static 'images/icons/name.png' %}" ></td>
+			<th>Father</th>
+			<td>{{obj.Father_Name}}<img style="height:25px" src="{%static 'images/icons/father.png' %}" ></td>
+		
+		</tr>
+		<tr>
+			<th>CNIC</th>
+			<td><img style="height:25px" src="{%static 'images/icons/cnic.png' %}" ></td>
+			
+			<th>Domicle</th>
+			<td>{{obj.Domicile}}<img style="height:25px" src="{%static 'images/icons/domicile.png' %}" ></td>
+		</tr>
+		<tr>
+			<th>Gender</th>
+			<td>{{obj.Gender}}<img style="height:25px" src="{%static 'images/icons/gender.png' %}" ></td>
+			<th>Date of birth</th>
+			<td>{{obj.Date_of_Birth}}<img style="height:25px" src="{%static 'images/icons/dob.png' %}" ></td>
+		
+		</tr>
+		<tr>
+			<th>Age</th>
+			<td colspan="3">{{obj.Age}}<img style="height:25px" src="{%static 'images/icons/age.jpg' %}" ></td>
+		
+		</tr>
+		<tr>
+			<th>Email</th>
+			<td colspan="3">{{obj.Email}}<img style="height:25px" src="{%static 'images/icons/email.jpg' %}" ></td>
+		</tr>
+		<tr>
+			<th>Cell No</th>
+			<td>{{obj.Phone_no}}<img style="height:25px" src="{%static 'images/icons/phone.png' %}" ></td>
+			
+			<th>land line</th>
+			<td>{{obj.Land_Line}}<img style="height:25px" src="{%static 'images/icons/landline.png' %}" ></td>
+		
+		
+		</tr>
+	
+	</table>
+	<div style="height:20px"></div>
+	
+	<table id="t3" class="center">
+		<h3 style="text-align:center">Specialization</h3>
+		<tr>
+			<th>Qualification</th>
+			<th>Specialization</th>
+			<th>Master Specialization</th>
+			<th>Image</th>
+		
+		</tr>
+		<tr>
+			<td>{{obj.Qualify}}</td>
+			<td>{{obj.Speclization}}</td>
+			<td>{{obj.Master_Specialization}}</td>
+			<td title="Click On Icon">Image<a style="color:black" href="media/{{obj.Image}}"><img style="height:25px" src="{%static 'images/icons/pig.png' %}" ></a></td>
+		</tr>
+	</table>
+	<div style="height:20px"></div>
+	
+	<h3 style="text-align:center">Educational Qualifications</h3>
+	<table id="t2" class="center">
+		<tr id="heading">
+			<th>Qualification</th>
+			<th>Total</th>
+			<th>Obtain</th>
+			<th>Subject</th>
+			<th>Percentage</th>
+			<th>Grades</th>
+			<th>Year</th>
+		</tr>
+		<tr>
+			<td>Metric</td>
+			<td>{{obj.MatricTotal}}</td>
+			<td>{{obj.MatricObtain}}</td>
+			<td> {{obj.MatricSubject}}</td>
+			<td>{{obj.MatricPercentage}}</td>
+			<td>{{obj.MatricGrades}}</td>
+			<td>{{obj.MatricYear}}</td>
+		
+		</tr>
+		<tr>
+			<td>Intermediate</td>
+			<td>{{obj.IntermediateTotal}}</td>
+			<td>{{obj.IntermediateObtain}}</td>
+			<td>{{obj.IntermediateSubject}}</td>
+			<td>{{obj.IntermediatePercentage}}</td>
+			<td>{{obj.IntermediateGrades}}</td>
+			<td>{{obj.IntermediateYear}}</td>
+		</tr>
+		<tr>
+			<td>Graduation</td>
+			<td>{{obj.GraduationTotal}}</td>
+			<td> {{obj.GraduationObtain}}</td>
+			<td>{{obj.GraduationPercentage}}</td>
+			<td>{{obj.GraduationSubject}}</td>
+			<td>{{obj.GraduationGrades}}</td>
+			<td>{{obj.GraduationYear}}</td>
+		
+		</tr>
+		<!--			<tr>-->
+		<!--				<td>B.Sc. (Hons) - Applied Accounting</td>-->
+		<!--				<td>Oxford Brookes University</td>-->
+		<!--				<td>2:1 – Upper Second Class Honours</td>-->
+		<!--				<td>2012</td>-->
+		<!--			</tr>-->
+		<!--			<tr>-->
+		<!--				<td>Chartered Accounting - ACCA</td>-->
+		<!--				<td>ACCA Glasgow, UK</td>-->
+		<!--				<td>Passed (1st Attempt)</td>-->
+		<!--				<td>2013</td>-->
+		<!--			</tr>-->
+	</table>
+	<div style="height:20px"></div>
+	
+	
+	<table id="t1" class="center">
+		<h3 style="text-align:center"> Files</h3>
+		<tr>
+			<th scope="col">Metric</th>
+			<th scope="col">Graduation</th>
+			<th scope="col">Intermediate</th>
+			<th scope="col">Experience</th>
+		
+		
+		</tr>
+		<tr>
+			<td title="Click On Image">Result<a style="color:black" href="media/{{obj.Matrics_Result}}"><img title="See result" style="height:25px" src="{%static 'images/icons/result.png' %}" ></a></td>
+			<td title="Click On Image">>Result<a style="color:black" href="media/{{obj.Graduations_result}}"><img style="height:25px" src="{%static 'images/icons/graduation.png' %}" ></a></td>
+			<td title="Click On Image">Result<a style="color:black" href="media/{{obj.Intermediate_result}}"><img style="height:25px" src="{%static 'images/icons/intermidiate.png' %}" ></a></td>
+			<td title="Click On Image">Experiences<a style="color:black" href="media/{{obj.Experience}}"><img style="height:25px" src="{%static 'images/icons/cv.png' %}" ></a></td>
+		</tr>
+	
+	</table>
+	<div style="height:50px"></div>
+	
+	
+	{%endif%}
+</div>
+
+
+{%endblock%}

@@ -1,0 +1,282 @@
+{%extends 'basic3.html'%}
+{%block css %}
+.abc{
+border-style: outset;
+border-radius:12px;
+margin-top:1%;
+padding:1%
+}
+.ground{
+position:relative;
+height:100%;
+width:100%;
+
+}
+.fore{
+position:absolute;
+top:0%
+right:10%;left:10%;
+
+}
+
+table, th, td {
+border: 1px groove black;
+border-collapse:collapse;
+}
+th, td {
+padding: 5px;
+text-align: left;
+}
+.column {
+float: left;
+width: 30%;
+padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+content: "";
+display: table;
+clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+.column {
+width: 100%;
+display: block;
+margin-bottom: 20px;
+}
+}
+
+/* Style the counter cards */
+.card {
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+padding: 10px;
+width:80%;
+height:100%;
+text-align: center;
+background-color:;
+}
+
+
+a {
+text-decoration: none;
+display: inline-block;
+padding: 8px 16px;
+}
+
+a:hover {
+background-color: #ddd;
+color: black;
+}
+
+.previous {
+background-color: #f1f1f1;
+color: black;
+}
+
+.next {
+background-color: #4CAF50;
+color: white;
+}
+
+.round {
+border-radius: 50%;
+}
+.asteriskField{
+display:none;
+}
+{%endblock%}
+{%block body%}
+{% load crispy_forms_tags %}
+<div class="container"><form method="post">{{form.as_p}}</form></div>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	{{ message }}
+	<a class="btn btn-secondary btn-sm" role="button" href="{%url 'UserViews:Profile2' request.user%}">Profile</a>
+</div>
+{% endfor %}
+{%endif%}
+<div class="container">
+	<div>
+		<form method="POST" enctype="multipart/form-data" novalidate>
+			<div class="container col-md-12 abc" id="a6">
+				<strong style="font-size:25px">Primary Information</strong>
+				{% csrf_token %}
+				<div class="form-row">
+					<div class="form-group col-md-5">
+						{{form1.First_Name|as_crispy_field}}
+					</div>
+					<div class="form-group col-md-5">
+						{{form1.Last_Name|as_crispy_field }}
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						{{form1.Father_Name|as_crispy_field }}
+					</div>
+					
+					<div class="form-group col-md-4">
+						{{form1.Email|as_crispy_field }}
+					</div>
+					<div class="form-group col-md-2">
+						{{form1.Gender|as_crispy_field }}
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-3">
+						{{form1.Date_of_Birth|as_crispy_field}}
+					</div>
+					<div style="margin-left:15px" class="form-group col-md-2">
+						{{form1.Age|as_crispy_field}}
+						{{form1.Domicile|as_crispy_field }}
+					</div>
+				
+				</div>
+				<div class="form-row">
+					
+					
+					<div class="form-group col-md-4">
+						{{form1.Phone_no|as_crispy_field }}
+					</div>
+					<div class="form-group col-md-4">
+						{{form1.Land_Line|as_crispy_field }}
+					</div>
+				</div>
+				<div style="margin-left:94%;">
+				
+				</div>
+				
+				<strong style="font-size:25px">Study Information</strong>
+				{% csrf_token %}
+				<div class="form-row">
+					<div class="form-group">
+						<table class="table table-bordered" style="width:auto">
+							<tr>
+								<strong><label class="label" style="font-size:21px;">Matric</label></strong>
+								<th>{{form1.MatricTotal|as_crispy_field}}</th>
+								<td>{{form1.MatricObtain|as_crispy_field}}</td>
+								<td>{{form1.MatricPercentage|as_crispy_field}}</td>
+								<td>{{form1.MatricSubject|as_crispy_field}}</td>
+								<td>{{form1.MatricGrades|as_crispy_field}}</td>
+								<td>{{form1.MatricYear|as_crispy_field}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<table class="table table-bordered" style="width:auto;">
+							<tr>
+								<strong><label class="label" style="font-size:21px;">Intermediate</label></strong>
+								<!--							</tr>-->
+								<!--							&lt;!&ndash;						</tr>&ndash;&gt;-->
+								<!--							&lt;!&ndash;						<tr>&ndash;&gt;-->
+								<!--							&lt;!&ndash;							<th>Total</th>&ndash;&gt;-->
+								<!--							&lt;!&ndash;							<th>Obtain</th>&ndash;&gt;-->
+								<!--							&lt;!&ndash;							<th>Percentage</th>&ndash;&gt;-->
+								<!--							&lt;!&ndash;							<th>Subject</th>&ndash;&gt;-->
+								<!--							&lt;!&ndash;							<th>Grade</th>&ndash;&gt;-->
+								<!--							&lt;!&ndash;							&lt;!&ndash;						<th>Year</th>&ndash;&gt;&ndash;&gt;-->
+								<!--							&lt;!&ndash;						</tr>&ndash;&gt;-->
+								<!--							<tr>-->
+								<td>{{form1.IntermediateTotal}}</td>
+								<td>{{form1.IntermediateObtain|as_crispy_field}}</td>
+								<td>{{form1.IntermediatePercentage|as_crispy_field}}</td>
+								<td>{{form1.IntermediateSubject|as_crispy_field}}</td>
+								<td>{{form1.IntermediateGrades|as_crispy_field}}</td>
+								<td>{{form1.IntermediateYear|as_crispy_field}}</td>
+								<!--						<th>{{form1.IntermediateYear}}</th>-->
+							</tr>
+						</table>
+					</div>
+				
+				</div>
+				<div class="form-row">
+					<div class="form-group">
+						<table class="table table-bordered" style="width=auto;">
+							<tr>
+								<strong><label class="label" style="font-size:21px;">Graduation</label></strong>
+							</tr>
+							<!--						<tr>-->
+							<!--							<th>Total</th>-->
+							<!--							<th>Obtain</th>-->
+							<!--							<th>Percentage</th>-->
+							<!--							<th>Subject</th>-->
+							<!--							<th>Grade</th>-->
+							<!--						</tr>-->
+							<tr>
+								<td>{{form1.GraduationTotal|as_crispy_field}}</td>
+								<td>{{form1.GraduationObtain|as_crispy_field}}</td>
+								<td>{{form1.GraduationPercentage|as_crispy_field}}</td>
+								<td>{{form1.GraduationSubject|as_crispy_field}}</td>
+								<td>{{form1.GraduationGrades|as_crispy_field}}</td>
+								<td>{{form1.GraduationYear|as_crispy_field}}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="column">
+						<div class="card">
+							<h5>Matric Result</h5>
+							{{form1.Matrics_Result}}
+						</div>
+					</div>
+					<div class="column">
+						<div class="card">
+							<h5>Intermediate Result</h5>
+							{{form1.Intermediate_result}}
+						</div>
+					</div>
+					<div class="column">
+						<div class="card">
+							<h5>Graduation Result</h5>
+							{{form1.Graduations_result}}
+						</div>
+					</div>
+				</div>
+				<div>
+					<div style="height:20px"></div>
+					
+					
+					<strong style="font-size:25px">Extra Information</strong>
+					{% csrf_token %}
+					<div class="form-row">
+						
+						<div class="form-group col-md-4">
+							{{form1.Qualify|as_crispy_field }}
+							{{form1.Speclization|as_crispy_field }}
+							{{form1.Master_Specialization|as_crispy_field }}
+						</div>
+						<div style="margin-left:200px" class="form-group col-md-4">
+							{{form1.Image|as_crispy_field }}
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							{{form1.Experience|as_crispy_field }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="ml-auto" style="float:left;">
+							<button title="Finish"  style="" class="btn btn-outline-success">Submit</button>
+						</div>
+					</div>
+				
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+{%endblock%}

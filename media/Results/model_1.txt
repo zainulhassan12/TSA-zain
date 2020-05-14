@@ -1,0 +1,79 @@
+from django.core.validators import RegexValidator
+from django.db import models
+
+alphabatic = RegexValidator(r'^[a-zA-z]+([\s][a-zA-Z]+)*$', 'Only alpbetic characters are allowed', code='Invalid name')
+phone = RegexValidator(r'^((\+92)|(0092))-{0,9}\d{3}-{0,9}\d{7}$|^\d{11}$|^\d{4}-\d{7}$')
+landline = RegexValidator(r'^((\+92)|(0092))-{0,9}\d{2}-{0,9}\d{7}$|^\d{10}$|^\d{3}-\d{7}$')
+cnic = RegexValidator(r'^[0-9]{5}-[0-9]{7}-[0-9]{1}$')
+GENDER_CHOICES = [
+    ('female', 'Female'),
+    ('male', 'Male'),
+    ('other', 'Other'),
+]
+SPECLIZATION_CHOICES = [
+    {'please select', 'Please Select'},
+    {'networking', 'Networking'},
+    {'database', 'Database'},
+    {'programming', 'Programming'},
+]
+QUALIFICATION_CHOICES = [
+    {'phd', 'PHD'},
+    {'master', 'Master'},
+    {'bachlor', 'Bachlor'},
+]
+INTEREST_CHOICES = [
+    {'please select', 'Please Select'},
+    {'networking', 'Networking'},
+    {'database', 'Database'},
+    {'programming', 'Programming'},
+]
+MASTER_CHOICES = [
+    {'please select', 'Please Select'},
+    {'cs', 'CS'},
+    {'se', 'SE'},
+    {'it', 'IT'},
+]
+
+
+class UserApplication(models.Model):
+    First_Name = models.CharField(max_length=20,blank=True, null=True, validators=[alphabatic])
+    Last_Name = models.CharField(max_length=20, blank=True, null=True, validators=[alphabatic])
+    First_NameF = models.CharField(max_length=20, blank=True, null=True, validators=[alphabatic])
+    Last_NameF = models.CharField(max_length=20, blank=True, null=True, validators=[alphabatic])
+    Age = models.IntegerField()
+    Date_of_Birth = models.DateField(editable=True)
+    Gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
+    Experience = models.CharField(max_length=20, blank=True, null=True, validators=[alphabatic])
+    Qualify = models.CharField(max_length=10, choices=QUALIFICATION_CHOICES)
+    Speclization = models.CharField(max_length=30, choices=SPECLIZATION_CHOICES)
+    Image = models.ImageField()
+    cv = models.FileField()
+
+
+
+class Application(models.Model):
+    First_Name = models.CharField(max_length=20, blank=True, null=True, validators=[alphabatic])
+    Last_Name = models.CharField(max_length=20, blank=True, null=True, validators=[alphabatic])
+    Father_Name = models.CharField(max_length=20, blank=True, null=True, validators=[alphabatic])
+    Domicile = models.CharField(max_length=15, blank=True, null=True, validators=[alphabatic])
+    Age = models.IntegerField()
+    Date_of_Birth = models.DateField(editable=True)
+    Gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
+    Phone_no = models.IntegerField(validators=[phone])
+    Land_Line = models.IntegerField(validators=[landline])
+    Matric = models.CharField(max_length=10, default="Result of 10th class")
+    Intermediate = models.CharField(max_length=10, default="Result of 12th class")
+    Graduation = models.CharField(max_length=10, default="Result of 16th class")
+    Total = models.IntegerField()
+    Obtain = models.IntegerField()
+    Subject = models.CharField(max_length=15, blank=True, null=True)
+    Percentage = models.FloatField(max_length=5)
+    Grades = models.CharField(max_length=5, blank=True, null=True)
+    Year = models.IntegerField()
+    Matrics_Result = models.FileField(upload_to='media')
+    Graduations_result = models.FileField(upload_to='media/')
+    Image = models.ImageField(upload_to='media/images')
+    Qualify = models.CharField(max_length=10, choices=QUALIFICATION_CHOICES)
+    Speclization = models.CharField(max_length=30, choices=INTEREST_CHOICES)
+    Experience = models.FileField(default="Upload your CV", upload_to='media/CVs')
+    Master_Specialization = models.CharField(max_length=15, choices=MASTER_CHOICES)
