@@ -45,6 +45,10 @@ def ans(request):
         print(question)
         return HttpResponse("success")
     return render(request, "MasterDetail.html")
+
+
+
+    sgjsgdgajsdgasjgdjagsjdgasjhgdjagsj
     # form = answers(request.POST or None)
     # if form.is_valid():
     #
