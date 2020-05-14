@@ -48,7 +48,7 @@ def ans(request):
 
 
 
-    sgjsgdgajsdgasjgdjagsjdgasjhgdjagsj
+
     # form = answers(request.POST or None)
     # if form.is_valid():
     #
