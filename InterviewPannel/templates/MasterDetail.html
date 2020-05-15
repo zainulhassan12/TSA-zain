@@ -94,10 +94,10 @@
                 $.ajax({
                     url: "{%url 'InterviewPannel:question1'%}",
                     method: 'POST',
-                    dataType: 'json',
+                    dataType: "json",
                     contentType: 'application/json; charset=utf-8',
-                    data:{Data:JSON.stringify(Model)},
-                    csrfmiddlewaretoken: '{% csrf_token %}'
+                    data:{'Data':JSON.stringify(Model)},
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
                   // success function (result) {
                    //////////
             

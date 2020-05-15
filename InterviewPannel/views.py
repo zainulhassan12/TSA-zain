@@ -6,8 +6,6 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 
 from .Forms import QuizForm, answers, questions
-
-
 # Create your views here.
 @staff_member_required
 def interhome(request):
@@ -31,19 +29,25 @@ def QuizView(request):
 
 @csrf_exempt
 def ans(request):
-    if request.is_ajax and request.method == 'POST':
+    if request.is_ajax() and request.method == 'POST':
         form = questions()
 
         question = request.POST.get('Question')
-        # options = request.POST.getlist('Options[0][Option]', [])
-        print(request.__dict__)
+        option = request.POST.getlist('Options[]')
+
+        # print(request.__dict__)
+        options = {'Options': request.json['Options']}
+        print(options)
+        # options1 = request.__dict__
+        # print(request.__dict__)
+        # print(request.__list__)
         # form.Question = question
         # form.save()
-        data = json.loads(request.POST.get('Data', ''))
-        print(data)
-        # print(options)
+        # data = json.loads(request.POST.get('Data', ''))
+        # print(data)
+        # print(options1)
         print(question)
-        return HttpResponse("success")
+        return HttpResponse("success njkhhkh")
     return render(request, "MasterDetail.html")
 
 
