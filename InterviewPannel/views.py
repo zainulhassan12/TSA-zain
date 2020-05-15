@@ -8,6 +8,10 @@ import json
 from .Forms import QuizForm, answers, questions
 # Create your views here.
 @staff_member_required
+stafff jlsjdjsjd
+sdkfhksdjhkfhsdk
+sjhkshdfhsk
+kjsdghfjksh
 def interhome(request):
     return render(request, "index1.html")
 
