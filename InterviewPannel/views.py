@@ -8,14 +8,10 @@ import json
 from .Forms import QuizForm, answers, questions
 # Create your views here.
 @staff_member_required
-stafff jlsjdjsjd
-sdkfhksdjhkfhsdk
-sjhkshdfhsk
-kjsdghfjksh
 def interhome(request):
     return render(request, "index1.html")
 
-
+@staff_member_required
 def QuizView(request):
     if request.method == 'POST':
         form1 = QuizForm(request.POST)
@@ -32,6 +28,7 @@ def QuizView(request):
     return render(request, "index.html", context)
 
 @csrf_exempt
+@staff_member_required
 def ans(request):
     if request.is_ajax() and request.method == 'POST':
         form = questions()
@@ -67,7 +64,7 @@ def ans(request):
     #         print(form)
     #     form.save()
 
-
+@staff_member_required
 def QuestionAdd(request):
     if request.method == 'POST':
         form1 = questions(request.POST)
