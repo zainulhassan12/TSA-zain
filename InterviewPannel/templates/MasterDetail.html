@@ -89,18 +89,22 @@
 
             ////Send Ajax Request... With Model
             console.log(Model);
+            var abc = JSON.stringify(Model);
+            console.log(abc)
+            var x ={"name":"zain"};
           
 
                 $.ajax({
-                    url: "{%url 'InterviewPannel:question1'%}",
+                    url: "{%url 'InterviewPannel:question1' %}",
                     method: 'POST',
                     dataType: "json",
+                    traditional: true,
                     contentType: 'application/json; charset=utf-8',
-                    data:{'Data':JSON.stringify(Model)},
-                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                    data:JSON.stringify(Model),
+                   
+                  //  csrfmiddlewaretoken: '{{ csrf_token }}'
                   // success function (result) {
                    //////////
-            
                   // }
              // }).fail(function (result) {
              // error("error occurred")
