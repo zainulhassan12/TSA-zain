@@ -2,16 +2,18 @@ import json
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from .Forms import QuizForm, answers, questions
-
-
 # Create your views here.
+from .models import Questions, Answers
+
+
 @staff_member_required
 def interhome(request):
-    return render(request, "index1.html")
+    return render(request, "index1.html", )
 
 
 @staff_member_required
@@ -31,58 +33,43 @@ def QuizView(request):
     return render(request, "index.html", context)
 
 
+def check_true(IsTrue):
+    if IsTrue == "true":
+        return True
+    else:
+        return False
+
+
 @csrf_exempt
 @staff_member_required
 def ans(request):
     global i
     if request.is_ajax() and request.method == 'POST':
 
-
-        question = request.POST.get('Question')
-        option = request.POST.getlist('Options[]')
-        # obj = json.loads(request.POST.get(''))
         obj1 = json.loads(request.body)
         question = obj1['Question']
+        question = Questions(question=question)
+        question.save()
+        obj = get_object_or_404(Questions, question=question)
+        print(obj)
         options = obj1['Options']
         i = 0
         for x in options:
             op = options[i]
             opt = op['Option']
             IsTrue = op['IsTrue']
-            # print(op)
-            print(opt)
             print(IsTrue)
-            i = i+1
+            answer = Answers(answer=opt, is_correct=check_true(IsTrue), question=obj)
+            answer.save()
+            # # print(op)
+            print("option  " + opt)
+            i = i + 1
         # print(options)
-
         print(question)
 
-        # print(obj)
-
-    # print(request.__dict__)
-    # options = {'Options': request.POST.getlist('Options[]')}
-    # print(options)
-    # options1 = request.__dict__
-    # print(request.__dict__)
-    # print(request.__list__)
-    # form.Question = question
-    # form.save()
-    # data = json.loads(request.POST.get('Data', ''))
-    # print(data)
-    # print(options1)
-    # print(question)
+        return HttpResponse("{'result':Question added}")
     return render(request, "MasterDetail.html")
 
-
-# form = answers(request.POST or None)
-# if form.is_valid():
-#
-#     for answer in form:
-#         form.answer = form.cleaned_data('answer')
-#         form.is_correct = form.cleaned_data('is_correct')
-#         print(answer)
-#         print(form)
-#     form.save()
 
 @staff_member_required
 def QuestionAdd(request):
@@ -107,3 +94,34 @@ def QuestionAdd(request):
         'form2': form
     }
     return render(request, "index.html", context)
+
+
+def Questions_Detail_view(request):
+    #  Questions Details views
+    global ques, ans, z, xx, lis, context, quest
+    obj = Questions.objects.all()
+    lis = []
+    for x in obj.iterator():
+        quest = x
+        ans = Answers.objects.filter(question=x)
+        xx = (ans.values('answer', 'is_correct', 'question_id'))
+        lis.append((quest, xx))
+
+    return render(request, "index1.html", {'ans': lis})
+
+    # print(x)
+    # print(xx)
+    # print(xxx)
+
+    # z = 0
+    # for x in obj.iterator():
+    #     ques = obj[z]
+    #     print(ques)
+    #     print(ques.id)
+    #     id_ = obj[z].id
+    #     z = z + 1
+    #
+    #     for c in ans:
+    #         ans = get_object_or_404(Answers, question=id_)
+    #         print(ans.id)
+    #         print(ans)
