@@ -19,7 +19,7 @@ class Quiz(models.Model):
 
 
 class Questions(models.Model):
-    quiz = models.ManyToManyField(Quiz, verbose_name='Quiz')
+    quiz = models.ManyToManyField(Quiz, verbose_name='Quiz', null=True)
     question = models.CharField(max_length=2000)
 
     def __str__(self):
@@ -30,6 +30,9 @@ class Answers(models.Model):
     question = models.ForeignKey(Questions, on_delete=models.CASCADE, null=True)
     answer = models.CharField(max_length=500)
     is_correct = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.answer
 
 
 class QuizQuestion(models.Model):

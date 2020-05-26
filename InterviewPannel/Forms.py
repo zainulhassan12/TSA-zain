@@ -16,7 +16,7 @@ class questions(forms.ModelForm):
     class Meta:
         model = Questions
         fields = [
-            'quiz', 'question'
+             'question',
         ]
 
 

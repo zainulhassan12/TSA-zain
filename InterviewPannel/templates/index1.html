@@ -322,13 +322,23 @@
 				</a>
 			</li>
 			<li>
-				<a href="" target="_blank">
-					<span><i class="fa fa-tachometer"></i></span>
-					<span>Quiz</span>
+				<a href="{%url 'InterviewPannel:quiz'%}" target="_blank">
+					<span><i class="fa fa-file-text"></i></span>
+					<span>New Quiz</span>
 				</a>
 			</li>
 			<li>
-				<a href="{%url 'InterviewPannel:quiz'%}"><span>New Quiz</span></a>
+				<a href="{%url 'InterviewPannel:question1'%}">
+				<span><i class="fa fa-tachometer"></i></span>
+				<span>Add Question</span>
+				</a>
+			</li>
+			<li>
+				<a href="{%url 'InterviewPannel:viewQuestions'%}">
+				<span><i class="fa fa-tachometer"></i></span>
+				<span>View Question</span>
+				</a>
+			
 			</li>
 		</ul>
 	</nav>
@@ -341,11 +351,21 @@
 	<div class="main">
 		<div class="widget">
 			<div class="title">User Profiles</div>
-			<div class="chart"></div>
+			<div class="chart">
+			{{profile}}
+			
+			</div>
 		</div>
 		<div class="widget">
 			<div class="title">Interview Detail</div>
-			<div class="chart"></div>
+			<div class="chart">
+				{%csrf_token%}
+				{%for val in ans%}
+				<br>
+				{{val}}
+				<br>
+				{%endfor%}
+			</div>
 		</div>
 		<div class="widget">
 			<div class="title">User Log</div>
