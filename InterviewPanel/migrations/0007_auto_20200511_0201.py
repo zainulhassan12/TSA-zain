@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('InterviewPannel', '0006_remove_quiz_count'),
+        ('InterviewPanel', '0006_remove_quiz_count'),
     ]
 
     operations = [
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='answers',
             name='question',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='InterviewPannel.Questions'),
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='InterviewPanel.Questions'),
         ),
         migrations.RemoveField(
             model_name='questions',
@@ -33,6 +33,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='questions',
             name='quiz',
-            field=models.ManyToManyField(to='InterviewPannel.Quiz', verbose_name='Quiz'),
+            field=models.ManyToManyField(to='InterviewPanel.Quiz', verbose_name='Quiz'),
         ),
     ]

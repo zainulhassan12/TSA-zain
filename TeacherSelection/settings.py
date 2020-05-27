@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'HomeInterface.apps.HomeinterfaceConfig',
-    'InterviewPannel.apps.InterviewpannelConfig',
+    'InterviewPanel.apps.InterviewpannelConfig',
     'UserViews.apps.UserviewsConfig',
     'crispy_forms',
 

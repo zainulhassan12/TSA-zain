@@ -1,23 +1,13 @@
-<!DOCTYPE html>
-<!-- saved from url=(0117)file:///C:/Users/Iqra%20Mubeen/Desktop/admin-dashboard-responsive-layout/admin-dashboard-responsive-layout/index.html -->
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Responsive vertical menu navigation</title>
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,%20600,500,400,300" rel="stylesheet"
-	      type="text/css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/data.js"></script>
-	
-	
-	<style>
-		.ad {
+{%extends 'basic4.html'%}
+{%load crispy_forms_tags%}
+<!--<div class="jumbotron jumbotron-fluid">-->
+<!--	<img src="i.jpg" width="100%; height100%">-->
+<!--</div>-->
+<!--<a href="file:///C:/Users/Iqra%20Mubeen/Desktop/admin-dashboard-responsive-layout/admin-dashboard-responsive-layout/index.html#"-->
+<!--   class="nav-trigger"><span></span></a>-->
+<!--</div>-->
+{%block title%}Home{%endblock%}
+{%block css%}	.ad {
 		position: absolute;
 		width: 300px;
 		height: 250px;
@@ -271,80 +261,12 @@
 		height: 300px;
 		border: 1px solid #ddd;
 		}
-	
-	
-	</style>
-	<script type="text/javascript">
-			$(function() {
-				$('.close').click(function() {
-					$('.ad').css('display', 'none');
-				})
-			})
-		
-	</script>
+	{%endblock%}
+{%block body%}
 
-</head>
-<body>
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	</button>
-	{{ message }}
-</div>
-{% endfor %}
-{%endif%}
-<!--<div class="jumbotron jumbotron-fluid">-->
-<!--	<img src="i.jpg" width="100%; height100%">-->
-<!--</div>-->
-<!--<a href="file:///C:/Users/Iqra%20Mubeen/Desktop/admin-dashboard-responsive-layout/admin-dashboard-responsive-layout/index.html#"-->
-<!--   class="nav-trigger"><span></span></a>-->
-<!--</div>-->
-<div class="side-nav expand-md">
-	
-	<div class="logo">
-		<i style="position: relative; top: 100px"></i>
-		<span>Interview Panel</span>
-	</div>
-	<nav>
-		<ul>
-			<li>
-				<a href="#" target="_blank">
-					<span><i class="fa fa-book"></i></span>
-					<span>Application</span>
-				</a>
-			</li>
-			<li>
-				<a href="#" target="_blank">
-					<span><i class="fa fa-group"></i></span>
-					<span>Interview</span>
-				</a>
-			</li>
-			<li>
-				<a href="{%url 'InterviewPannel:quiz'%}" target="_blank">
-<!--				<a href="/admin/InterviewPannel/quiz/add/" target="_blank">-->
-					<span><i class="fa fa-file-text"></i></span>
-					<span>New Quiz</span>
-				</a>
-			</li>
-			<li>
-				<a href="{%url 'InterviewPannel:question1'%}">
-					<span><i class="fa fa-tachometer"></i></span>
-					<span>Add Question</span>
-				</a>
-			</li>
-			<li>
-				<a href="{%url 'InterviewPannel:viewQuestions'%}">
-					<span><i class="fa fa-tachometer"></i></span>
-					<span>View Question</span>
-				</a>
-			</li>
-		</ul>
-	</nav>
-</div>
+
 <div style="overflow-x:hidden;overflow-y:hidden;" class="main-content">
-	<div style="position: relative;left: 10px" class="title">
+	<div style="position: relative;left:0px" class="title">
 		Analytics
 	</div>
 	
@@ -381,5 +303,4 @@
 	{{form.as_p}}
 </div>
 
-</body>
-</html>
+{%endblock%}

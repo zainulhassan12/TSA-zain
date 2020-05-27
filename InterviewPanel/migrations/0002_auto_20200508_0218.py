@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('InterviewPannel', '0001_initial'),
+        ('InterviewPanel', '0001_initial'),
     ]
 
     operations = [
@@ -45,6 +45,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='questions',
             name='quiz',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='InterviewPannel.Quiz'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='InterviewPanel.Quiz'),
         ),
     ]

@@ -8,7 +8,7 @@
 import scrapy
 from scrapy_djangoitem import DjangoItem
 
-from ...InterviewPannel.models import quizdata
+from ...InterviewPanel.models import quizdata
 from TeacherSelection.UserViews.models import Application
 
 

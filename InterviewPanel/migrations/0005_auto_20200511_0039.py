@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('InterviewPannel', '0004_delete_correct'),
+        ('InterviewPanel', '0004_delete_correct'),
     ]
 
     operations = [
@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='answers',
             name='questions_ptr',
-            field=models.OneToOneField(auto_created=True, default=1, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='InterviewPannel.Questions'),
+            field=models.OneToOneField(auto_created=True, default=1, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='InterviewPanel.Questions'),
             preserve_default=False,
         ),
         migrations.AlterField(

@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('InterviewPannel', '0002_auto_20200508_0218'),
+        ('InterviewPanel', '0002_auto_20200508_0218'),
     ]
 
     operations = [
@@ -53,8 +53,8 @@ class Migration(migrations.Migration):
             name='QuizQuestion',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='InterviewPannel.Questions')),
-                ('quiz', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='InterviewPannel.Quiz')),
+                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='InterviewPanel.Questions')),
+                ('quiz', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='InterviewPanel.Quiz')),
             ],
         ),
         migrations.CreateModel(
@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('is_correct', models.BooleanField(default=False)),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='InterviewPannel.Questions')),
+                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='InterviewPanel.Questions')),
             ],
         ),
         migrations.CreateModel(
@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('answer', models.CharField(max_length=500)),
                 ('is_correct', models.BooleanField(default=True)),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='InterviewPannel.Questions')),
+                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='InterviewPanel.Questions')),
             ],
         ),
     ]

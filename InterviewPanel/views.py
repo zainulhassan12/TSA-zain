@@ -6,14 +6,14 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
-from .Forms import QuizForm, answers, questions
+from .Forms import QuizForm, answers, questions, Add_Questions_to_Quiz
 # Create your views here.
 from .models import Questions, Answers
 
 
 @staff_member_required
 def interhome(request):
-    return render(request, "index1.html", )
+    return render(request, "home.html", )
 
 
 @staff_member_required
@@ -114,8 +114,17 @@ def Questions_Detail_view(request):
             print(lis)
             z += 1
 
-    return render(request, "index1.html", {'ans': lis})
+    return render(request, "home.html", {'ans': lis})
 
+
+def AddingQuestionToQuiz(request):
+    if request.method == "POST":
+        form = Add_Questions_to_Quiz(request.POST)
+        form.save(commit=False)
+
+    else:
+        form = Add_Questions_to_Quiz(request.GET)
+    return render(request, "InterviewPanel/QuizAdding.html", {'quiz': form})
     # print(x)
     # print(xx)
     # print(xxx)

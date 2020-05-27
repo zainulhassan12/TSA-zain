@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('InterviewPannel', '0005_auto_20200511_0039'),
+        ('InterviewPanel', '0005_auto_20200511_0039'),
     ]
 
     operations = [

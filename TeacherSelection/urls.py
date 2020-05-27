@@ -26,7 +26,7 @@ urlpatterns = [
 
     path('accounts/', include('django.contrib.auth.urls')),
     path('', include('HomeInterface.urls')),
-    path('inter/', include('InterviewPannel.urls')),
+    path('inter/', include('InterviewPanel.urls')),
     path('User/', include('UserViews.urls')),
     
 

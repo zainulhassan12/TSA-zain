@@ -30,12 +30,12 @@ class QuizForm(forms.ModelForm):
         }
     )
                                   )
-    fail_text = forms.CharField(help_text="Text to display on faliure", widget=forms.Textarea(attrs= {
-                                                                                        'rows': 4,
-                                                                                        'cols': 2
-                                                                                    }
-                                                                                    )
-                                                                                  )
+    fail_text = forms.CharField(help_text="Text to display on faliure", widget=forms.Textarea(attrs={
+        'rows': 4,
+        'cols': 2
+    }
+    )
+                                )
 
     # answers_at_end = forms.BooleanField(help_text="if this is checked answers will be shown at end", initial=False,
     #                                     label="Answer at end")
@@ -62,4 +62,12 @@ class answers(forms.ModelForm):
         model = Answers
         fields = [
             'question', 'answer', 'is_correct',
+        ]
+
+
+class Add_Questions_to_Quiz(forms.ModelForm):
+    class Meta:
+        model = QuizQuestion
+        fields = [
+            'quiz', 'question'
         ]
