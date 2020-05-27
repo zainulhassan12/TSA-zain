@@ -23,7 +23,7 @@ def QuizView(request):
         if form1.is_valid():
             abc = form1.save(commit=False)
             abc.save()
-
+            messages.success(request, "Quiz Added!!", extra_tags="success")
             return redirect('../')
     else:
         form1 = QuizForm()
@@ -101,11 +101,18 @@ def Questions_Detail_view(request):
     global ques, ans, z, xx, lis, context, quest
     obj = Questions.objects.all()
     lis = []
+
     for x in obj.iterator():
         quest = x
         ans = Answers.objects.filter(question=x)
-        xx = (ans.values('answer', 'is_correct', 'question_id'))
-        lis.append((quest, xx))
+        xx = list((ans.values('answer', 'is_correct', 'question_id')))
+        lis.append(quest)
+        z = 0
+        for v in xx:
+            q = xx[z]
+            lis.append(q)
+            print(lis)
+            z += 1
 
     return render(request, "index1.html", {'ans': lis})
 

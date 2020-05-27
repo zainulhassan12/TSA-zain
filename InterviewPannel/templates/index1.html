@@ -292,17 +292,17 @@
 		<span aria-hidden="true">&times;</span>
 	</button>
 	{{ message }}
-	<a class="btn btn-secondary btn-sm" role="button" href="{%url 'UserViews:testing'%}">Application</a>
 </div>
 {% endfor %}
 {%endif%}
-<div class="jumbotron jumbotron-fluid">
-	<img src="i.jpg" width="100%; height100%">
-</div>
-<a href="file:///C:/Users/Iqra%20Mubeen/Desktop/admin-dashboard-responsive-layout/admin-dashboard-responsive-layout/index.html#"
-   class="nav-trigger"><span></span></a>
-</div>
-<div class="side-nav">
+<!--<div class="jumbotron jumbotron-fluid">-->
+<!--	<img src="i.jpg" width="100%; height100%">-->
+<!--</div>-->
+<!--<a href="file:///C:/Users/Iqra%20Mubeen/Desktop/admin-dashboard-responsive-layout/admin-dashboard-responsive-layout/index.html#"-->
+<!--   class="nav-trigger"><span></span></a>-->
+<!--</div>-->
+<div class="side-nav expand-md">
+	
 	<div class="logo">
 		<i style="position: relative; top: 100px"></i>
 		<span>Interview Panel</span>
@@ -323,22 +323,22 @@
 			</li>
 			<li>
 				<a href="{%url 'InterviewPannel:quiz'%}" target="_blank">
+<!--				<a href="/admin/InterviewPannel/quiz/add/" target="_blank">-->
 					<span><i class="fa fa-file-text"></i></span>
 					<span>New Quiz</span>
 				</a>
 			</li>
 			<li>
 				<a href="{%url 'InterviewPannel:question1'%}">
-				<span><i class="fa fa-tachometer"></i></span>
-				<span>Add Question</span>
+					<span><i class="fa fa-tachometer"></i></span>
+					<span>Add Question</span>
 				</a>
 			</li>
 			<li>
 				<a href="{%url 'InterviewPannel:viewQuestions'%}">
-				<span><i class="fa fa-tachometer"></i></span>
-				<span>View Question</span>
+					<span><i class="fa fa-tachometer"></i></span>
+					<span>View Question</span>
 				</a>
-			
 			</li>
 		</ul>
 	</nav>
@@ -352,7 +352,7 @@
 		<div class="widget">
 			<div class="title">User Profiles</div>
 			<div class="chart">
-			{{profile}}
+				{{profile}}
 			
 			</div>
 		</div>
@@ -361,8 +361,12 @@
 			<div class="chart">
 				{%csrf_token%}
 				{%for val in ans%}
-				<br>
-				{{val}}
+				{{val.id}}
+				{{val.question}}
+				{{val.answer}}
+				{{val.is_correct}}
+				{{val.question_id}}
+				
 				<br>
 				{%endfor%}
 			</div>
@@ -372,6 +376,9 @@
 			<div class="chart"></div>
 		</div>
 	</div>
+</div>
+<div class="container-row ">
+	{{form.as_p}}
 </div>
 
 </body>
