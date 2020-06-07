@@ -2,13 +2,13 @@ import json
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
 from .Forms import QuizForm, answers, questions, Add_Questions_to_Quiz
 # Create your views here.
-from .models import Questions, Answers
+from .models import Questions, Answers, Quiz
 
 
 @staff_member_required
@@ -117,27 +117,36 @@ def Questions_Detail_view(request):
     return render(request, "home.html", {'ans': lis})
 
 
-def AddingQuestionToQuiz(request):
-    if request.method == "POST":
-        form = Add_Questions_to_Quiz(request.POST)
-        form.save(commit=False)
+def Add_Questions(request):
+    global context1
+    form = Add_Questions_to_Quiz()
+    # quiz = Quiz.objects.all()
+    # quiz2 = list((quiz.values('title', 'explanation', 'description')))
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+        else:
+            form = Add_Questions_to_Quiz()
 
-    else:
-        form = Add_Questions_to_Quiz(request.GET)
-    return render(request, "InterviewPanel/QuizAdding.html", {'quiz': form})
-    # print(x)
-    # print(xx)
-    # print(xxx)
+    context = {
+        'add': form,
 
-    # z = 0
-    # for x in obj.iterator():
-    #     ques = obj[z]
-    #     print(ques)
-    #     print(ques.id)
-    #     id_ = obj[z].id
-    #     z = z + 1
-    #
-    #     for c in ans:
-    #         ans = get_object_or_404(Answers, question=id_)
-    #         print(ans.id)
-    #         print(ans)
+    }
+
+    return render(request, "QuizAdding.html", context)
+
+
+@csrf_exempt
+def GetQuizData(request):
+    global quizlist, quiz
+    if request.is_ajax():
+        data = json.loads(request.body)
+        id_ = data['quiz']
+        quiz = Quiz.objects.filter(id=id_)
+        print(id_)
+    if quiz is not None:
+        quizlist = list(quiz.values())
+
+    print(quizlist)
+
+    return JsonResponse(quizlist, safe=False)

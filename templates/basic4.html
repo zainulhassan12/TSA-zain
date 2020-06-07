@@ -1,28 +1,41 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>{%block title%}{%endblock%} | Interview</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	
+	{%load static%}
+	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Responsive vertical menu navigation</title>
-	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,%20600,500,400,300" rel="stylesheet"
-	      type="text/css">
+	
+	<title>{%block title%}{%endblock%} | Interview</title>
+	<script src="{% static 'admin/js/jquery.init.js' %}"></script>
+	<script type="text/javascript" src="{% static '/admin/js/vendor/jquery/jquery.min.js'%}"></script>
+	
+	<script type="text/javascript" src="/admin/jsi18n"></script>
+	<script>
+		window.jquery || document.write("<script src=\"{% static 'admin/js/vendor/jquery/jquery.min.js' %}\"><\/script>")
+	
+	
+	</script>
+	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<script type="text/javascript" src="{%static '/js/interview/inter.js'%}"></script>
+	
+	<link rel="stylesheet" type="text/css" href="{%static '/admin/css/widgets.css'%}"/>
+	<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+	
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,%20600,500,400,300" rel="stylesheet"
+	      type="text/css">
+	
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/data.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	
 	
 	<style>
-		{%block css%}
-		{%endblock%}
+		
 		.ad {
 		position: absolute;
 		width: 300px;
@@ -195,7 +208,7 @@
 		display: none;
 		}
 		.nav-trigger {
-		display:none;
+		display: none;
 		}
 		.nav-trigger span, .nav-trigger span:before, span:after {
 		background-color: #fff;
@@ -277,8 +290,9 @@
 		height: 300px;
 		border: 1px solid #ddd;
 		}
-	
-	
+		
+		{%block css%}
+		{%endblock%}
 	</style>
 	<script type="text/javascript">
 			$(function() {
@@ -286,77 +300,102 @@
 					$('.ad').css('display', 'none');
 				})
 			})
-			{%block HeadScript%}
-			
-			{%endblock%}
 		
+	
+	{%block headscript%}
+	
+	{%endblock%}
+	
+	
+	
+	
+	
+	
+	
 	</script>
 
-
-	
 </head>
 <body>
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	</button>
-	{{ message }}
-</div>
-{% endfor %}
-{%endif%}
-<div class="side-nav expand-md">
-	
-	<div class="logo">
-		<i style="position: relative; top: 100px"></i>
-		<span>Interview Panel</span>
+<div class="row">
+	<div class="header">
+		<div class="logo">
+			<i class="fa fa-tachometer"></i>
+			<span></span>
+		</div>
+		<a href="#" class="nav-trigger"><span></span></a>
 	</div>
-	<nav>
-		<ul>
-			<li>
-				<a href="#" target="_blank">
-					<span><i class="fa fa-book"></i></span>
-					<span>Application</span>
-				</a>
-			</li>
-			<li>
-				<a href="#" target="_blank">
-					<span><i class="fa fa-group"></i></span>
-					<span>Interview</span>
-				</a>
-			</li>
-			<li>
-				<a href="{%url 'InterviewPannel:quiz'%}" target="_blank">
-<!--				<a href="/admin/InterviewPanel/quiz/add/" target="_blank">-->
-					<span><i class="fa fa-file-text"></i></span>
-					<span>New Quiz</span>
-				</a>
-			</li>
-			<li>
-				<a href="{%url 'InterviewPannel:question1'%}">
-					<span><i class="fa fa-tachometer"></i></span>
-					<span>Add Question</span>
-				</a>
-			</li>
-			<li>
-				<a href="{%url 'InterviewPannel:viewQuestions'%}">
-					<span><i class="fa fa-tachometer"></i></span>
-					<span>View Question</span>
-				</a>
-			</li>
-			<li>
-				<a href="{%url 'InterviewPannel:AddQuestionToQuiz'%}">
-					<span><i class="fa fa-tachometer"></i></span>
-					<span>Question To Quiz</span>
-				</a>
-			</li>
-		</ul>
-	</nav>
+	<div class="col-sm-2 col-md-2 col-lg-2">
+		<div class="side-nav">
+			<div class="logo">
+				<i class="fa fa-envelope"></i>
+				<span>Interview Panel</span>
+			</div>
+			<nav>
+				<ul>
+					<li>
+						<a href="#" target="_blank">
+							<span><i class="fa fa-book"></i></span>
+							<span>Application</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" target="_blank">
+							<span><i class="fa fa-group"></i></span>
+							<span>Interview</span>
+						</a>
+					</li>
+					<li>
+						<a href="{%url 'InterviewPanel:quiz'%}" target="_blank">
+							<!--				<a href="/admin/InterviewPanel/quiz/add/" target="_blank">-->
+							<span><i class="fa fa-file-text"></i></span>
+							<span>New Quiz</span>
+						</a>
+					</li>
+					<li>
+						<a href="{%url 'InterviewPanel:question1'%}">
+							<span><i class="fa fa-tachometer"></i></span>
+							<span>Add Question</span>
+						</a>
+					</li>
+					<li>
+						<a href="{%url 'InterviewPanel:viewQuestions'%}">
+							<span><i class="fa fa-tachometer"></i></span>
+							<span>View Question</span>
+						</a>
+					</li>
+					<li>
+						<a href="{%url 'InterviewPanel:AddQuestionToQuiz'%}">
+							<span><i class="fa fa-tachometer"></i></span>
+							<span>Question To Quiz</span>
+						</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
 </div>
 {%block body%}
+
 {%endblock%}
-<script>{%block script%}
-{%endblock%}</script>
+
+<script>
+	{%block script%}
+	{%endblock%}
+
+
+
+
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
 </body>
 </html>
+
+

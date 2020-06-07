@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.admin.widgets import FilteredSelectMultiple
 
 from .models import *
 
@@ -66,6 +67,26 @@ class answers(forms.ModelForm):
 
 
 class Add_Questions_to_Quiz(forms.ModelForm):
+    queryset = Questions.objects.all()
+    question = forms.ModelMultipleChoiceField(queryset=queryset, label="Select Available Questions",
+                                              help_text="Select Question To Add In Quiz!!",
+                                              widget=FilteredSelectMultiple(verbose_name="Question", is_stacked=False,
+                                                                            attrs={
+
+
+                                                                            }))
+
+    class Media:
+        class Media:
+            css = {'all': ('/admin/css/widgets.css', 'admin/css/overrides.css'),
+                   }
+
+            js = ('/admin/jsi18n',)
+
+        def clean_question_choices(self):
+            question = self.cleaned_data['question']
+            return question
+
     class Meta:
         model = QuizQuestion
         fields = [

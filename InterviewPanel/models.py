@@ -49,7 +49,7 @@ class Quiz(models.Model):
     # Count = models.IntegerField()
     category = models.ForeignKey(
         Category, null=True, blank=True,
-        verbose_name="Category", on_delete=models.CASCADE,help_text="To Manage The Quizzes Assign a Categeory")
+        verbose_name="Category", on_delete=models.CASCADE, help_text="To Manage The Quizzes Assign a Categeory")
 
     answers_at_end = models.BooleanField(
         blank=False, default=False,
@@ -108,10 +108,14 @@ class Answers(models.Model):
 
 class QuizQuestion(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-    question = models.ForeignKey(Questions, on_delete=models.CASCADE)
+    question = models.ManyToManyField(Questions)
 
+    def __str__(self):
+        return self.question
 
 # class join(models.Model):
+
+
 #     quiz = models.ForeignKey()
 #     question = models.ForeignKey(Quiz, on_delete=models.CASCADE
 

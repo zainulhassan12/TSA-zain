@@ -98,15 +98,16 @@
           
 
                 $.ajax({
-                    url: "{%url 'InterviewPannel:question1' %}",
+                    url: "{%url 'InterviewPanel:question1' %}",
                     method: 'POST',
                     dataType: "json",
                     traditional: true,
                     contentType: 'application/json; charset=utf-8',
                     data:JSON.stringify(Model),
                    
-                   success:function (result) {
-                   console.log(result)
+                   success:function (result)
+                   {
+                    console.log(result)
                     if(result == "added"){
                     alert("A user with this username already exists.");
                     }
