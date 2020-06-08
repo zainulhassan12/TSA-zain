@@ -1,0 +1,153 @@
+{%extends 'basic4.html'%}
+{%load crispy_forms_tags%}
+{%block title%}
+Adding Questions
+{%endblock%}
+{%block css%}
+
+/* SELECTOR (FILTER INTERFACE) */
+.selector .selector-filter {
+    border: 0px solid #ccc;
+    border-width: 0 0px;
+    padding: 4px 0px 4px 0px;
+}
+.selector .selector-filter label {
+    display:none;
+}
+.selector select {
+    height: 17.2em;
+    width: 100%; /* fix offscreen scroll-bar on selector-chosen */
+    border: 1px #ccc solid;
+}
+.selector .selector-chosen select {
+    border-top: 0;
+}
+/* fix offscreen scroll-bar on selector-chosen */
+.selector-available, .selector-chosen {
+    width: 45%;
+    
+}
+/* selector object list */
+.selector > .selector-available > select, .selector > .selector-chosen > select {
+    font-size: 12px;
+    color: black;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 0px 0px 4px 4px;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+/* selector object list items */
+.selector > .selector-available > select > option, .selector > .selector-chosen > select > option {
+    padding: 6px;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(211, 211, 211);
+    border-bottom-style: solid
+}
+/* selector field title */
+.selector > .selector-available > h2, .selector > .selector-chosen > h2 {
+    text-align: left;
+    background: rgba(211, 211, 211, 0.2);
+    color: #777;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    font-size: 100%;
+    font-weight: 600;
+    margin: 0px;
+    padding: 10px 0px 6px 10px;
+    height: 36px;
+    border-radius: 4px 4px 0px 0px;
+}
+/* selector filter box bootstrapping */
+.selector .selector-available input {
+    width: 80%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #777;
+    background-color: white;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+}
+.selector .selector-available p {
+    background: rgb(211, 211, 211, 0.2);
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 0px 0px 7px 6px;
+}
+/* selector chooseall and clearall button spacing */
+a.selector-chooseall {
+    padding: 0px 20px 3px 0;
+}
+a.selector-clearall {
+    padding: 0px 0 3px 20px;
+}
+{%endblock%}
+{%block body%}
+<div class="container" style="position:relative;">
+
+		<div class="col-sm-4" style="margin:10%">
+			<form method="post" novalidate>
+				{{add.media}}
+				{%crispy add%}
+				<button class="btn btn-outline-success" type="submit">Save</button>
+			     <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+			</form>
+		</div>
+		<div class="col-sm-4 ml-auto d1" style="margin:9%">
+			<textarea id="t1" rows="14" cols="40">
+
+			</textarea>
+		</div>
+	
+	</div>
+</div>
+{%endblock%}
+{%block script%}
+$(document).ready(function(event) {
+$("#t1").hide();
+var dataOfQuiz = [];
+var z = {};
+var l =1;
+$("select#id_quiz").change(function () {
+var quiz = $(this).children("option:selected").val();
+
+//var a = document.createElement('div')
+console.log(quiz);
+
+$.ajax({
+url: "{%url 'InterviewPanel:DetailOfQuiz'%}",
+method: 'POST',
+data:JSON.stringify({'quiz': quiz}),
+dataType: 'json',
+success: function (data)
+{
+if (data)
+{
+alert("Quiz Exists in your Collection!!click OK to proceed");
+z = Object.keys(data[0]);
+dataOfQuiz = data;
+var len =    data.length;
+console.log('length of data ' + len);
+for (var i=0;i
+<len;i++){
+z.forEach(Afn);
+function Afn (item){
+//console.log("data " + data[0][item] + " Item " +item );
+a = dataOfQuiz[i][item];
+$("#t1").show();
+$("#t1").append( item + " ->> " + a + "\n");
+
+}
+}
+}
+}
+});
+});
+});
+{%endblock%}

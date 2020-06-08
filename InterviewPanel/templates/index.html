@@ -1,0 +1,66 @@
+{%extends 'basic4.html'%}
+{%block title%}Add Quiz {%endblock%}
+{%load crispy_forms_tags%}
+
+
+{%block body%}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	{{ message }}
+</div>
+{% endfor %}
+{%endif%}
+<div class="container" style="position:absolute">
+	<form method="post" novalidate>
+		{%csrf_token%}
+		<div class="row">
+			<div class="col-md-5">
+				{{form.title|as_crispy_field}}
+			</div>
+			<div class="col-md-3">
+				{{form.category|as_crispy_field}}
+			</div>
+			<div class="col-md-2">
+				<label for="NewCat">Category: </label>
+				<br>
+				<a href="/admin/InterviewPanel/category/add/" id="NewCat" class="" target="blank"
+				   title="New Category" style="color:black">Add Category</a>
+			
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				{{form.description|as_crispy_field}}
+			</div>
+			<div class="col-md-5">
+				{{form.explanation|as_crispy_field}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-5">
+				{{form.success_text|as_crispy_field}}
+			</div>
+			<div class="col-md-5">
+				{{form.fail_text|as_crispy_field}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				{{form.answers_at_end|as_crispy_field}}
+			
+			</div>
+			<div class="col-md-4">
+				{{form.single_attempt|as_crispy_field}}
+			
+			</div>
+		</div>
+		<button type="submit" class="btn btn-outline-success">send</button>
+	</form>
+</div>
+
+
+{%endblock%}

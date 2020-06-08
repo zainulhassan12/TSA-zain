@@ -1,0 +1,52 @@
+{%extends 'basic4.html'%}
+{%load crispy_forms_tags%}
+<!--<div class="jumbotron jumbotron-fluid">-->
+<!--	<img src="i.jpg" width="100%; height100%">-->
+<!--</div>-->
+<!--<a href="file:///C:/Users/Iqra%20Mubeen/Desktop/admin-dashboard-responsive-layout/admin-dashboard-responsive-layout/index.html#"-->
+<!--   class="nav-trigger"><span></span></a>-->
+<!--</div>-->
+{%block title%}Home{%endblock%}
+{%block css%}{%endblock%}
+{%block body%}
+
+
+<div style="overflow-x:hidden;overflow-y:hidden;" class="main-content">
+	<div style="position: relative;left:0px" class="title">
+		Analytics
+	</div>
+	
+	<div class="main">
+		<div class="widget">
+			<div class="title">User Profiles</div>
+			<div class="chart">
+				{{profile}}
+			
+			</div>
+		</div>
+		<div class="widget">
+			<div class="title">Interview Detail</div>
+			<div class="chart">
+				{%csrf_token%}
+				{%for val in ans%}
+				{{val.id}}
+				{{val.question}}
+				{{val.answer}}
+				{{val.is_correct}}
+				{{val.question_id}}
+				
+				<br>
+				{%endfor%}
+			</div>
+		</div>
+		<div class="widget">
+			<div class="title">User Log</div>
+			<div class="chart"></div>
+		</div>
+	</div>
+</div>
+<div class="container-row ">
+	{{form.as_p}}
+</div>
+
+{%endblock%}
