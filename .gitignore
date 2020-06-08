@@ -1,4 +1,5 @@
 *.pyc
+db.sqlite3
 InterviewPanel/migrations
 UserViews/migrations
 HomeInterface/migrations
