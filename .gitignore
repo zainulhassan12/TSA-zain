@@ -1,0 +1,4 @@
+*.pyc
+InterviewPanel/migrations
+UserViews/migrations
+HomeInterface/migrations
