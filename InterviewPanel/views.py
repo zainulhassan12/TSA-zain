@@ -124,13 +124,13 @@ def Add_Questions(request):
     # quiz2 = list((quiz.values('title', 'explanation', 'description')))
     if request.method == 'POST':
         if form.is_valid():
-            form.save()
+            form.save_m2m()
+            print(form)
         else:
             form = Add_Questions_to_Quiz()
 
     context = {
         'add': form,
-
     }
 
     return render(request, "QuizAdding.html", context)

@@ -5,24 +5,31 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
 	<title>{%block title%}{%endblock%} | Interview</title>
-	<script src="{% static 'admin/js/jquery.init.js' %}"></script>
+	<script type="text/javascript" src="{% url 'InterviewPanel:jsi18n' %}"></script>
 	<script type="text/javascript" src="{% static '/admin/js/vendor/jquery/jquery.min.js'%}"></script>
+	<script src="{% static 'admin/js/jquery.init.js' %}"></script>
+<!--	<script>-->
+<!--		window.jquery || document.write("<script src=\"{% static 'admin/js/vendor/jquery/jquery.min.js' %}\"><\/script>")-->
+<!--	</script>-->
 	
-	<script type="text/javascript" src="/admin/jsi18n"></script>
-	<script>
-		window.jquery || document.write("<script src=\"{% static 'admin/js/vendor/jquery/jquery.min.js' %}\"><\/script>")
 	
 	
-	</script>
+	<!--	<script type="text/javascript" src="{%static '/admin/jsi18n'%}"></script>-->
+	<!--	<script>-->
+	<!--		window.jquery || document.write("<script src=\"{% static 'admin/js/vendor/jquery/jquery.min.js' %}\"><\/script>")-->
+	<!--	</script>-->
+	
+<!--	<link rel="stylesheet" type="text/css" href="{%static '/admin/css/widgets.css'%}"/>-->
+<!--	<script type="text/javascript" src="{% url 'admin:jsi18n' %}">-->
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<script type="text/javascript" src="{%static '/js/interview/inter.js'%}"></script>
+<!--	<script type="text/javascript" src="{%static '/js/interview/inter.js'%}">
 	
-	<link rel="stylesheet" type="text/css" href="{%static '/admin/css/widgets.css'%}"/>
-	<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+	</script>
+	-->
+	</script>
 	
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,%20600,500,400,300" rel="stylesheet"
 	      type="text/css">
@@ -312,6 +319,9 @@
 	
 	
 	
+	
+	
+	
 	</script>
 
 </head>
@@ -381,9 +391,6 @@
 <script>
 	{%block script%}
 	{%endblock%}
-
-
-
 
 
 </script>

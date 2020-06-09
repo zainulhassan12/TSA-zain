@@ -73,19 +73,18 @@ class Add_Questions_to_Quiz(forms.ModelForm):
                                               widget=FilteredSelectMultiple(verbose_name="Question", is_stacked=False,
                                                                             attrs={
 
-
                                                                             }))
 
     class Media:
-        class Media:
-            css = {'all': ('/admin/css/widgets.css', 'admin/css/overrides.css'),
-                   }
+        css = {'all': ('admin/css/widgets.css', ),
+               }
 
-            js = ('/admin/jsi18n',)
+        js = ('/admin/jsi18n',)
 
-        def clean_question_choices(self):
-            question = self.cleaned_data['question']
-            return question
+    def clean_question_choices(self):
+        question = self.cleaned_data['question']
+        return question
+
 
     class Meta:
         model = QuizQuestion
