@@ -95,7 +95,7 @@ def QuestionAdd(request):
     }
     return render(request, "index.html", context)
 
-
+@staff_member_required
 def Questions_Detail_view(request):
     #  Questions Details views
     global ques, ans, z, xx, lis, context, quest
@@ -116,7 +116,7 @@ def Questions_Detail_view(request):
 
     return render(request, "home.html", {'ans': lis})
 
-
+@staff_member_required
 def Add_Questions(request):
     global context1
     form = Add_Questions_to_Quiz()
@@ -137,6 +137,7 @@ def Add_Questions(request):
 
 
 @csrf_exempt
+@staff_member_required
 def GetQuizData(request):
     global quizlist, quiz
     if request.is_ajax():
