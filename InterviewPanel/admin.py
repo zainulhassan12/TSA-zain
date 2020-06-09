@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 
-from .models import Questions, Quiz, Answers, Category
+from .models import Questions, Quiz, Answers, Category, QuizQuestion
 
 
 # Register your models here.
@@ -54,3 +54,4 @@ admin.site.register(Quiz, QuizAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Questions)
 admin.site.register(Answers)
+admin.site.register(QuizQuestion)

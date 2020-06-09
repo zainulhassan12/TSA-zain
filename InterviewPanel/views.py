@@ -45,7 +45,6 @@ def check_true(IsTrue):
 def ans(request):
     global i
     if request.is_ajax() and request.method == 'POST':
-
         obj1 = json.loads(request.body)
         question = obj1['Question']
         question = Questions(question=question)
@@ -65,9 +64,9 @@ def ans(request):
             print("option  " + opt)
             i = i + 1
         # print(options)
-        print(question)
+        # print(question)
 
-        return HttpResponse("{'result':Question added}")
+        return redirect('../../')
     return render(request, "MasterDetail.html")
 
 
@@ -95,6 +94,7 @@ def QuestionAdd(request):
     }
     return render(request, "index.html", context)
 
+
 @staff_member_required
 def Questions_Detail_view(request):
     #  Questions Details views
@@ -116,23 +116,20 @@ def Questions_Detail_view(request):
 
     return render(request, "home.html", {'ans': lis})
 
+
 @staff_member_required
 def Add_Questions(request):
-    global context1
-    form = Add_Questions_to_Quiz()
-    # quiz = Quiz.objects.all()
-    # quiz2 = list((quiz.values('title', 'explanation', 'description')))
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save_m2m()
-            print(form)
-        else:
-            form = Add_Questions_to_Quiz()
 
+    if request.method == 'POST':
+        form = Add_Questions_to_Quiz(request.POST)
+        if form.is_valid():
+            form.save()
+            print(form)
+    else:
+        form = Add_Questions_to_Quiz()
     context = {
         'add': form,
     }
-
     return render(request, "QuizAdding.html", context)
 
 
@@ -144,10 +141,6 @@ def GetQuizData(request):
         data = json.loads(request.body)
         id_ = data['quiz']
         quiz = Quiz.objects.filter(id=id_)
-        print(id_)
     if quiz is not None:
         quizlist = list(quiz.values())
-
-    print(quizlist)
-
     return JsonResponse(quizlist, safe=False)

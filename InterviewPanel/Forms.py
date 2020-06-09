@@ -74,7 +74,8 @@ class Add_Questions_to_Quiz(forms.ModelForm):
                                               queryset=queryset)
 
     class Media:
-        css = {'all': ('/static/admin/css/widgets.css', '/static/admin/css/overrides.css'), }
+        css = {'all': ('/static/admin/css/widgets.css', '/static/admin/css/overrides.css', 'admin/css/responsive.css',
+                       'admin/css/base.css',), }
         js = ('/admin/jsi18n',)
 
     class Meta:

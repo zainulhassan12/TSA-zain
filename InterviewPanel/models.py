@@ -110,8 +110,8 @@ class QuizQuestion(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     question = models.ManyToManyField(Questions)
 
-    def __str__(self):
-        return self.question
+    # def __str__(self):
+    #     return self.
 
 # class join(models.Model):
 
