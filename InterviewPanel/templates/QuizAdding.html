@@ -10,15 +10,19 @@ Adding Questions
 	<div class="row">
 		<div class="col-md-5" style="margin:%">
 			<form action="{%url 'InterviewPanel:AddQuestionToQuiz'%}" method="POST">
+				{%csrf_token%}
 				{{add.media}}
 				{%crispy add%}
 				<input type="submit" value="Save">
 			</form>
+			
 		</div>
 		<div class="col-sm-1 ml-auto  d1" style="margin-top:16%">
 			<textarea id="t1" rows="10" cols="30"></textarea>
 		</div>
+		
 	</div>
+	{%include 'partial.html' %}
 
 </div>
 {%endblock%}
@@ -35,7 +39,8 @@ var quiz = $(this).children("option:selected").val();
 console.log(quiz);
 
 $.ajax({
-url: "{%url 'InterviewPanel:DetailOfQuiz'%}",
+
+url: "{%url 'InterviewPanel:AddQuestionToQuiz'%}",
 method: 'POST',
 data:JSON.stringify({'quiz': quiz}),
 dataType: 'json',
