@@ -2,6 +2,7 @@ import json
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.core.checks import Debug
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
@@ -118,29 +119,26 @@ def Questions_Detail_view(request):
 
 
 @staff_member_required
-@csrf_exempt
 def Add_Questions(request):
-    global quizlist, quiz
-    if request.is_ajax() and request.method == 'POST':
-        data = json.loads(request.body)
-        id_ = data['quiz']
-        quiz = Quiz.objects.filter(id=id_)
-        if quiz is not None:
-            quizlist = list(quiz.values())
-            return JsonResponse(quizlist, safe=False)
+    if request.method == 'POST':
         form = Add_Questions_to_Quiz(request.POST)
         if form.is_valid():
-            form.save()
-            print(form)
+            data = form.save(commit=False)
+            data.save()
+            form.save_m2m()
+            # data.question.add(bc)
+            messages.success(request, "Quiz Added Successfully!!!", extra_tags="success")
+            return redirect('../')
+
     else:
         form = Add_Questions_to_Quiz()
-    context = {
+    context1 = {
         'add': form,
     }
-    return render(request, "QuizAdding.html", context)
+    return render(request, 'QuizAdding.html', context1)
 
 
-
+@csrf_exempt
 @staff_member_required
 def GetQuizData(request):
     global quizlist, quiz

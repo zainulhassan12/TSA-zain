@@ -8,64 +8,59 @@ Adding Questions
 {%block body%}
 <div class="container col-md-8" style="position:relative; margin-top:4%">
 	<div class="row">
+		{{add.media}}
 		<div class="col-md-5" style="margin:%">
-			<form action="{%url 'InterviewPanel:AddQuestionToQuiz'%}" method="POST">
+			<form method="post" enctype="multipart/form-data">
 				{%csrf_token%}
-				{{add.media}}
-				{%crispy add%}
-				<input type="submit" value="Save">
+				{{add.quiz|as_crispy_field}}
+				{{add.question|as_crispy_field}}
+				<button type="submit" class="btn btn-outline-success">Save</button>
 			</form>
-			
 		</div>
-		<div class="col-sm-1 ml-auto  d1" style="margin-top:16%">
-			<textarea id="t1" rows="10" cols="30"></textarea>
+		<div class="col-md-1 ml-auto d1" style="margin-top:;margin-bottom:auto;height:auto" >
+			<textarea class="text" id="t1" rows="18" cols="30"></textarea>
 		</div>
-		
 	</div>
-	{%include 'partial.html' %}
-
 </div>
 {%endblock%}
 {%block script%}
 $(document).ready(function(event) {
-$("#t1").hide();
-var dataOfQuiz = [];
-var z = {};
-var l =1;
-$("select#id_quiz").change(function () {
-var quiz = $(this).children("option:selected").val();
-
-//var a = document.createElement('div')
-console.log(quiz);
-
-$.ajax({
-
-url: "{%url 'InterviewPanel:AddQuestionToQuiz'%}",
-method: 'POST',
-data:JSON.stringify({'quiz': quiz}),
-dataType: 'json',
-success: function (data)
-{
-if (data)
-{
-alert("Quiz Exists in your Collection!!click OK to proceed");
-z = Object.keys(data[0]);
-dataOfQuiz = data;
-var len =    data.length;
-console.log('length of data ' + len);
-for (var i=0;i<len;i++){
-z.forEach(Afn);
-function Afn (item){
-//console.log("data " + data[0][item] + " Item " +item );
-a = dataOfQuiz[i][item];
-$("#t1").show();
-$("#t1").append( item + " ->> " + a + "\n");
-
-}
-}
-}
-}
-});
+		$("#t1").hide();
+		var dataOfQuiz = [];
+		var z = {};
+		var l =1;
+			$("select#id_quiz").change(function () {
+			var quiz = $(this).children("option:selected").val();
+			
+			//var a = document.createElement('div')
+			console.log(quiz);
+		
+			$.ajax({
+			url:"{%url 'InterviewPanel:DetailOfQuiz'%}",
+			method: 'POST',
+			data:JSON.stringify({'quiz': quiz}),
+			dataType: 'json',
+			success: function (data)
+			{
+				if (data)
+				{
+					alert("Quiz Exists in your Collection!!click OK to proceed");
+					z = Object.keys(data[0]);
+					dataOfQuiz = data;
+					var len =    data.length;
+					console.log('length of data ' + len);
+					for (var i=0;i<len;i++){
+					z.forEach(Afn);
+					function Afn (item){
+						//console.log("data " + data[0][item] + " Item " +item );
+						a = dataOfQuiz[i][item];
+						$("#t1").show();
+						$("#t1").append( item + " ->> " + a + "\n");
+					}
+				}
+			}
+		}
+	});
 });
 });
 {%endblock%}

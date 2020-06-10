@@ -107,11 +107,12 @@ class Answers(models.Model):
 
 
 class QuizQuestion(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-    question = models.ManyToManyField(Questions)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=False)
+    question = models.ManyToManyField(Questions, blank=False)
 
-    # def __str__(self):
-    #     return self.
+    def __str__(self):
+        return"{0} {1}".format(self.quiz, self.question)
+
 
 # class join(models.Model):
 
