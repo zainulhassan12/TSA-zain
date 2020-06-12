@@ -2,7 +2,6 @@ import json
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
-from django.core.checks import Debug
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
@@ -25,7 +24,9 @@ def QuizView(request):
             abc = form1.save(commit=False)
             abc.save()
             messages.success(request, "Quiz Added!!", extra_tags="success")
+            # print(abc)
             return redirect('../')
+
     else:
         form1 = QuizForm()
     context = {
@@ -39,6 +40,23 @@ def check_true(IsTrue):
         return True
     else:
         return False
+
+
+def QuizDetails(request):
+    global z
+    x = []
+    Quiz1 = Quiz.objects.filter(id=1)
+    q = Quiz.objects.get(id__in=Quiz1).questions_set.all().values()
+    for qu in q:
+        z = (Questions.objects.get(id__exact=qu['id']).answers_set.all().values())
+        x.append(z)
+
+    print(Quiz1,'\n\n', q,'\n\n', x,'\n\n')
+
+    context = {
+        'Quiz': Quiz1
+    }
+    return render(request, 'testingquiz.html', context)
 
 
 @csrf_exempt
@@ -112,7 +130,7 @@ def Questions_Detail_view(request):
         for v in xx:
             q = xx[z]
             lis.append(q)
-            print(lis)
+            # print(lis)
             z += 1
 
     return render(request, "home.html", {'ans': lis})
@@ -140,7 +158,7 @@ def Add_Questions(request):
 
 @csrf_exempt
 @staff_member_required
-def GetQuizData(request):
+def GetQuizData(request):  # ajax validation
     global quizlist, quiz
     if request.is_ajax():
         data = json.loads(request.body)

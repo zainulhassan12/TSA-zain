@@ -4,6 +4,13 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.template.defaultfilters import slugify
+from model_utils.managers import InheritanceManager
+
+ANSWER_ORDER_OPTIONS = (
+    ('content', 'Content'),
+    ('none', 'None'),
+    # ('random', 'Random')
+)
 
 
 class CategoryManager(models.Manager):
@@ -82,7 +89,7 @@ class Quiz(models.Model):
         return self.title
 
     def get_questions(self):
-        return self.question_set.all().select_subclasses()
+        return self.questions_set.all().select_subclasses()
 
     @property
     def get_max_score(self):
@@ -96,6 +103,8 @@ class Questions(models.Model):
     def __str__(self):
         return self.question
 
+    objects = InheritanceManager()
+
 
 class Answers(models.Model):
     question = models.ForeignKey(Questions, on_delete=models.CASCADE, null=True)
@@ -106,12 +115,15 @@ class Answers(models.Model):
         return self.answer
 
 
+
+
+
 class QuizQuestion(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=False)
     question = models.ManyToManyField(Questions, blank=False)
 
     def __str__(self):
-        return"{0} {1}".format(self.quiz, self.question)
+        return "{0} {1}".format(self.quiz, self.question)
 
 
 # class join(models.Model):

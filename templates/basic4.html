@@ -307,23 +307,12 @@
 			$(function() {
 				$('.close').click(function() {
 					$('.ad').css('display', 'none');
-				})
-			})
-		
+				});
+			});
 	
 	{%block headscript%}
 	
 	{%endblock%}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	</script>
 
 </head>
@@ -389,6 +378,12 @@
 						<a href="{%url 'InterviewPanel:AddQuestionToQuiz'%}">
 							<span><i class="fa fa-tachometer"></i></span>
 							<span>Question To Quiz</span>
+						</a>
+					</li>
+					<li>
+						<a href="{%url 'InterviewPanel:ViewQuiz'%}">
+							<span><i class="fa fa-tachometer"></i></span>
+							<span>ViewQuizQuestionsAndAnswers</span>
 						</a>
 					</li>
 				</ul>

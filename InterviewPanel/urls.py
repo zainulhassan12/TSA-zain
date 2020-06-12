@@ -14,7 +14,8 @@ urlpatterns = [
     path('AddQuestion/', views.ans, name='question1'),
     path('Questions/', views.Questions_Detail_view, name="viewQuestions"),
     path('FinalQuiz/', views.Add_Questions, name="AddQuestionToQuiz"),
-    path('CheckingQuizDetails', views.GetQuizData, name="DetailOfQuiz"),
+    path('CheckingQuizDetails/', views.GetQuizData, name="DetailOfQuiz"),
+    path('ViewQuiz', views.QuizDetails, name="ViewQuiz"),
     re_path(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 

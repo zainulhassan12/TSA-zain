@@ -40,6 +40,16 @@ class QuizForm(forms.ModelForm):
 
     # answers_at_end = forms.BooleanField(help_text="if this is checked answers will be shown at end", initial=False,
     #                                     label="Answer at end")
+    queryset = Questions.objects.all()
+    questions = forms.ModelMultipleChoiceField(label="Select Available Questions",
+                                               help_text="Select Question To Add In Quiz!!",
+                                               widget=FilteredSelectMultiple('Questions', is_stacked=False),
+                                               queryset=queryset)
+
+    class Media:
+        css = {'all': ('/static/admin/css/widgets.css', '/static/admin/css/overrides.css', 'admin/css/base.css',
+                       'admin/css/responsive.css'), }
+        js = ('/admin/jsi18n',)
 
     class Meta:
         model = Quiz
@@ -48,6 +58,19 @@ class QuizForm(forms.ModelForm):
             'fail_text'
 
         ]
+
+    def __init__(self, *args, **kwargs):
+        super(QuizForm, self).__init__(*args, **kwargs)
+        if self.instance.pk:
+            self.fields['questions'].initial = \
+                self.instance.questions_set.all().select_subclasses()
+
+    def save(self, commit=True):
+        quiz = super(QuizForm, self).save(commit=False)
+        quiz.save()
+        quiz.questions_set.set(self.cleaned_data['questions'])
+        self.save_m2m()
+        return quiz
 
 
 class questions(forms.ModelForm):
