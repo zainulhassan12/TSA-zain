@@ -4,6 +4,7 @@ from django.urls import path, re_path
 from django.views.i18n import JavaScriptCatalog
 
 from . import views
+from .views import QuizListView, QuizDetails
 
 app_name = 'InterviewPanel'
 urlpatterns = [
@@ -14,8 +15,8 @@ urlpatterns = [
     path('AddQuestion/', views.ans, name='question1'),
     path('Questions/', views.Questions_Detail_view, name="viewQuestions"),
     path('FinalQuiz/', views.Add_Questions, name="AddQuestionToQuiz"),
-    path('CheckingQuizDetails/', views.GetQuizData, name="DetailOfQuiz"),
-    path('ViewQuiz', views.QuizDetails, name="ViewQuiz"),
+    path('CheckingQuizDetails/', QuizDetails.as_view(), name="DetailOfQuiz"),
+    path('ViewQuiz',QuizListView.as_view(), name="ViewQuiz"),
     re_path(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 

@@ -12,9 +12,8 @@
 	<script src="{% static '/grappelli/js/grappelli.min.js' %}"></script>
 	<script src="{% static 'admin/js/jquery.init.js' %}"></script>
 	
-<!--		window.jquery || document.write("<script src=\"{% static 'admin/js/vendor/jquery/jquery.min.js' %}\"><\/script>")-->
-<!--	</script>-->
-	
+	<!--		window.jquery || document.write("<script src=\"{% static 'admin/js/vendor/jquery/jquery.min.js' %}\"><\/script>")-->
+	<!--	</script>-->
 	
 	
 	<!--	<script type="text/javascript" src="{%static '/admin/jsi18n'%}"></script>-->
@@ -22,15 +21,15 @@
 	<!--		window.jquery || document.write("<script src=\"{% static 'admin/js/vendor/jquery/jquery.min.js' %}\"><\/script>")-->
 	<!--	</script>-->
 	
-<!--	<link rel="stylesheet" type="text/css" href="{%static '/admin/css/widgets.css'%}"/>-->
-<!--	<script type="text/javascript" src="{% url 'admin:jsi18n' %}">-->
+	<!--	<link rel="stylesheet" type="text/css" href="{%static '/admin/css/widgets.css'%}"/>-->
+	<!--	<script type="text/javascript" src="{% url 'admin:jsi18n' %}">-->
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!--	<script type="text/javascript" src="{%static '/js/interview/inter.js'%}">
-	
-	</script>
-	-->
+	<!--	<script type="text/javascript" src="{%static '/js/interview/inter.js'%}">
+		
+		</script>
+		-->
 	</script>
 	
 	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,%20600,500,400,300" rel="stylesheet"
@@ -313,6 +312,7 @@
 	{%block headscript%}
 	
 	{%endblock%}
+	
 	</script>
 
 </head>
@@ -383,7 +383,7 @@
 					<li>
 						<a href="{%url 'InterviewPanel:ViewQuiz'%}">
 							<span><i class="fa fa-tachometer"></i></span>
-							<span>ViewQuizQuestionsAndAnswers</span>
+							<span>ViewQuizwithAns</span>
 						</a>
 					</li>
 				</ul>
@@ -391,13 +391,16 @@
 		</div>
 	</div>
 </div>
-{%block body%}
-
-{%endblock%}
+<div class="container col-md-8" style="margin-top:4%">
+	{%block body%}
+	
+	{%endblock%}
+</div>
 
 <script>
 	{%block script%}
 	{%endblock%}
+
 
 
 </script>

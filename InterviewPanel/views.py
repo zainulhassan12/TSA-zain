@@ -5,6 +5,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import ListView, DetailView
 
 from .Forms import QuizForm, answers, questions, Add_Questions_to_Quiz
 # Create your views here.
@@ -42,21 +43,39 @@ def check_true(IsTrue):
         return False
 
 
-def QuizDetails(request):
-    global z
-    x = []
-    Quiz1 = Quiz.objects.filter(id=1)
-    q = Quiz.objects.get(id__in=Quiz1).questions_set.all().values()
-    for qu in q:
-        z = (Questions.objects.get(id__exact=qu['id']).answers_set.all().values())
-        x.append(z)
+class QuizListView(ListView):
+    model = Quiz
+    template_name = "quiz_list.html"
 
-    print(Quiz1,'\n\n', q,'\n\n', x,'\n\n')
+    # @login_required
+    def get_queryset(self):
+        queryset = super(QuizListView, self).get_queryset()
+        return queryset
 
-    context = {
-        'Quiz': Quiz1
-    }
-    return render(request, 'testingquiz.html', context)
+
+class QuizDetails(DetailView):
+    model = Quiz
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
+    # global z
+    # x = []
+    # Quiz1 = Quiz.objects.all().values()
+    # q = Quiz.objects.get(id__in=Quiz1).questions_set.all().values()
+    # for qu in q:
+    #     z = (Questions.objects.get(id__exact=qu['id']).answers_set.all().values())
+    #     x.append(z)
+    #
+    # print(Quiz1,'\n\n', q,'\n\n', x,'\n\n')
+
+    # context = {
+    #     'Quiz': Quiz1
+    # }
+    # return render(request, 'testingquiz.html')
 
 
 @csrf_exempt
