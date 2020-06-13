@@ -54,7 +54,7 @@ class QuizForm(forms.ModelForm):
     class Meta:
         model = Quiz
         fields = [
-            'title', 'description', 'explanation', 'category', 'answers_at_end', 'single_attempt', 'success_text',
+            'title', 'description', 'category', 'answers_at_end', 'single_attempt', 'success_text',
             'fail_text'
 
         ]

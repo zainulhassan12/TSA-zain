@@ -1,5 +1,5 @@
 {%extends 'basic4.html'%}
-{%block title%}Add Quiz {%endblock%}
+{%block title%}Add Quiz{%endblock%}
 {%load crispy_forms_tags%}
 
 
@@ -14,7 +14,7 @@
 </div>
 {% endfor %}
 {%endif%}
-<div class="container col-md-8" style="position:relative;margin-top:4%">
+<div class="container">
 	<form method="post" novalidate>
 		{%csrf_token%}
 		<div class="row">
@@ -37,7 +37,7 @@
 				{{form.description|as_crispy_field}}
 			</div>
 			<div class="col-md-5">
-				{{form.explanation|as_crispy_field}}
+				{{form.url|as_crispy_field}}
 			</div>
 		</div>
 		<div class="row">

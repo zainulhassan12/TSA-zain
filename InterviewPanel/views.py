@@ -53,8 +53,10 @@ class QuizListView(ListView):
         return queryset
 
 
-class QuizDetails(DetailView):
+class QuizDetailView(DetailView):
     model = Quiz
+    slug_field = 'url'
+    template_name = "quiz_detail.html"
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()

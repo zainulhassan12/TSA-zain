@@ -2,6 +2,7 @@
 <html>
 <head>
 	{%load static%}
+	{% load i18n %}
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -356,7 +357,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="{%url 'InterviewPanel:quiz'%}" target="_blank">
+						<a href="{%url 'InterviewPanel:quiz'%}">
 							<!--				<a href="/admin/InterviewPanel/quiz/add/" target="_blank">-->
 							<span><i class="fa fa-file-text"></i></span>
 							<span>New Quiz</span>
@@ -391,7 +392,7 @@
 		</div>
 	</div>
 </div>
-<div class="container col-md-8" style="margin-top:4%">
+<div class="container col-md-8" style="position:relative;margin-top:4%">
 	{%block body%}
 	
 	{%endblock%}

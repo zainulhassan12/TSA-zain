@@ -1,5 +1,6 @@
 import re
 
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -47,12 +48,12 @@ class Quiz(models.Model):
     )
     description = models.TextField(verbose_name="Description", null=True,
                                    help_text="Add some meaningful information about this Quiz.")
-    explanation = models.TextField(max_length=2000,
-                                   blank=True,
-                                   help_text=("Explanation to be shown "
-                                              "after the question has "
-                                              "been answered."),
-                                   verbose_name=('Explanation'))
+
+    url = models.SlugField(
+        max_length=60, blank=False,
+        help_text="a user friendly url",
+        verbose_name="user friendly url")
+
     # Count = models.IntegerField()
     category = models.ForeignKey(
         Category, null=True, blank=True,
@@ -82,6 +83,23 @@ class Quiz(models.Model):
 
     class Meta:
         ordering = ['timestamp', ]
+        verbose_name = "Quiz"
+        verbose_name_plural = "Quizzes"
+
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        self.url = re.sub('\s+', '-', self.url).lower()
+
+        self.url = ''.join(letter for letter in self.url if
+                           letter.isalnum() or letter == '-')
+
+        if self.single_attempt is True:
+            self.exam_paper = True
+
+
+
+        super(Quiz, self).save(force_insert, force_update, *args, **kwargs)
+
+    class Meta:
         verbose_name = "Quiz"
         verbose_name_plural = "Quizzes"
 
@@ -115,12 +133,15 @@ class Answers(models.Model):
         return self.answer
 
 
-
-
-
 class QuizQuestion(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=False)
     question = models.ManyToManyField(Questions, blank=False)
+    explanation = models.TextField(max_length=2000,
+                                   blank=True,
+                                   help_text=("Explanation to be shown "
+                                              "after the question has "
+                                              "been answered."),
+                                   verbose_name=('Explanation'))
 
     def __str__(self):
         return "{0} {1}".format(self.quiz, self.question)
@@ -149,7 +170,3 @@ class QuizQuestion(models.Model):
 #     def __str__(self):
 #         return self.user.email
 #
-
-@receiver(pre_save, sender=Quiz)
-def slugify_name(sender, instance, *args, **kwargs):
-    instance.slug = slugify(instance.title)
