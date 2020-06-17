@@ -1268,3 +1268,28 @@ a.selector-chooseall {
 a.selector-clearall {
     padding: 0px 0 3px 20px;
 }
+
+
+
+$("").submit(function (e) {
+e.preventDefault();
+var serializedData = $(this).serialize();
+console.log(serializedData);
+
+$.ajax({
+			method: 'POST',
+            dataType: "json",
+            traditional: true,
+			data: serializedData,
+success: function (data)
+			{
+				if(data)
+				{
+					alert("added")
+                };
+            }
+			
+});
+});
+
+

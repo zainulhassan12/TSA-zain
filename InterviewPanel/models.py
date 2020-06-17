@@ -1,9 +1,6 @@
 import re
 
-from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models.signals import pre_save
-from django.dispatch import receiver
 from django.template.defaultfilters import slugify
 from model_utils.managers import InheritanceManager
 
@@ -50,7 +47,7 @@ class Quiz(models.Model):
                                    help_text="Add some meaningful information about this Quiz.")
 
     url = models.SlugField(
-        max_length=60, blank=False,
+        max_length=60, blank=True, unique=True,
         help_text="a user friendly url",
         verbose_name="user friendly url")
 
@@ -86,22 +83,13 @@ class Quiz(models.Model):
         verbose_name = "Quiz"
         verbose_name_plural = "Quizzes"
 
-    def save(self, force_insert=False, force_update=False, *args, **kwargs):
-        self.url = re.sub('\s+', '-', self.url).lower()
-
-        self.url = ''.join(letter for letter in self.url if
-                           letter.isalnum() or letter == '-')
+    def save(self, *args, **kwargs):
+        self.url = slugify(self.title)
 
         if self.single_attempt is True:
             self.exam_paper = True
 
-
-
-        super(Quiz, self).save(force_insert, force_update, *args, **kwargs)
-
-    class Meta:
-        verbose_name = "Quiz"
-        verbose_name_plural = "Quizzes"
+        super(Quiz, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -115,8 +103,14 @@ class Quiz(models.Model):
 
 
 class Questions(models.Model):
-    quiz = models.ManyToManyField(Quiz, verbose_name='Quiz', null=True)
-    question = models.CharField(max_length=2000)
+    quiz = models.ManyToManyField(Quiz, verbose_name='Quiz',
+                                  help_text="Select a Quiz to which this Question Belong")
+    question = models.CharField(max_length=1000, blank=False,
+                                help_text="Write Your Question in Given Box.Max Length is 500")
+    explanation = models.TextField(max_length=2000,
+                                   blank=True,
+                                   help_text="Explanation to be shown after the question has been answered.",
+                                   verbose_name='Explanation')
 
     def __str__(self):
         return self.question
@@ -136,16 +130,9 @@ class Answers(models.Model):
 class QuizQuestion(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=False)
     question = models.ManyToManyField(Questions, blank=False)
-    explanation = models.TextField(max_length=2000,
-                                   blank=True,
-                                   help_text=("Explanation to be shown "
-                                              "after the question has "
-                                              "been answered."),
-                                   verbose_name=('Explanation'))
 
     def __str__(self):
         return "{0} {1}".format(self.quiz, self.question)
-
 
 # class join(models.Model):
 

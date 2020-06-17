@@ -9,28 +9,19 @@ class QuizForm(forms.ModelForm):
         attrs={
             'rows': 4,
             'cols': 2
-        }
-
-    )
-                                  )
+        }))
 
     success_text = forms.CharField(help_text=" Text to display on successful attempt of quiz", widget=forms.Textarea(
-        attrs={
-            'rows': 4,
-            'cols': 2
-        }
-
-    )
-                                   )
-    explanation = forms.CharField(help_text="Explanation to be shown "
-                                            "after the question has "
-                                            "been answered.", widget=forms.Textarea(
-        attrs={
-            'rows': 4,
-            'cols': 2
-        }
-    )
-                                  )
+        attrs={'rows': 4, 'cols': 2}))
+    # explanation = forms.CharField(help_text="Explanation to be shown "
+    #                                         "after the question has "
+    #                                         "been answered.", widget=forms.Textarea(
+    #     attrs={
+    #         'rows': 4,
+    #         'cols': 2
+    #     }
+    # )
+    # )
     fail_text = forms.CharField(help_text="Text to display on faliure", widget=forms.Textarea(attrs={
         'rows': 4,
         'cols': 2
@@ -54,7 +45,7 @@ class QuizForm(forms.ModelForm):
     class Meta:
         model = Quiz
         fields = [
-            'title', 'description', 'category', 'answers_at_end', 'single_attempt', 'success_text',
+            'title', 'description', 'url', 'category', 'answers_at_end', 'single_attempt', 'success_text',
             'fail_text'
 
         ]
@@ -67,26 +58,38 @@ class QuizForm(forms.ModelForm):
 
     def save(self, commit=True):
         quiz = super(QuizForm, self).save(commit=False)
+        quiz.url = slugify(quiz.title)
         quiz.save()
         quiz.questions_set.set(self.cleaned_data['questions'])
         self.save_m2m()
         return quiz
 
 
-class questions(forms.ModelForm):
-    class Meta:
-        model = Questions
-        fields = [
-            'question',
-        ]
+class AddingNewQuestions(forms.Form):
+    # quiz = forms.ModelChoiceField(widget=forms.RadioSelect(attrs=
+    #                                                        {
+    #                                                            'class': 'form-check'
+    #                                                        }),
+    #                               queryset=Quiz.objects.all(),
+    #                               label="Quizzes",
+    #                               help_text="Select a Quiz to which this Question Belong")
 
+    explanation = forms.CharField(help_text="Explanation At End",
+                                  widget=forms.Textarea(
+                                      attrs={
+                                          'rows': 5,
+                                      }
+                                  ))
+    question= forms.CharField(help_text="Add Your Question,Limit Is 1000 words", widget=forms.TextInput())
 
-class answers(forms.ModelForm):
-    class Meta:
-        model = Answers
-        fields = [
-            'question', 'answer', 'is_correct',
-        ]
+    class Media:
+        css = {'all': ('admin/css/base.css', 'admin/css/responsive.css'), }
+
+    # class Meta:
+    #     model = Questions
+    #     fields = [
+    #         'quiz', 'question', 'explanation'
+    #     ]
 
 
 class Add_Questions_to_Quiz(forms.ModelForm):
@@ -106,3 +109,11 @@ class Add_Questions_to_Quiz(forms.ModelForm):
         fields = [
             'quiz', 'question'
         ]
+
+#
+# class answers(forms.ModelForm):
+#     class Meta:
+#         model = Answers
+#         fields = [
+#             'question', 'answer', 'is_correct',
+#         ]
