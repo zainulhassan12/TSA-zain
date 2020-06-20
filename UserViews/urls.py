@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from . import views
+
 # from . views import (
 #     detail
 # )
@@ -17,6 +18,9 @@ urlpatterns = [
     path('test/', views.test, name="test"),
     path('update/<int:id>/', views.Application_update_view, name="Update"),
     path('<int:id>/delete/', views.Application_Delete_view, name='Delete'),
+    path('QuizManager/', views.QuizManager, name="QuizManager"),
+    path('Quiz/<slug:slug>', views.QuizPortal, name="GetQuiz"),
+    path('<slug:slug>/', views.GetQuestions, name="GetQuestions")
 
 ]
 if settings.DEBUG:

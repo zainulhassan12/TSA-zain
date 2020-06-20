@@ -5,12 +5,26 @@
 {% endblock %}
 
 {% block body %}
-<h2>{{ quiz.title }}</h2>
-<h3>{% trans "Category" %}: {{ quiz.category }}</h3>
-<h3>{% trans "description" %}: {{ quiz.description }}</h3>
-{% if quiz.single_attempt %}
-  <h4>{% trans "You will only get one attempt at this quiz" %}.</h4>
-{% endif %}
-<p>{{ quiz.description }}</p>
+<div class="container col-md-6">
+	
+	<div class="col-md-4">
+		<h6>{{ quiz.title }}</h6>
+		<p><strong>Description: </strong>{{quiz.description}}</p>
+		<p><strong>Success Text: </strong> {{quiz.success_text}}</p>
+		<p><strong>Fail Text: </strong> {{quiz.fail_text}}</p>
+		
+		{% if q.single_attempt %}
+		<h4>{% trans "User will only get one attempt at this quiz" %}.</h4>
+		{% endif %}
+	</div>
+	<div class="row">
+		<div class="col-md-2 ml-auto">
+			<a href="{%url 'UserViews:GetQuiz' slug=quiz.url%}">
+				<button class="btn btn-primary">Start</button>
+			</a>
+		</div>
+	</div>
+</div>
 
-{% endblock %}
+
+{%endblock%}

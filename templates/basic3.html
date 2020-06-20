@@ -5,6 +5,7 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>{%block title%} |UserViews{%endblock%}</title>
 	
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -12,7 +13,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<link rel="script" href="{% static 'js/testing.js'%}">
 	
-	<title>{%block title%}Hello, world!{%endblock%}</title>
+	
 	
 	<style>
 		{%block css%}
@@ -50,6 +51,7 @@
 			
 	
 	
+	
 	</script>
 </head>
 <body>
@@ -69,7 +71,8 @@
 			<a href="{%url 'UserViews:Profile2' user%}" class="nav-item nav-link">Profile2</a>
 			<a href="{%url 'UserViews:testing'%}" class="nav-item nav-link">Application</a>
 			<a href="{%url 'UserViews:test'%}" class="nav-item nav-link">TestCase</a>
-<!--			<a href="{%url 'UserViews:application'%}" class="nav-item nav-link">Applications</a>-->
+			<a href="{%url 'UserViews:QuizManager'%}" class="nav-item nav-link">Quiz</a>
+			<!--			<a href="{%url 'UserViews:application'%}" class="nav-item nav-link">Applications</a>-->
 		</div>
 		
 		<div class="navbar-nav ml-auto dropleft">
@@ -89,10 +92,11 @@
 	</div>
 </nav>
 
-
-{%block body%}
-
-{%endblock%}
+<div class="container">
+	{%block body%}
+	
+	{%endblock%}
+</div>
 <!-- Optional JavaScript -->
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

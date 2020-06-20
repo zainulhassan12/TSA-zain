@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
+from InterviewPanel.models import Quiz, Questions
 # Create your views here.
 from . import UserViewsForms
 from .models import Application
@@ -113,3 +114,29 @@ def Application_Delete_view(request, id):
         "object": obj
     }
     return render(request, "UserViews/DeletionView.html", context)
+
+
+def QuizManager(request):
+    context = {
+        'Quiz': 'No Quiz'
+    }
+    return render(request, "UserViews/question_Solving.html", context)
+
+
+def QuizPortal(request, slug):
+    quiz = get_object_or_404(Quiz, url=slug)
+    if quiz is not None:
+        context = {
+            'quiz': quiz
+        }
+    return render(request, "UserViews/question_Solving.html", context)
+
+
+def GetQuestions(request, slug):
+    question = Quiz.objects.get(url=slug).questions_set.all()
+    answerlist = Questions.objects.filter(id__in=question).answers_set.all().select_subclasses()
+    print(question, answerlist)
+    context = {
+
+    }
+    return render(request, "UserViews/question.html", context)

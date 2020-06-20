@@ -5,6 +5,16 @@ from .models import *
 
 # from formfieldset.forms import FieldsetMixin
 
+# class question(forms.Form):
+#     question = forms.CharField(widget=forms.TextInput())
+#     answer = forms.ModelChoiceField(widget=forms.RadioSelect())
+#
+#     def __init__(self, *args, **kwargs):
+#         super(question).__init__()
+#         self.question =
+
+
+
 class testform(forms.ModelForm):
     class Meta:
         model = test1
@@ -97,8 +107,3 @@ class Uapplication(forms.ModelForm):
     #             'fields': [' Graduations_result', '  Image', '  Qualify', ' Speclization', 'Experience',
     #                        'Master_Specialization']}),
     #     )
-
-
-class test(forms.Form):
-    First_Name = forms.CharField(max_length=50, required=True)
-    Last_Name = forms.CharField(max_length=50, required=True)

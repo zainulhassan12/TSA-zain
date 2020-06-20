@@ -4,6 +4,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from .models import *
 
 
+
 class QuizForm(forms.ModelForm):
     description = forms.CharField(help_text="Add Description for this Quiz", widget=forms.Textarea(
         attrs={
@@ -117,3 +118,6 @@ class Add_Questions_to_Quiz(forms.ModelForm):
 #         fields = [
 #             'question', 'answer', 'is_correct',
 #         ]
+
+# class Quiz(forms.Form):
+#     Questions =
