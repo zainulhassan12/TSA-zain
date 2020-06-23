@@ -1,17 +1,24 @@
 from django import forms
+from django.forms import RadioSelect
 
+from InterviewPanel.models import Answers
 from .models import *
 
 
 # from formfieldset.forms import FieldsetMixin
 
-# class question(forms.Form):
-#     question = forms.CharField(widget=forms.TextInput())
-#     answer = forms.ModelChoiceField(widget=forms.RadioSelect())
-#
-#     def __init__(self, *args, **kwargs):
-#         super(question).__init__()
-#         self.question =
+class questions(forms.Form):
+    question = forms.CharField()
+    answers = forms.ChoiceField(choices=[],
+                                widget=RadioSelect())
+
+    def __init__(self, question, *args, **kwargs):
+        super(questions, self).__init__(*args, **kwargs)
+        self.fields["question"].queryset = question
+        self.fields["answers"].choices = self.get_answers_list(question)
+
+    def get_answers_list(self,question):
+        return [(answer.id, answer) for answer in Answers.objects.filter(question__in=question)]
 
 
 

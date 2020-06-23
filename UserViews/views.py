@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
-from InterviewPanel.models import Quiz, Questions
+from InterviewPanel.models import Quiz, Answers
 # Create your views here.
 from . import UserViewsForms
 from .models import Application
@@ -134,9 +134,12 @@ def QuizPortal(request, slug):
 
 def GetQuestions(request, slug):
     question = Quiz.objects.get(url=slug).questions_set.all()
-    answerlist = Questions.objects.filter(id__in=question).answers_set.all().select_subclasses()
-    print(question, answerlist)
-    context = {
+    answerlist = list(Answers.objects.filter(question__in=question).values('question_id','answer'))
 
+    # o = slice(1)
+    # form = questions(question=question)
+    # print(form,question)
+    context = {
+        'quest': question, 'answer': answerlist,
     }
     return render(request, "UserViews/question.html", context)

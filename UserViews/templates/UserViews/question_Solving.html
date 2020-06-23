@@ -26,7 +26,8 @@ background-color:rgba(245,255,250,0.4);
 <div style="padding:100px">
 	<div class="container col-md-4" >
 		<p><b>Title: </b>{{quiz.title}} </p>
-		<p><b>Description: </b>{{quiz.description}}</p>
+		<p><b>Description:</b>{{quiz.description}}</p>
+		
 		<a href="{%url 'UserViews:GetQuestions' slug=quiz.url%}" role="button" class="btn btn-primary btnbox">Attempt
 			Quiz</a>
 </div>

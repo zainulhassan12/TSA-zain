@@ -9,12 +9,18 @@ width: 650px;
 height: 270px;
 border-style: groove;
 border-radius:25px;
-  box-shadow: 10px 12px 8px  #888888;
+box-shadow: 10px 12px 8px  #888888;
 background-color:rgba(245,255,250,0.4);
 }
 {%endblock%}
 {%block body%}
 <div class="box">
-{{Quiz.title}}
+
+	{%for q in quest%}
+	{{q.question}}
+  <br><hr>
+  <br><hr>
+	{%endfor%}
+	{{answer}}
 </div>
 {%endblock%}

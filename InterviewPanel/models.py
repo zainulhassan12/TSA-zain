@@ -115,7 +115,8 @@ class Questions(models.Model):
     def __str__(self):
         return self.question
 
-    objects = InheritanceManager()
+
+
 
 
 class Answers(models.Model):
@@ -125,7 +126,6 @@ class Answers(models.Model):
 
     def __str__(self):
         return self.answer
-
 
 class QuizQuestion(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=False)
