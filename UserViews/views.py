@@ -1,3 +1,5 @@
+import json
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -134,12 +136,18 @@ def QuizPortal(request, slug):
 
 def GetQuestions(request, slug):
     question = Quiz.objects.get(url=slug).questions_set.all()
-    answerlist = list(Answers.objects.filter(question__in=question).values('question_id','answer'))
-
+    question1 = list(question.values('id', 'question'))
+    print(question1)
+    answerlist = list(Answers.objects.filter(question__in=question).values('question_id', 'answer'))
+    length = len(question1)
+    a = json.dumps(question1)
+    b = json.dumps(answerlist)
+    c = json.dumps(length)
     # o = slice(1)
     # form = questions(question=question)
     # print(form,question)
     context = {
-        'quest': question, 'answer': answerlist,
+        'quest': a, 'answer': b, 'len': c,
     }
+    print(context)
     return render(request, "UserViews/question.html", context)

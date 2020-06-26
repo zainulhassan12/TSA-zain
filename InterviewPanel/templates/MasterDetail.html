@@ -4,24 +4,24 @@
 
 {%block body%}
 {{form.media}}
-<div class="container" style="border:1px black solid">
+<div class="container" style="">
 	<form id="FormAjax">
 		<div class="row">
-			<div class="col-md-10">
+			<div class="col-9">
 				{{form.question|as_crispy_field}}
 				{{form.question.errors}}
 			</div>
 		</div>
 		<div class="row">
-<!--			-->
-			<div class="col-md-5">
+
+			<div class="col-6">
 				{{form.explanation|as_crispy_field}}
 				{{form.explanation.errors}}
 			</div>
 		</div>
 		<!--		<button type="submit" class="btn btn-outline-success">Save</button>-->
 	</form>
-	
+
 	<div style="height:20px;margin-top:4px">
 		<hr style="border:4px solid grey;border-radius:9px;">
 	</div>
@@ -50,8 +50,8 @@
 			       value="Save Answers"/>
 		</div>
 	</div>
-
 </div>
+
 
 {%endblock%}
 

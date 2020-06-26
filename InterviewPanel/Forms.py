@@ -4,7 +4,6 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from .models import *
 
 
-
 class QuizForm(forms.ModelForm):
     description = forms.CharField(help_text="Add Description for this Quiz", widget=forms.Textarea(
         attrs={
@@ -78,10 +77,11 @@ class AddingNewQuestions(forms.Form):
     explanation = forms.CharField(help_text="Explanation At End",
                                   widget=forms.Textarea(
                                       attrs={
-                                          'rows': 5,
+                                          'rows': 4,
+                                          'cols': 50
                                       }
                                   ))
-    question= forms.CharField(help_text="Add Your Question,Limit Is 1000 words", widget=forms.TextInput())
+    question = forms.CharField(help_text="Add Your Question,Limit Is 1000 words", widget=forms.TextInput())
 
     class Media:
         css = {'all': ('admin/css/base.css', 'admin/css/responsive.css'), }

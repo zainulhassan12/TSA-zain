@@ -14,13 +14,55 @@ background-color:rgba(245,255,250,0.4);
 }
 {%endblock%}
 {%block body%}
-<div class="box">
 
-	{%for q in quest%}
-	{{q.question}}
-  <br><hr>
-  <br><hr>
-	{%endfor%}
-	{{answer}}
+<div class="container-co-md-8" >
+	<div class="" id="z">
+	</div>
+
 </div>
+
 {%endblock%}
+
+{%block script%}
+var a = {{quest|safe}};
+var b ={{answer|safe}};
+var c ={{len}};
+console.log(a);
+console.log(b);
+
+for( var i=0;i<a.length; i++)
+{
+			var para = document.createElement("p");
+            var btn =document.createElement("button");btn.innerHTML="Next";btn.type='submit';btn.className="btn btn-outline-success";btn.id="b"+i;
+			var node = document.createTextNode(a[i]['question']);
+			para.appendChild(node);
+            var newline = document.createElement('br');
+            var co = document.getElementById("z");
+            //var form = document.getElementById("form1");
+            co.appendChild(para);
+	    for (var n=0;n<b.length;n++)
+	    {
+			  if(b[n]['question_id']==a[i]['id'])
+			 {
+						 var line = document.createElement('br');
+						 var radio = document.createElement('input');
+						 radio.type = 'radio';
+						 radio.name ="choice"+i;
+						  radio.id = b[n]['question_id'];
+			              radio.value =b[n]['answer'];
+						  var label = document.createElement('label')
+						  label.htmlFor = 'contact';
+						  var description = document.createTextNode(b[n]['answer']);
+			              label.appendChild(description);
+                          co.appendChild(radio);
+                          co.appendChild(label);
+                          co.appendChild(line);
+			}
+
+         co.appendChild(newline);
+	    }
+     co.appendChild(btn);
+}
+
+
+	{%endblock%}
