@@ -1,34 +1,3 @@
-{%extends 'basic3.html'%}
-{%block title%}Questions{%endblock%}
-{%block css%}
-.box{
-position:absolute;
-top:30%;
-left:25%;
-width: 650px;
-height: 270px;
-border-style: groove;
-border-radius:25px;
-box-shadow: 10px 12px 8px  #888888;
-background-color:rgba(245,255,250,0.4);
-}
-li{list-style-type:none;}
-{%load static%}
-{%endblock%}
-{%block body%}
-
-<div class="container" >
-	<div class="col-md-8" id="z">
-	
-	</div>
-
-</div>
-
-{%endblock%}
-
-
-
-{%block script%}
 var selected;
 var clickcheck = null;
 var selvalue;
@@ -36,8 +5,8 @@ var valueofselection;
 var check = false;
 var selctedanswer =[];
 var ch;
-var ques =  {{quest|safe}};
-var ans = {{answer|safe}} ;
+var ques ;
+var ans ;
 console.log(ques);
 console.log(ans);
 
@@ -50,8 +19,7 @@ for( var i=0;i<ques.length; i++)
             var newline = document.createElement('br');
             var co = document.getElementById("z");
             //var form = document.getElementById("form1");
-            co.appendChild(para); var olist = document.createElement('ul');
-                          olist.id="Answerlist";
+            co.appendChild(para);
 	    for (var n=0;n<ans.length;n++)
 	    {
 			  if(ans[n]['question_id']==ques[i]['id'])
@@ -59,15 +27,16 @@ for( var i=0;i<ques.length; i++)
 						 var line = document.createElement('br');
 						 var radio = document.createElement('input');
 						 radio.type = "radio";
-						 radio.name ="choice"+i;
+						 radio.name ="choice";
                           radio.id = "radio";
 			              radio.value =ans[n]['answer'];
 						  var label = document.createElement('label')
 						  label.htmlFor = 'contact';
-						  var description = document.createTextNode(""+ans[n]['answer']);
+						  var description = document.createTextNode(ans[n]['answer']);
 			              label.appendChild(description);
 //                          var olist = document.getElementById('list1');
-                         
+                          var olist = document.createElement('ul');
+                          olist.id="Answerlist";
                           var ilist = document.createElement('li');
                           ilist.id="option";
                           ilist.setAttribute("onclick","fun(this)");
@@ -89,7 +58,3 @@ $("#b1").click(function()
 });
 co.appendChild(btn);
 
-
-
-
-{%endblock%}

@@ -135,19 +135,21 @@ def QuizPortal(request, slug):
 
 
 def GetQuestions(request, slug):
+    quiz = get_object_or_404(Quiz, url=slug)
+    print(quiz.id)
     question = Quiz.objects.get(url=slug).questions_set.all()
     question1 = list(question.values('id', 'question'))
-    print(question1)
     answerlist = list(Answers.objects.filter(question__in=question).values('question_id', 'answer'))
     length = len(question1)
     a = json.dumps(question1)
     b = json.dumps(answerlist)
     c = json.dumps(length)
+    # d = json.dumps(quiz)
     # o = slice(1)
     # form = questions(question=question)
     # print(form,question)
     context = {
         'quest': a, 'answer': b, 'len': c,
     }
-    print(context)
+
     return render(request, "UserViews/question.html", context)
