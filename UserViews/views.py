@@ -2,6 +2,7 @@ import json
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 from InterviewPanel.models import Quiz, Answers
@@ -153,3 +154,10 @@ def GetQuestions(request, slug):
     }
 
     return render(request, "UserViews/question.html", context)
+
+
+def MarkQuizAndResults(request):
+    if request.is_ajax() and request.method == 'POST':
+        solution = json.loads(request.body)
+        print(solution)
+    return JsonResponse({'data': 'ok'})

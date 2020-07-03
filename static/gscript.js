@@ -56,9 +56,6 @@ selvalue=a.closest('li').lastChild.innerHTML;
 console.log(selvalue);
 
 }
-$("#b1").click(function()
-{
-});
 co.appendChild(btn);
 
 
@@ -89,7 +86,7 @@ var radios = document.getElementsByName(c);
 			alert("Please Select Answer For Each Question");
 		}
      else
-		{
+    {
 		 for (var i=0;i<ques.length; i++)
 			{
 				var c = "choice"+i;
@@ -107,6 +104,22 @@ var radios = document.getElementsByName(c);
 						}
 					}
 	        }
-		 }
-console.log(SelectedAnswer);
+	        console.log(JSON.stringify(SelectedAnswer)),
+	        $.ajax({
+                    url: "{%url 'UserViews:Marking' %}",
+                    method: 'POST',
+                    dataType: "json",
+                    traditional: true,
+                    contentType: 'application/json; charset=utf-8',
+                    data:JSON.stringify(SelectedAnswer),
+                    success: function(data){
+                    if (data == 'ok')
+                    {
+                    alert("send and saved");
+                    }
+                    }
+                    });
+
+    }
+
 }
