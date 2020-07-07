@@ -21,7 +21,7 @@ urlpatterns = [
     path('QuizManager/', views.QuizManager, name="QuizManager"),
     path('Quiz/<slug:slug>', views.QuizPortal, name="GetQuiz"),
     path('<slug:slug>/', views.GetQuestions, name="GetQuestions"),
-    path('SolvedAndSaved', views.MarkQuizAndResults, name="Marking"),
+    path('/saved', views.MarkQuiz, name='MarkQuiz')
 
 ]
 if settings.DEBUG:

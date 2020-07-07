@@ -7,8 +7,8 @@ var valueofselection;
 var check = false;
 var selctedanswer =[];
 var ch;
-var ques;
-var ans;
+var ques ;
+var ans ;
 for( var i=0;i<ques.length; i++)
 {
 			var para = document.createElement("p");
@@ -105,13 +105,16 @@ var radios = document.getElementsByName(c);
 					}
 	        }
 	        console.log(JSON.stringify(SelectedAnswer)),
+			//const csrftoken = Cookies.get('csrftoken');
 	        $.ajax({
-                    url: "{%url 'UserViews:Marking' %}",
+                    url:"{%url 'UserViews:Marking'%}",
                     method: 'POST',
                     dataType: "json",
                     traditional: true,
-                    contentType: 'application/json; charset=utf-8',
+
+                    //contentType: 'application/json; charset=utf-8',
                     data:JSON.stringify(SelectedAnswer),
+                    //cache: true,
                     success: function(data){
                     if (data == 'ok')
                     {
@@ -119,6 +122,7 @@ var radios = document.getElementsByName(c);
                     }
                     }
                     });
+
 
     }
 

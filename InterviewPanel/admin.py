@@ -36,7 +36,7 @@ class QuizAdminForm(forms.ModelForm):
         super(QuizAdminForm, self).__init__(*args, **kwargs)
         if self.instance.pk:
             self.fields['questions'].initial = \
-                self.instance.questions_set.all().select_subclasses()
+                self.instance.questions_set.all()
 
     def save(self, commit=True):
         quiz = super(QuizAdminForm, self).save(commit=False)

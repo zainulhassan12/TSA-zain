@@ -2,7 +2,6 @@ import re
 
 from django.db import models
 from django.template.defaultfilters import slugify
-from model_utils.managers import InheritanceManager
 
 ANSWER_ORDER_OPTIONS = (
     ('content', 'Content'),
@@ -116,9 +115,6 @@ class Questions(models.Model):
         return self.question
 
 
-
-
-
 class Answers(models.Model):
     question = models.ForeignKey(Questions, on_delete=models.CASCADE, null=True)
     answer = models.CharField(max_length=500)
@@ -126,6 +122,19 @@ class Answers(models.Model):
 
     def __str__(self):
         return self.answer
+
+    def check_correct(self, ans, num):
+        for x in Answers.objects.filter(question_id=num).values() & Answers.objects.filter(answer=ans).values():
+            if x['is_correct']:
+                return True
+            else:
+                return False
+
+    def get_correct_answer(self, qid):
+        for q in Answers.objects.filter(question_id=qid).values():
+            if q['is_correct']:
+                return q['answer']
+
 
 class QuizQuestion(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=False)
