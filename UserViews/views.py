@@ -2,6 +2,8 @@ import json
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.db import IntegrityError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
@@ -9,7 +11,7 @@ from django.views.decorators.csrf import csrf_protect
 from InterviewPanel.models import Quiz, Answers, Questions
 # Create your views here.
 from . import UserViewsForms
-from .models import Application
+from .models import Application, grades
 
 
 @login_required
@@ -145,6 +147,7 @@ def GetQuestions(request, slug):
     a = json.dumps(question1)
     b = json.dumps(answerlist)
     c = json.dumps(slug)
+
     # d = json.dumps(quiz)
     # o = slice(1)
     # form = questions(question=question)
@@ -158,28 +161,53 @@ def GetQuestions(request, slug):
 
 @csrf_protect
 def MarkQuiz(request):
-    global list_Of_Answers_User, i
+    global list_Of_Answers_User, i, j
     if request.is_ajax() and request.method == 'POST':
         i = 0
+        j = 0
         list_Of_Answers_User = []
         solution = json.loads(request.body)
-        quiz = list(Quiz.objects.filter(url=solution[0]['quiz']).values())
-        list_Of_Answers_User.append({'quiz': quiz})
+        quiz_settings = list(Quiz.objects.filter(url=solution[0]['quiz']).values())
+        total = Quiz.objects.get(url=solution[0]['quiz']).questions_set.all().count()
+        grades_calulation = grades()
+        grades_calulation.user = request.user
+        grades_calulation.name = User.objects.get(username=request.user)
+        grades_calulation.quiz = get_object_or_404(Quiz, url=solution[0]['quiz'])
+        q = get_object_or_404(Quiz, url=solution[0]['quiz'])
+        grades_calulation.category = q.category
         Ans = Answers()
         for x in solution:
             question_id = solution[i]['question_id']
             user_answer = solution[i]['answer']
             status = Ans.check_correct(user_answer, question_id)
+            if status:
+                j = j + 1
             actual_correct = Ans.get_correct_answer(question_id)
-            question = list(Questions.objects.filter(id=question_id).values('question'))
-
+            question = list(Questions.objects.filter(id=question_id).values())
             list_Of_Answers_User.append(
                 {'question': question, 'UserAnswer': user_answer, 'status': status, 'correct_is': actual_correct})
             i = i + 1
-        print(list_Of_Answers_User)
-        data = list_Of_Answers_User
-        return JsonResponse(data, safe=False)
-
+        grades_calulation.total_marks = total
+        grades_calulation.obtained_marks = j
+        grades_calulation.percentage = (j / total) * 100
+        try:
+            grades_calulation.save()
+            data = list_Of_Answers_User, quiz_settings
+            return JsonResponse(data, safe=False, status=200)
+        except IntegrityError as e:
+            print("except block")
+            print(e.args)
+            data = {'message': 'Already Attempted This Quiz'}
+            return JsonResponse(data, status=500)
     else:
         print("error")
     return render(request, "UserViews/question.html")
+
+
+def gradeChecking(request):
+    Grade = list(User.objects.get(username=request.user).grades_set.all().values())
+    print(Grade[0]['timestamp'])
+    context = {
+        "gb": Grade
+    }
+    return render(request, "UserViews/Grades.html", context)

@@ -3,6 +3,8 @@ from django.core.validators import RegexValidator
 from django.db import models
 from django.urls import reverse
 
+from InterviewPanel.models import Quiz
+
 alphabatic = RegexValidator(r'^[a-zA-z]+([\s][a-zA-Z]+)*$', 'Only alpbetic characters are allowed', code='Invalid name')
 phone = RegexValidator(r'^((\+92)|(0092))-{0,9}\d{3}-{0,9}\d{7}$|^\d{11}$|^\d{4}-\d{7}$')
 # landline = RegexValidator(r'^((\+92)|(0092))-{0,9}\d{2}-{0,9}\d{7}$|^\d{10}$|^\d{3}-\d{7}$')
@@ -106,6 +108,20 @@ class Application(models.Model):
 
 
 class test1(models.Model):
-    user = models.OneToOneField(User, primary_key=True,  on_delete=models.CASCADE)
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
     address = models.CharField(max_length=30)
+
+
+class grades(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    category = models.CharField(max_length=100, blank=True)
+    total_marks = models.IntegerField()
+    obtained_marks = models.IntegerField()
+    percentage = models.FloatField()
+    timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

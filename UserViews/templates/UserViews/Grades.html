@@ -1,10 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Grade</title>
-</head>
-<body>
-Grade
-</body>
-</html>
+{%extends 'basic3.html'%}
+{%block title%}Questions{%endblock%}
+{%block css%}
+
+#inner
+{
+border-style: groove;
+border-radius:10px;
+background-color:rgba(245,255,250,0.4);
+
+
+}
+
+{%endblock%}
+{%block body%}
+<div style="height:50px">
+	<ul id="ll">
+	{%for q in gb%}
+	<li value="{{q.category}}"><a href="" >{{q.category}}</a></li>
+	{%endfor%}
+	</ul>
+	
+</div>
+<div class="container" id="inner">
+	<p style="text-align:center;font-size:24px"><b>GRADES</b></p>
+	<hr style="border:4px solid gray;border-radius:9px;">
+	<div class="row">
+		<div class="col-md-6">
+			
+			
+			<label for="a1"><b style="font-size:19px">Name: </b></label><span id="a1"> {{gb.name}}</span>
+			<hr>
+			<label for="g1"><b style="font-size:19px">Category: </b></label><span id="g1">{{gb.category}}</span>
+			<hr>
+			<label for="e1"><b style="font-size:19px">Time: </b></label><span id="e1">{{gb.timestamp}}</span>
+			<hr>
+		
+		
+		</div>
+		<div class="col-md-6">
+		
+<pre>
+<label for="d2"><b style="font-size:19px">Total Marks:  </b></label><span id="d2">{{gb.total_marks}}</span><hr>
+<label for="d4"><b style="font-size:19px">Obtained Marks:  </b></label><span id="d4">{{gb.obtained_marks}}</span><hr>
+<label for="d1"><b style="font-size:19px">Percentage:  </b></label><span id="d1">{{gb.percentage}}</span><hr>
+</pre>
+		</div>
+	</div>
+</div>
+
+
+{%endblock%}
+{%block script%}
+$("#inner").hide();
+$(document).on('click', '#ll li a', function (e) {
+e.preventDefault();
+    console.log($(this).closest('li').attr('value'));
+    $("#ll").append($(this).closest('li').attr('value'))
+});{%endblock%}

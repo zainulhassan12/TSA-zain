@@ -3,6 +3,10 @@
 {%load static%}
 {%csrf_token%}
 {%block body%}
+div class="container col-md-6">
+	asndkasdaskdkashjkdhaskdjkh
+	<a href="{%url 'UserViews:grade' %}">Grades</a>
+</div>
 {%endblock%}
 {%block content%}
 {% if messages %}
@@ -13,7 +17,8 @@
 	</button>
 	{{ message }}
 </div>
+<
 {% endfor %}
 {%endif%}
-
 {%endblock%}
+{}

@@ -13,13 +13,22 @@ box-shadow: 10px 12px 8px  #888888;
 background-color:rgba(245,255,250,0.4);
 }
 li{list-style-type:none;}
-{%load static%}
+#xx
+{
+border-style: groove;
+border-radius:10px;
+background-color:rgba(245,255,250,0.4);
+
+}
 {%endblock%}
 {%block body%}
+{%load static%}
 
-<div class="container" id="xx" >
+
+<div class="container col-md-9" id="xx" >
 	<div class="col-md-8" id="z">
 	</div>
+	<div id="yy"> </div>
 </div>
 
 {%endblock%}
@@ -40,7 +49,7 @@ var ques = {{quest|safe}};
 var ans = {{answer|safe}};
 var quiz = {{len|safe}};
 console.log(ans);
-
+var b = document.createElement('a');b.className="btn btn-primary";b.id="btn3";b.innerHTML="Grades";b.setAttribute("href",'{%url "UserViews:grade" %}')
 for( var i=0;i<ques.length; i++)
 {
 			var para = document.createElement("p");
@@ -147,7 +156,6 @@ var radios = document.getElementsByName(c);
           co.remove();
           var nn = document.getElementById('xx');
           nn.append(sub);
-          
 	    function getCookie(name) {
 	    var cookieValue = null;
 	    if (document.cookie && document.cookie !== '') {
@@ -178,14 +186,7 @@ var radios = document.getElementsByName(c);
 		        }
 		    }
 		});
-     
-        //  var g = JSON.stringify(SelectedAnswer); console.log(g);
-
-        //var da = JSON.stringify(SelectedAnswer);
-        // console.log(da +  " click ")
-
         $('#b2').click(function(e) {
-             console.log("Ajax Funcrion" + SelectedAnswer)
             e.preventDefault(); // prevent form from reloading page
            $.ajax({
 					url:'{% url "UserViews:MarkQuiz" %}',
@@ -197,12 +198,43 @@ var radios = document.getElementsByName(c);
                     //cache: true,
                     success: function(data){
                     alert("Sent For Gradings");
-                    //var quiz_settings = data[0];
-                    //var question = data[1];
-                    //console.log(quiz_settings, +"  "+ question)
-                   console.log(data)
+                    $("#b2").hide();
+
+                    var quiz_settings = data[1];
+                    var question = data[0];
+                    
+                   //console.log(quiz_settings, +"  "+ question)
+                   // var b = Object.keys(quiz_settings[0])
+					//$("#xx").append("<b style="align-items:center">Result</b><hr>"+ act[0]['question'])
+                   for (var i = 0;i<data[0].length;i++)
+                   { var j = i;j=j+1
+                    var act = question[i]['question']
+					$("#xx").append('<b>Question# ' +j+ ':</b>'+act[0]['question']+ '<hr>')
+					$("#xx").append();
+					$("#xx").append('<div class="alert alert-primary col-md-7" role="alert">' +'<b>Your answer:</b>' + question[i]['UserAnswer']+'</div>')
+                    var check =  question[i]['status']
+                    if (check == true)
+                    {
+						$("#xx").append('<div class="alert alert-success col-md-6" role="alert">' +'<b>Status:</b>' + question[i]['status']+'</div>')
+					}
+                    else
+					{
+						$("#xx").append('<div class="alert alert-danger col-md-6" role="alert">' +'<b>Status:</b>' + question[i]['status']+'</div>')
+					}
+					
+                    $("#xx").append('<div class="alert alert-primary col-md-5" role="alert">' +'<b>Correct one:</b>' + question[i]['correct_is']+'</div>')
+					}
+                    $("#xx").append(b);
+					$("#xx").append("<br>")
+                   
+                    },
+                    error: function(data){
+                    //console.log(data)
+                    if(data.status == 500)
+                     {alert(data.responseJSON.message);}
+                     sub.remove();
+                     nn.append(b);
                     }
-           
             });
         });
         });

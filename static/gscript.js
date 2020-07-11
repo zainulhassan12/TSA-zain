@@ -1,3 +1,6 @@
+//ques = ;
+//csrf_token = "{{ csrf_token }}";
+//ans =  ;
 var selected;
 var json = {};
 var SelectedAnswer = [];
@@ -7,12 +10,15 @@ var valueofselection;
 var check = false;
 var selctedanswer =[];
 var ch;
-var ques ;
-var ans ;
+var ques = {{quest|safe}};
+var ans = {{answer|safe}};
+var quiz = {{len|safe}};
+console.log(ans);
+
 for( var i=0;i<ques.length; i++)
 {
 			var para = document.createElement("p");
-            var btn =document.createElement("button");btn.innerHTML="Submit";btn.type='button';btn.className="btn btn-outline-success";btn.id="b1";
+            var btn =document.createElement("button");btn.innerHTML="Finish";btn.type='button';btn.className="btn btn-outline-success";btn.id="b1";
 			btn.setAttribute("onclick", "RadioFun()")
 			var node = document.createTextNode(ques[i]['question']);
 			para.appendChild(node);
@@ -91,39 +97,119 @@ var radios = document.getElementsByName(c);
 			{
 				var c = "choice"+i;
 				var radios = document.getElementsByName(c);
+      
+				
 				  for(var k =0;k<radios.length;k++)
 					{
 						if(radios[k].checked)
 						{
-							var z = radios[k].value;
-							json.question_id= ques[i]['id'];
-							json.question = ques[i]['question'];
-							json.answer = z;
-							SelectedAnswer.push(json);
-							//console.log(ques[i]['question']);
+							 var z = radios[k].value;
+							 json = {
+							 quiz:quiz,
+							 question_id:ques[i]['id'],
+                             question:ques[i]['question'],
+							 answer:z,}
+                             SelectedAnswer.push(json);
 						}
 					}
-	        }
-	        console.log(JSON.stringify(SelectedAnswer)),
-			//const csrftoken = Cookies.get('csrftoken');
-	        $.ajax({
-                    url:"{%url 'UserViews:Marking'%}",
-                    method: 'POST',
-                    dataType: "json",
-                    traditional: true,
+	          //SelectedAnswer.push(json);
+           
+			}
 
-                    //contentType: 'application/json; charset=utf-8',
+          $("#b1").hide();
+          var sub = document.createElement('button');sub.id="b2";sub.innerHTML="Submit";
+          co.remove();
+          var nn = document.getElementById('xx');
+          nn.append(sub);
+          
+	    function getCookie(name) {
+	    var cookieValue = null;
+	    if (document.cookie && document.cookie !== '') {
+	        var cookies = document.cookie.split(';');
+	        for (var i = 0; i < cookies.length; i++) {
+	            var cookie = jQuery.trim(cookies[i]);
+	            // Does this cookie string begin with the name we want?
+	            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+	                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+	                break;
+	            }
+	        }
+	    }
+	    return cookieValue;
+}
+      var l ={"key":"hello"};
+	  $(function() {
+	    var csrftoken = getCookie('csrftoken');
+	    function csrfSafeMethod(method) {
+	        // these HTTP methods do not require CSRF protection
+	        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	    }
+	
+		$.ajaxSetup({
+		   beforeSend: function(xhr, settings) {
+		        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+		            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+		        }
+		    }
+		});
+     
+        //  var g = JSON.stringify(SelectedAnswer); console.log(g);
+
+        //var da = JSON.stringify(SelectedAnswer);
+        // console.log(da +  " click ")
+
+        $('#b2').click(function(e) {
+            e.preventDefault(); // prevent form from reloading page
+           $.ajax({
+					url:'{% url "UserViews:MarkQuiz" %}',
+					method: 'POST',
+                    dataType: 'json',
+                    traditional: true,
+                    contentType: 'application/json; charset=utf-8',
                     data:JSON.stringify(SelectedAnswer),
                     //cache: true,
                     success: function(data){
-                    if (data == 'ok')
-                    {
-                    alert("send and saved");
-                    }
-                    }
-                    });
+                    alert("Sent For Gradings");
+                    $("#b2").hide();
 
+                    var quiz_settings = data[1];
+                    var question = data[0];
+                    
+                   //console.log(quiz_settings, +"  "+ question)
+                   // var b = Object.keys(quiz_settings[0])
+					//$("#xx").append("<b style="align-items:center">Result</b><hr>"+ act[0]['question'])
+                   for (var i = 0;i<data[0].length;i++)
+                   { var j = i;j=j+1
+                    var act = question[i]['question']
+					$("#xx").append('<b>Question# ' +j+ ':</b>'+act[0]['question']+ '<hr>')
+					$("#xx").append();
+					$("#xx").append('<div class="alert alert-primary col-md-7" role="alert">' +'<b>Your answer:</b>' + question[i]['UserAnswer']+'</div>')
+                    var check =  question[i]['status']
+                    if (check == true)
+                    {
+						$("#xx").append('<div class="alert alert-success col-md-6" role="alert">' +'<b>Status:</b>' + question[i]['status']+'</div>')
+					}
+                    else
+					{
+						$("#xx").append('<div class="alert alert-danger col-md-6" role="alert">' +'<b>Status:</b>' + question[i]['status']+'</div>')
+					}
+					
+                    $("#xx").append('<div class="alert alert-primary col-md-5" role="alert">' +'<b>Correct one:</b>' + question[i]['correct_is']+'</div>')
+					}
+					$("#xx").append("<br>")
+                    nn.append()
+                    },
+                    error: function(data){
+                    alert(data.status); // the status code
+                    alert(data.responseJSON.error); // the message
+                    var b = document.createElement('button');b.id="btn3";b.innerHTML="Grades";b.href="{%url 'UserViews:application'%}"
+                    }
+           
+            });
+        });
+        });
 
     }
-
 }
+
+

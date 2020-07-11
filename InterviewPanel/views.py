@@ -14,7 +14,7 @@ from .models import Answers, Quiz, Questions
 
 @staff_member_required
 def interhome(request):
-    return render(request, "home.html", )
+    return render(request, "home.html",)
 
 
 @staff_member_required
