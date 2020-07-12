@@ -114,7 +114,7 @@ class test1(models.Model):
 
 
 class grades(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     category = models.CharField(max_length=100, blank=True)
@@ -125,3 +125,11 @@ class grades(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class canAccess(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    QuizName = models.CharField(max_length=1024, blank=True, null=True)
+
+    def __str__(self):
+        return self.QuizName

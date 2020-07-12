@@ -51,6 +51,8 @@ class Quiz(models.Model):
         verbose_name="user friendly url")
 
     # Count = models.IntegerField()
+    Instructions = models.TextField(verbose_name="Instructions", null=True,
+                                    help_text="Add some meaningful information about rules to follow during Quiz")
     category = models.ForeignKey(
         Category, null=True, blank=True,
         verbose_name="Category", on_delete=models.CASCADE, help_text="To Manage The Quizzes Assign a Categeory")

@@ -2,11 +2,15 @@ import json
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.models import Permission
+from django.contrib.auth.models import User
+from django.db import IntegrityError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
 
+from UserViews.models import canAccess
 from .Forms import QuizForm, Add_Questions_to_Quiz, AddingNewQuestions
 # Create your views here.
 from .models import Answers, Quiz, Questions
@@ -14,7 +18,7 @@ from .models import Answers, Quiz, Questions
 
 @staff_member_required
 def interhome(request):
-    return render(request, "home.html",)
+    return render(request, "home.html", )
 
 
 @staff_member_required
@@ -54,7 +58,6 @@ class QuizDetailView(DetailView):
 
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
@@ -110,7 +113,7 @@ def Add_Questions(request):
             data.save()
             form.save_m2m()
             # data.question.add(bc)
-            messages.success(request, "Quiz Added Successfully!!!", extra_tags="success")
+            messages.error(request, "Quiz Added Successfully!!!", extra_tags="success")
             return redirect('../')
 
     else:
@@ -133,6 +136,29 @@ def GetQuizData(request):  # ajax validation
         quizlist = list(quiz.values())
     return JsonResponse(quizlist, safe=False)
 
+
+@staff_member_required
+def StartQuiz(request, slug):
+    users = User.objects.all()
+    access = canAccess()
+    permission = Permission.objects.get(codename='change_quiz')
+    print(permission)
+    for user in users:
+        if user.is_active and not user.is_staff:
+            if not user.has_perm('InterviewPanel.change_quiz'):
+                user.user_permissions.add(permission)
+                access.user = user
+                access.QuizName = slug
+                try:
+                    access.save()
+                except IntegrityError as e:
+                    print(e)
+                    messages.success(request, "Alredy Granted Access To Users!!", extra_tags="danger")
+                    print(user.has_perm('InterviewPanel.change_quiz'))
+    context = {
+        'users': users
+    }
+    return render(request, 'siting.html', context)
 # def QuestionAdd(request):
 #     if request.method == 'POST':
 #         form1 = questions(request.POST)

@@ -1,0 +1,30 @@
+{% extends 'basic4.html' %}
+{% load i18n %}
+{% block title %}
+Sitings
+{% endblock %}
+{%block body%}
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	{{ message }}
+	<!--	<a class="btn btn-secondary btn-sm" role="button" href="{%url 'UserViews:testing'%}">Application</a>-->
+</div>
+{% endfor %}
+{%endif%}
+<div class="container">
+	<h3>List Of Users That Have Permissions </h3>
+
+	<form method="post">
+		{%for u in users%}
+		{%if perms.InterviewPanel.change_quiz%}
+		<label><input type="checkbox" id="{{u.id}}" value="{{u}}" />  {{u}}</label><hr>
+		{%endif%}
+		{%endfor%}
+	</form>
+</div>
+{%endblock%}
+

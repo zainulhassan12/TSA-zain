@@ -1,0 +1,37 @@
+{%extends 'basic3.html'%}
+{%block title%}Questions{%endblock%}
+{%block css%}
+
+#inner
+{
+border-style: groove;
+border-radius:10px;
+background-color:rgba(245,255,250,0.4);
+
+
+}
+
+{%endblock%}
+{%block body%}
+<div style="height:50px" id="d1">
+
+</div>
+
+
+{%endblock%}
+{%block script%}
+var c = {{category|safe}}
+console.log(c)
+var b = document.getElementById('d1')
+for (var i=0;i<c.length;i++)
+{
+var sl = c[i]['category']
+if(c[i]['category'] != p)
+{
+var lin = document.createElement('a');lin.id="i";lin.innerHTML=sl;lin.setAttribute("href",'http://127.0.0.1:8000/User/Grades/'+sl);
+b.append(lin)
+}
+var p =  c[i]['category']
+}
+
+{%endblock%}

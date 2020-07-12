@@ -10,6 +10,11 @@ class QuizForm(forms.ModelForm):
             'rows': 4,
             'cols': 2
         }))
+    Instructions = forms.CharField(help_text="Add Instructions for this Quiz", widget=forms.Textarea(
+        attrs={
+            'rows': 4,
+            'cols': 2
+        }))
 
     success_text = forms.CharField(help_text=" Text to display on successful attempt of quiz", widget=forms.Textarea(
         attrs={'rows': 4, 'cols': 2}))
@@ -45,7 +50,7 @@ class QuizForm(forms.ModelForm):
     class Meta:
         model = Quiz
         fields = [
-            'title', 'description', 'url', 'category', 'answers_at_end', 'single_attempt', 'success_text',
+            'title', 'description', 'Instructions', 'url', 'category', 'answers_at_end', 'single_attempt', 'success_text',
             'fail_text'
 
         ]

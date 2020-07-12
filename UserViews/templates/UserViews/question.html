@@ -23,7 +23,17 @@ background-color:rgba(245,255,250,0.4);
 {%endblock%}
 {%block body%}
 {%load static%}
-
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	{{ message }}
+<!--	<a class="btn btn-secondary btn-sm" role="button" href="{%url 'UserViews:testing'%}">Application</a>-->
+</div>
+{% endfor %}
+{%endif%}
 
 <div class="container col-md-9" id="xx" >
 	<div class="col-md-8" id="z">
@@ -49,7 +59,7 @@ var ques = {{quest|safe}};
 var ans = {{answer|safe}};
 var quiz = {{len|safe}};
 console.log(ans);
-var b = document.createElement('a');b.className="btn btn-primary";b.id="btn3";b.innerHTML="Grades";b.setAttribute("href",'{%url "UserViews:grade" %}')
+var b = document.createElement('a');b.className="btn btn-primary";b.id="btn3";b.innerHTML="Grades";b.setAttribute("href",'{%url "UserViews:category"%}')
 for( var i=0;i<ques.length; i++)
 {
 			var para = document.createElement("p");
