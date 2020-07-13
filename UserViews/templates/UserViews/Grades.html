@@ -8,6 +8,10 @@ border-style: groove;
 border-radius:10px;
 background-color:rgba(245,255,250,0.4);
 }
+b{
+font-size:16px
+}
+
 
 {%endblock%}
 {%block body%}
@@ -15,25 +19,30 @@ background-color:rgba(245,255,250,0.4);
 <hr>
 <div class="container" id="inner">
 	<p style="text-align:center;font-size:24px"><b>GRADES</b></p>
-{%for gb in grades%}
+	{%for gb in grades%}
 	<hr style="border:4px solid gray;border-radius:9px;">
-	<div class="row">
-		<div class="col-md-6">
-			<label for="a1"><b style="font-size:19px">Name: </b></label><span id="a1"> {{gb.name}}</span>
-			<hr>
-			<label for="g1"><b style="font-size:19px">Category: </b></label><span id="g1">{{gb.category}}</span>
-			<hr>
-			<label for="e1"><b style="font-size:19px">Time: </b></label><span id="e1">{{gb.timestamp}}</span>
-			<hr>
+	<div class="container col-md-9">
+		<div class="row">
+			<div class="col-md-6">
+				<label for="a1"><b>Name: </b></label><span id="a1"> {{gb.name}}</span>
+				<hr>
+				<label for="g1"><b>Category: </b></label><span id="g1"> {{gb.category}} </span>
+				<hr>
+				<label for="e1"><b>Time: </b></label><span id="e1"> {{gb.timestamp}}</span>
+				<hr>
+			</div>
+			<div class="col-md-6">
+				
+				<label for="d2"><b>Total Marks: </b></label><span id="d2"> {{gb.total_marks}}</span>
+				<hr>
+				<label for="d4"><b>Obtained Marks: </b></label><span id="d4"> {{gb.obtained_marks}}</span>
+				<hr>
+				<label for="d1"><b>Percentage: </b></label><span id="d1"> {{gb.percentage}}</span>
+				<hr>
+			</div>
+		
 		</div>
-		<div class="col-md-6">
-
-<pre>
-<label for="d2"><b style="font-size:19px">Total Marks:  </b></label><span id="d2">{{gb.total_marks}}</span><hr>
-<label for="d4"><b style="font-size:19px">Obtained Marks:  </b></label><span id="d4">{{gb.obtained_marks}}</span><hr>
-<label for="d1"><b style="font-size:19px">Percentage:  </b></label><span id="d1">{{gb.percentage}}</span><hr>
-</pre>
-		</div>
+		<!--	<div class="container col-md-9"><hr style="border:1px solid black;border-radius:9px;"></div>-->
 	</div>
 	{%endfor%}
 </div>

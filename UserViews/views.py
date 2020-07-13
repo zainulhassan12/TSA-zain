@@ -124,12 +124,19 @@ def Application_Delete_view(request, id):
 
 @login_required
 def QuizPortal(request):
-    global context
-    if request.user.is_authenticated and request.user.has_perm('InterviewPanel.change_quiz'):
-        print(request.user)
+    global context, access
+    try:
         access = canAccess.objects.get(user=request.user)
+    except canAccess.DoesNotExist:
+        messages.error(request,
+                       message="Probably you have attempted the quiz and removed from access list!! For more info "
+                               "contact ADMIN or Organizer",
+                       extra_tags="danger")
+
+    if request.user.is_authenticated and request.user.has_perm('InterviewPanel.change_quiz') and access:
+        print(access)
         quiz = get_object_or_404(Quiz, url=access.QuizName)
-        if quiz.title == access.QuizName:
+        if quiz.url == access.QuizName:
             context = {
                 'quiz': quiz
             }
@@ -146,11 +153,9 @@ def QuizPortal(request):
 def GetQuestions(request, slug):
     global context
     quiz = get_object_or_404(Quiz, url=slug)
-
-    if request.user.is_authenticated and request.user.has_perm(
-            'InterviewPanel.change_quiz'):
+    if request.user.is_authenticated and request.user.has_perm('InterviewPanel.change_quiz'):
         access = canAccess.objects.get(user=request.user)
-        if quiz.title == access.QuizName:
+        if quiz.url == access.QuizName:
             question = Quiz.objects.get(url=slug).questions_set.all()
             question1 = list(question.values('id', 'question'))
             answerlist = list(Answers.objects.filter(question__in=question).values('id', 'question_id', 'answer'))
@@ -158,17 +163,12 @@ def GetQuestions(request, slug):
             a = json.dumps(question1)
             b = json.dumps(answerlist)
             c = json.dumps(slug)
-
-            # d = json.dumps(quiz)
-            # o = slice(1)
-            # form = questions(question=question)
-            # print(form,question)
             context = {
                 'quest': a, 'answer': b, 'len': c,
             }
     else:
         messages.error(request, "Permission Denied!!", extra_tags='danger')
-
+    print(context)
     return render(request, "UserViews/question.html", context)
 
 
@@ -208,7 +208,7 @@ def MarkQuiz(request):
             permission = Permission.objects.get(codename='change_quiz')
             user1 = User.objects.get(username=request.user)
             user1.user_permissions.remove(permission)
-            access = canAccess.objects.get(user=request.user).delete()
+            canAccess.objects.get(user=request.user).delete()
             data = list_Of_Answers_User, quiz_settings
             return JsonResponse(data, safe=False, status=200)
         except IntegrityError as e:
@@ -224,17 +224,30 @@ def MarkQuiz(request):
 def GradePortal(request):
     category = list(User.objects.get(username=request.user).grades_set.all().values('category'))
 
-    context = {
-        "category": category
-    }
+    if category:
+        context = {
+            "category": category
+        }
+    else:
+        messages.error(request, "There is no quiz related to you!!This may be because you haven't attempted any quiz. ")
     return render(request, "UserViews/Categories.html", context)
 
 
 def GradeShow(request, slug):
+    global context
+    specific_grades = []
     grade = list(grades.objects.filter(category=slug).values())
-    print(grade)
-    context = {
-        'grades': grade,
-        'length': len(grade)
-    }
+    length = len(grade)
+    if length < 2:
+        print(grade)
+        context = {
+            'grades': grade,
+            'length': length
+        }
+    else:
+        context = {
+            'grades': list(grades.objects.filter(name=request.user).values()),
+            'length': len(grades.objects.filter(name=request.user))
+        }
+    print(context)
     return render(request, "UserViews/Grades.html", context)

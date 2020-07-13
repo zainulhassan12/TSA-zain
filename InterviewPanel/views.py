@@ -152,9 +152,18 @@ def StartQuiz(request, slug):
                 try:
                     access.save()
                 except IntegrityError as e:
-                    print(e)
-                    messages.success(request, "Alredy Granted Access To Users!!", extra_tags="danger")
-                    print(user.has_perm('InterviewPanel.change_quiz'))
+                    # print(e)
+                    messages.success(request, "Alredy Granted Access To Users!! to Quiz:>>" + slug, extra_tags="danger")
+            else:
+                if canAccess.objects.filter(user=user):
+                    ob = canAccess.objects.get(user=user)
+                    if ob.QuizName != slug:
+                        canAccess.objects.filter(user=user).update(QuizName=slug)
+                else:
+                    messages.error(request, "User is not there!!!!!", )
+
+    # print(user.has_perm('InterviewPanel.change_quiz'))
+
     context = {
         'users': users
     }
