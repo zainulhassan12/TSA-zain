@@ -15,13 +15,13 @@ Sitings
 </div>
 {% endfor %}
 {%endif%}
-<div class="container">
+<div class="container checkbox">
 	<h3>List Of Users That Have Permissions </h3>
 
 	<form method="post">
 		{%for u in users%}
 		{%if perms.InterviewPanel.change_quiz%}
-		<label><input type="checkbox" id="{{u.id}}" value="{{u}}" />  {{u}}</label><hr>
+		<label><input type="checkbox"  id="{{u.id}}" value="{{u}}" />  {{u}}</label><hr>
 		{%endif%}
 		{%endfor%}
 	</form>

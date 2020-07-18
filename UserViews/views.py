@@ -3,23 +3,42 @@ import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Permission
+from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
-from InterviewPanel.models import Quiz, Answers, Questions
+from InterviewPanel.models import Quiz, Answers, Questions, Category
 # Create your views here.
 from . import UserViewsForms
+from .UserViewsForms import UserGrades
 from .models import Application, grades, canAccess
 
 
 @login_required
+@csrf_exempt
 def UserHome(request):
-    return render(request, 'UserViews/Userindex.html')
+    global context
+    if request.method == 'POST':
+        form = UserGrades(request.POST)
+        if form.is_valid():
+            print(form)
+        else:
+            # raise ValidationError("Please Fill Form Correctly")
+            messages.error(request, "Please Fill Form Correctly..Follow the instruction given with Fields!!! ",
+                           extra_tags='danger')
+    else:
+        b = Application.objects.get(user=request.user)
+        speciality = b.Speclization
+        initial = {'speciality': speciality}
+        form = UserGrades(initial=initial)
+        context = {"form": form}
+    return render(request, 'UserViews/Userindex.html', context)
 
 
-def testing(request):
+@login_required
+def ApplicationView(request):
     if request.method == 'POST':
         form1 = UserViewsForms.Uapplication(request.POST, request.FILES)
 
@@ -31,38 +50,7 @@ def testing(request):
             return redirect('../')
     else:
         form1 = UserViewsForms.Uapplication()
-    return render(request, 'UserViews/testing.html', {'vv': form1})
-
-
-@login_required
-# @permission_required(,login_url='accounts/login' , raise_exception=False)
-def application(request):
-    if request.method == 'POST':
-        form1 = UserViewsForms.applicationForm(request.POST)
-        if form1.is_valid():
-            form1.save()
-            redirect('../..')
-        else:
-            messages.error(request, "Error")
-
-    else:
-        form1 = UserViewsForms.applicationForm()
-
-        context = {
-            'abc': form1,
-        }
-        return render(request, "UserViews/application.html", context)
-
-
-def detailView(request):
-    obj = Application.objects.all()
-    context = {
-        'object': obj
-    }
-    return render(request, "UserViews/Detailview.html", context)
-    # def get_object(self, **kwargs):
-    #     pk_ = self.kwargs.get("pk")
-    #     return get_object_or_404(Application, pk=pk_)
+    return render(request, 'UserViews/ApplicationForm.html', {'vv': form1})
 
 
 def detailView2(request, user):
@@ -136,9 +124,12 @@ def QuizPortal(request):
     if request.user.is_authenticated and request.user.has_perm('InterviewPanel.change_quiz') and access:
         print(access)
         quiz = get_object_or_404(Quiz, url=access.QuizName)
+        NoOfquestion = Quiz.objects.get(url=access.QuizName).questions_set.all().count()
+        print(NoOfquestion)
         if quiz.url == access.QuizName:
             context = {
-                'quiz': quiz
+                'quiz': quiz,
+                'count': NoOfquestion
             }
     else:
         # messages.error(request,
@@ -222,7 +213,8 @@ def MarkQuiz(request):
 
 
 def GradePortal(request):
-    category = list(User.objects.get(username=request.user).grades_set.all().values('category'))
+    # category = list(User.objects.get(username=request.user).grades_set.all().values('category'))
+    category = list(Category.objects.all().values('category'))
 
     if category:
         context = {
@@ -251,3 +243,39 @@ def GradeShow(request, slug):
         }
     print(context)
     return render(request, "UserViews/Grades.html", context)
+
+
+
+
+
+
+
+# # @permission_required(,login_url='accounts/login' , raise_exception=False)
+# def application(request):
+#     if request.method == 'POST':
+#         form1 = UserViewsForms.applicationForm(request.POST)
+#         if form1.is_valid():
+#             form1.save()
+#             redirect('../..')
+#         else:
+#             messages.error(request, "Error")
+#
+#     else:
+#         form1 = UserViewsForms.applicationForm()
+#
+#         context = {
+#             'abc': form1,
+#         }
+#         return render(request, "UserViews/application.html", context)
+#
+
+# def detailView(request):
+#     obj = Application.objects.all()
+#     context = {
+#         'object': obj
+#     }
+#     return render(request, "UserViews/Detailview.html", context)
+    # def get_object(self, **kwargs):
+    #     pk_ = self.kwargs.get("pk")
+    #     return get_object_or_404(Application, pk=pk_)
+

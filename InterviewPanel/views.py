@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
 
-from UserViews.models import canAccess
+from UserViews.models import canAccess, Application
 from .Forms import QuizForm, Add_Questions_to_Quiz, AddingNewQuestions
 # Create your views here.
 from .models import Answers, Quiz, Questions
@@ -168,6 +168,41 @@ def StartQuiz(request, slug):
         'users': users
     }
     return render(request, 'siting.html', context)
+
+
+def InterViewConducting(request):
+    all_users = list(User.objects.all().values())
+    context = {
+        'All': all_users
+    }
+    return render(request, "Interview.html", context)
+
+
+def getDetails(request, slug):
+    grades = User.objects.get(username=slug).grades_set.all().values()
+    all_users = list(User.objects.all().values())
+    if grades:
+        context = {
+            'All': all_users,
+            'gra': grades
+        }
+    else:
+        context = {
+            'All': all_users,
+            'gra': '0'
+        }
+        messages.error(request, "No Grades For This User Means Not Attempted any Quiz!!", extra_tags="danger")
+
+    return render(request, "Interview.html", context)
+
+
+def getapplication(request, slug):
+    application = list(Application.objects.filter(user=slug).all().values())
+    context = {
+        'app': application,
+    }
+    return render(request, "app.html", context)
+
 # def QuestionAdd(request):
 #     if request.method == 'POST':
 #         form1 = questions(request.POST)

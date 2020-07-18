@@ -40,7 +40,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 	      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-	
+	{%block page%}
+	{%endblock%}
 	
 	<style>
 		
@@ -300,14 +301,15 @@
 		}
 		
 		{%block css%}
+		
 		{%endblock%}
 	</style>
 	<script type="text/javascript">
-			$(function() {
-				$('.close').click(function() {
-					$('.ad').css('display', 'none');
-				});
-			});
+<!--			$(function() {-->
+<!--				$('.close').click(function() {-->
+<!--					$('.ad').css('display', 'none');-->
+<!--				});-->
+<!--			});-->
 	
 	{%block headscript%}
 	
@@ -315,7 +317,11 @@
 	
 	
 	</script>
-
+<style>
+	body{
+	background-color:white;
+	}
+</style>
 </head>
 <body>
 {% if messages %}
@@ -351,7 +357,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#" target="_blank">
+						<a href="{%url 'InterviewPanel:startInterview'%}">
 							<span><i class="fa fa-group"></i></span>
 							<span>Interview</span>
 						</a>
@@ -392,7 +398,7 @@
 		</div>
 	</div>
 </div>
-<div class="container col-md-8" style="position:relative;margin-top:4%">
+<div class="container col-md-8" style="position:relative;margin-top:6%">
 	{%block body%}
 	
 	{%endblock%}
@@ -401,10 +407,6 @@
 <script>
 	{%block script%}
 	{%endblock%}
-
-
-
-
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"

@@ -16,13 +16,13 @@
 <!--	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-	<link rel="script" href="{% static 'js/testing.js'%}">
+	<link rel="script" href="{% static 'js/ApplicationView.js'%}">
 	
-<!--	admin style-->
-	<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/static/admin/css/responsive.css">
-<meta name="robots" content="NONE,NOARCHIVE">
+<!--&lt;!&ndash;	admin style&ndash;&gt;-->
+<!--	<link rel="stylesheet" type="text/css" href="/static/admin/css/base.css">-->
+<!--    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">-->
+<!--    <link rel="stylesheet" type="text/css" href="/static/admin/css/responsive.css">-->
+<!--<meta name="robots" content="NONE,NOARCHIVE">-->
 	
 	<style>
 		{%block css%}
@@ -90,12 +90,9 @@
 	<div class="collapse navbar-collapse" id="navbarCollapse">
 		<div class="navbar-nav">
 			<a href="{% url 'UserViews:UserHome'%}" class="nav-item nav-link active">Home</a>
-<!--			<a href="{%url 'UserViews:Profile'%}" class="nav-item nav-link">Profile</a>-->
-			<a href="{%url 'UserViews:Profile2' user%}" class="nav-item nav-link">Profile2</a>
-			<a href="{%url 'UserViews:testing'%}" class="nav-item nav-link">Application</a>
-			<a href="{%url 'UserViews:test'%}" class="nav-item nav-link">TestCase</a>
+			<a href="{%url 'UserViews:Profile2' user%}" class="nav-item nav-link">Profile</a>
+			<a href="{%url 'UserViews:ApplicationSubmission'%}" class="nav-item nav-link">Application</a><!--			<a href="{%url 'UserViews:test'%}" class="nav-item nav-link">TestCase</a>-->
 			<a href="{%url 'UserViews:GetQuiz'%}" class="nav-item nav-link">Quiz</a>
-			<!--			<a href="{%url 'UserViews:application'%}" class="nav-item nav-link">Applications</a>-->
 		</div>
 		
 		<div class="navbar-nav ml-auto dropleft">

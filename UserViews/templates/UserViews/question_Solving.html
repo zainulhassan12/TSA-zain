@@ -10,9 +10,17 @@ border-style: groove;
 border-radius:25px;
 box-shadow: 10px 12px 8px  #888888;
 background-color:rgba(245,255,250,0.4);
+}
+#d1
+{
+border-style: groove;
+border-radius:25px;
+padding:20px;
+box-shadow: 10px 12px 8px  #888888;
+background-color:rgba(245,255,250,0.4);
+}
 {%endblock%}
 {%block body%}
-
 {%if quiz == '1'%}
 <div class="alert alert-danger alert-dismissible" role="alert">
 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -25,11 +33,29 @@ background-color:rgba(245,255,250,0.4);
 </div>
 {%else%}
 <div style="padding:100px">
-	<div class="container col-md-4" >
-		<p><b>Title: </b>{{quiz.title}} </p>
-		<p><b>Description:</b>{{quiz.description}}</p>
-		<a href="{%url 'UserViews:GetQuestions' slug=quiz.url%}" role="button" class="btn btn-primary btnbox">Attempt Quiz</a>
-</div>
+	<div id="d1" class="container col-md-8">
+<!--		<div class="row" style="text-align:center">-->
+<!--			<div class="col"><h3>Start Quiz!!</h3></div>-->
+<!--&lt;!&ndash;			<div class="col"></div>&ndash;&gt;-->
+<!--		</div>-->
+	
+		<div class="row">
+			<div class="col-md-5">
+				<h5>Quiz Details</h5><hr>
+				<p><b>Title: </b>{{quiz.title}} </p>
+				<p><b>Description: </b>{{quiz.description}}</p>
+				<p><b>Category: </b>{{quiz.category}}</p>
+				<p><b>NoOfQuestions: </b>{{count}}</p>
+				<a href="{%url 'UserViews:GetQuestions' slug=quiz.url%}" role="button" class="btn btn-primary btnbox">Attempt
+					Quiz</a>
+			</div>
+			<div class="col-md-7">
+				<h5>Instruction for quiz</h5><hr>
+				<p><b>Instructions: </b>{{quiz.Instructions}}</p>
+			</div>
+		</div>
+	
+	</div>
 </div>
 {%endif%}
 

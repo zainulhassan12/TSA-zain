@@ -1,0 +1,23 @@
+{%load crispy_forms_tags%}
+	<div class="row">
+			<div class="col-md-9">
+				<table class="table table-light table-striped table-bordered">
+					<thead class="thead-light">
+					<tr>
+						<th>Network Security</th>
+						<th>Data Communication & Computer Networking</th>
+						<th>Wireless & Mobile Communication</th>
+						<th>Internet Architecture & protocol</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>{{form.NetworkSecurity|as_crispy_field}}</td>
+						<td>{{form.DataCommunicationAndComputerNetworks|as_crispy_field}}</td>
+						<td>{{form.WirelessAndMobileCommunication|as_crispy_field}}</td>
+						<td>{{form.InternetArchitectureAndProtocol|as_crispy_field}}</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>

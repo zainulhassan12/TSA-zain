@@ -1,0 +1,95 @@
+{%extends 'basic4.html'%}
+{%block title%}InterView{%endblock%}
+{%block page%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{%endblock%}
+
+{%block headscript%}
+$
+{%endblock%}
+
+
+{%block css%}
+.scrollable {
+height:300px;
+overflow-y: scroll;
+}
+{%endblock%}
+{%block body%}
+<div class="container" style="">
+	<div id="d1" class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-5">
+			<div class="panel panel-primary">
+				<div class="panel-heading"><b>Users</b>
+				</div>
+				<div class="panel-body scrollable">
+					<div class="col" style="padding:10px">
+						<ul>
+							{%for u in All%}
+							<!--							<li style="list-style-type:none" class="link"><a href=""></a></li>-->
+							<li style="list-style-type: none"><p><b>{{u.username}}</b></p></li>
+							<a class="btn btn-primary btn-sm"
+							   href="{%url 'InterviewPanel:UserForInterview' slug=u.username%}">Grades</a>
+							<a class="btn btn-primary btn-sm" onclick="fun()"
+							   href="{%url 'InterviewPanel:UserApplication' slug=u.id%}">Application</a>
+							{%endfor%}
+						</ul>
+					</div>
+				</div>
+				<div class="panel-footer"><b>
+					<span style="font-size:12px">Users which has accounts associated with them.</span></b>
+					<br>
+					<span style="font-size:11px">Select one to see related information</span>
+				</div>
+			</div>
+		</div>
+		<div id="d2" class="col-md-5">
+			<div class="panel panel-primary">
+				<div class="panel-heading">Info</div>
+				<div class="panel-body scrollable">
+					<div class="col">
+						<table class="table table-bordered">
+							<thead class="thead-light">
+							<tr>
+								<th scope="col">Category</th>
+								<th scope="col">Total_Marks</th>
+								<th scope="col">Obtained_Marks</th>
+							</tr>
+							</thead>
+							<tbody>
+							{%for g in gra%}
+							<tr>
+								<td>{{g.category}}</td>
+								<td>{{g.total_marks}}</td>
+								<td>{{g.obtained_marks}}</td>
+							</tr>
+							{%endfor%}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="panel-footer">
+					<b>
+						<span style="font-size:12px">User Grades</span></b>
+					<br>
+					<br>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{%endblock%}
+{%block script%}
+function fun()
+{
+$("#d3").show();
+$("#d1").hide();
+$("#d2").hide();
+}
+{%endblock%}

@@ -218,9 +218,11 @@ var radios = document.getElementsByName(c);
 					//$("#xx").append("<b style="align-items:center">Result</b><hr>"+ act[0]['question'])
                    for (var i = 0;i<data[0].length;i++)
                    { var j = i;j=j+1
-                    var act = question[i]['question']
+                    var act = question[i]['question'];
+                   // var explanation = question[i]['explanation'];
 					$("#xx").append('<b>Question# ' +j+ ':</b>'+act[0]['question']+ '<hr>')
-					$("#xx").append();
+					
+					$("#xx").append('<div class="col-md-7">' +'<p><b>Explanation : </b></p>'+act[0]['explanation']+ '</div>');
 					$("#xx").append('<div class="alert alert-primary col-md-7" role="alert">' +'<b>Your answer:</b>' + question[i]['UserAnswer']+'</div>')
                     var check =  question[i]['status']
                     if (check == true)

@@ -1,0 +1,199 @@
+{%extends 'basic4.html'%}
+{%block title%}Applications{%endblock%}
+{%block page%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{%endblock%}
+
+{%block body%}
+<div class="container" style="">
+	<div id="" class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-10">
+			<div class="panel panel-primary">
+				<div class="panel-heading"><b>Application</b>
+				</div>
+				<div class="panel-body scrollable">
+					<div class="card ">
+						<div class="card-header text-center">
+							Application
+						</div>
+						<div class="card-body">
+							{%for application in app%}
+							<div class="row">
+								<div class="col-md-1"></div>
+								<div class="col-md-2">
+									
+									<p><b>Name: </b></p>
+									<p><b>Father Name: </b></p>
+									<p><b>Email: </b></p>
+									<p><b>DOB: </b></p>
+								
+								</div>
+								<div class="col-md-2">
+									<p>{{application.First_Name}}{{application.Last_Name}}</p>
+									<p>{{application.Father_Name}}</p>
+									<p>{{application.Email}}</p>
+									<p>{{application.Date_of_Birth}}</p>
+								</div>
+								<div class="col-md-1"></div>
+								<div class="col-md-2">
+									<p><b>Age: </b></p>
+									<p><b>Gender: </b></p>
+									<p><b>Domicile: </b></p>
+									<p><b>Phone_no: </b></p>
+									<p><b>Land_Line: </b></p>
+								</div>
+								<div class="col-md-2">
+									<p>{{application.Age}}</p>
+									<p>{{application.Gender}}</p>
+									<p>{{application.Domicile}}</p>
+									<p>{{application.Phone_no}}</p>
+									<p>{{application.Land_Line}}</p>
+								
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center">
+							<span>----------------------------------------------</span>
+						</div>
+					</div>
+					<table class="table table-bordered">
+						<thead class="thead-light">
+						<tr>
+							<!--								<th scope="col">User</th>-->
+							<th scope="col">MetricTotal</th>
+							<th scope="col">MetricObtain</th>
+							<th scope="col">MetricSubject</th>
+							<th scope="col">MetricPercentage</th>
+							<th scope="col">MetricGrades</th>
+							<th scope="col">MetricYear</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>{{application.MatricTotal}}</td>
+							<td>{{application.MatricObtain}}</td>
+							<td>{{application.MatricSubject}}</td>
+							<td>{{application.MatricPercentage}}</td>
+							<td>{{application.MatricGrades}}</td>
+							<td>{{application.MatricYear}}</td>
+						</tr>
+						
+						</tbody>
+					</table>
+					<table class="table table-bordered">
+						<thead class="thead-light">
+						<tr>
+							<!--								<th scope="col">User</th>-->
+							<th scope="col">IntermediateTotal</th>
+							<th scope="col">IntermediateObtain</th>
+							<th scope="col">IntermediateSubject</th>
+							<th scope="col">IntermediatePercentage</th>
+							<th scope="col">IntermediateGrades</th>
+							<th scope="col">IntermediateYear</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>{{application.IntermediateTotal}}</td>
+							<td>{{application.IntermediateObtain}}</td>
+							<td>{{application.IntermediateSubject}}</td>
+							<td>{{application.IntermediatePercentage}}</td>
+							<td>{{application.IntermediateGrades}}</td>
+							<td>{{application.IntermediateYear}}</td>
+						</tr>
+						
+						</tbody>
+					
+					</table>
+					<table class="table table-bordered">
+						<thead class="thead-light">
+						<tr>
+							<!--								<th scope="col">User</th>-->
+							<th scope="col">GraduationTotal</th>
+							<th scope="col">GraduationObtain</th>
+							<th scope="col">GraduationSubject</th>
+							<th scope="col">GraduationPercentage</th>
+							<th scope="col">GraduationGrades</th>
+							<th scope="col">GraduationYear</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>{{application.GraduationTotal}}</td>
+							<td>{{application.GraduationObtain}}</td>
+							<td>{{application.GraduationSubject}}</td>
+							<td>{{application.GraduationPercentage}}</td>
+							<td>{{application.GraduationGrades}}</td>
+							<td>{{application.GraduationYear}}</td>
+						</tr>
+						</tbody>
+					</table>
+					<table class="table table-bordered">
+						<thead class="thead-light">
+						<tr>
+							<!--								<th scope="col">User</th>-->
+							<th scope="col">MetricResult</th>
+							<th scope="col">IntermediateResult</th>
+							<th scope="col">GraduationResult</th>
+							<th scope="col">Image</th>
+							<th scope="col">Experience</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>
+								<a href="/media/{{application.Matrics_Result}}">{{application.Matrics_Result}}</a>
+							</td>
+							<td>
+								<a href="/media/{{application.Intermediate_result}}">{{application.Intermediate_result}}</a>
+							</td>
+							<td>
+								<a href="/media/{{application.Graduations_result}}">{{application.Graduations_result}}</a>
+							</td>
+							<td><a href="/media/{{application.Image}}">{{application.Image}}</a>
+							</td>
+							<td><a href="/media/{{application.Experience}}">{{application.Experience}}</a>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<table class="table table-bordered">
+						<thead class="thead-light">
+						<tr>
+							<!--								<th scope="col">User</th>-->
+							<th scope="col">Max_Qualify</th>
+							<th scope="col">Master_Specialization</th>
+							<th scope="col">Speclization</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>{{application.Qualify}}
+							</td>
+							<td>{{application.Master_Specialization}}
+							</td>
+							<td>{{application.Speclization}}</td>
+						</tr>
+						</tbody>
+					</table>
+					{%endfor%}
+				</div>
+				<div class="panel-footer">
+					<b>
+						<span style="font-size:12px">Application of user and related files in clickable links.</span>
+					</b>
+					<br>
+					<!--				<span style="font-size:11px">Select one to see related information</span>-->
+				</div>
+			</div>
+		
+		</div>
+	</div>
+</div>
+
+
+{%endblock%}

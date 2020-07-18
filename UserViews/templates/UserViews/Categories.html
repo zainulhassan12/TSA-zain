@@ -48,19 +48,18 @@ console.log(c);
 var b = document.getElementById("d");
 var newline = document.createElement("br");
 
-for (var i=0;i
-<c.length;i++)
+for (var i=0;i<c.length;i++)
 {
 //b.appendChild(newline);
 var sl = c[i]['category'];
-if(c[i]['category'] != p)
+
+if(c[i]['category'] !=p)
 {
-var lin = document.createElement('a');lin.id=i;lin.innerHTML=sl;lin.setAttribute("href",'http://127.0.0.1:8000/User/Grades/'+sl);
-lin.className ="btn btn-primary btn-block"
+var lin = document.createElement('a');lin.id="j";lin.innerHTML=sl;lin.setAttribute("href",'http://127.0.0.1:8000/User/Grades/'+sl);
+lin.className ="btn btn-primary btn-block";
 b.appendChild(lin);
 }
 var p =  c[i]['category'];
-
 }
 
 {%endblock%}

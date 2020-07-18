@@ -18,7 +18,9 @@ urlpatterns = [
     path('<slug:slug>', QuizDetailView.as_view(), name="DetailQuiz"),
     path('ViewQuiz/', QuizListView.as_view(), name="ViewQuiz"),
     path('StartQuiz/<slug:slug>', views.StartQuiz, name="StartQuiz"),
-
+    path('interview/', views.InterViewConducting, name="startInterview"),
+    path('UserRecord/<slug:slug>', views.getDetails,name="UserForInterview"),
+    path('UserApplication/<slug:slug>', views.getapplication,name="UserApplication"),
     re_path(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 
