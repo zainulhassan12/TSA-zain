@@ -137,13 +137,12 @@ class Answers(models.Model):
             if q['is_correct']:
                 return q['answer']
 
-
-class QuizQuestion(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=False)
-    question = models.ManyToManyField(Questions, blank=False)
-
-    def __str__(self):
-        return "{0} {1}".format(self.quiz, self.question)
+# class QuizQuestion(models.Model):
+#     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=False)
+#     question = models.ManyToManyField(Questions, blank=False)
+#
+#     def __str__(self):
+#         return "{0} {1}".format(self.quiz, self.question)
 
 # class join(models.Model):
 

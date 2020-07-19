@@ -1,0 +1,136 @@
+{%extends 'basic3.html'%}
+{%block title%}User{%endblock%}
+{%load static%}
+{%csrf_token%}
+{%load crispy_forms_tags%}
+{%block css%}
+.asteriskField{
+color:red;
+}
+label{
+font-size:12px;
+}
+p{
+font-size:13px;
+}
+.abc{
+border-style: outset;
+border-radius:12px;
+margin-top:1%;
+padding:2%
+
+{%endblock%}
+{%block body%}
+<div class="container  abc">
+	<div class="container col-md-10">
+		<div style="padding-top:20px">
+			<p class="text-muted"> Fields with <span style="color:red"><strong>*</strong></span>  are mandatory.</p>
+			<p class="text-muted">During filling these rows make sure that the resemble to your DMC/Transcript.</p>
+			<p class="text-muted"><span style="color:red">In case of wrong input your job will be cancelled at any time.</span></p>
+		</div>
+		{{form.errors}}
+		<form method="post">
+			{%csrf_token%}
+			<div class="row">
+				<div class="col-md-8">
+					{{form.Speciality|as_crispy_field}}
+				</div>
+			
+			</div>
+			<!--		<p class="text-muted">Now Enter Grades!!</p>-->
+			<p class="text-muted"><b>Subjects to analyze your Academic performance.</b></p>
+			<!--		<p class="text-muted">{{form.errors}}</p>-->
+			<div class="row">
+				<div class="col-md-11">
+					<table class="table table-bordered table-striped">
+						<thead class="thead-light ">
+						<tr>
+							<th>ProgrammingFundamentals</th>
+							<th>Object Oriented Programming</th>
+							<th>Data Structures And Algorithms</th>
+							<th>Visual Programming</th>
+							<th>WebSystem And Technologies</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>{{form.ProgrammingFundamentals|as_crispy_field}}</td>
+							<td>{{form.ObjectOrientedProgramming|as_crispy_field}}</td>
+							<td>{{form.DataStructuresAndAlgorithms|as_crispy_field}}</td>
+							<td>{{form.VisualProgramming|as_crispy_field}}</td>
+							<td>{{form.WebSystemAndTechnologies|as_crispy_field}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			
+			</div>
+			
+			<div class="row">
+				<div class="col-md-11">
+					<table class="table table-bordered table-striped ">
+						<thead class="thead-light">
+						<tr>
+							<th>Mobile Application Development</th>
+							<th>Cloud Computing</th>
+							<th>Artificial Intelligence</th>
+							<th>Data Mining</th>
+							<th>Calculus And Analytical Geometry</th>
+							<th>Discrete Structures</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>{{form.MobileApplicationDevelopment|as_crispy_field}}</td>
+							<td>{{form.CloudComputing|as_crispy_field}}</td>
+							<td>{{form.ArtificialIntelligence|as_crispy_field}}</td>
+							<td>{{form.DataMining|as_crispy_field}}</td>
+							<td>{{form.CalculusAndAnalyticalGeometry|as_crispy_field}}</td>
+							<td>{{form.DiscreteStructures|as_crispy_field}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-11">
+					<table class="table table-light table-striped table-bordered">
+						<thead class="thead-light">
+						<tr>
+							<th>Linear Algebra</th>
+							<th>Network Security</th>
+							<th>Data Communication & Computer Networking</th>
+							<th>Wireless & Mobile Communication</th>
+							<th>Internet Architecture & protocol</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr>
+							<td>{{form.LinearAlgebra|as_crispy_field}}</td>
+							<td>{{form.NetworkSecurity|as_crispy_field}}</td>
+							<td>{{form.DataCommunicationAndComputerNetworks|as_crispy_field}}</td>
+							<td>{{form.WirelessAndMobileCommunication|as_crispy_field}}</td>
+							<td>{{form.InternetArchitectureAndProtocol|as_crispy_field}}</td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-9"></div>
+				
+				<div class="col-md-3 ml-auto">
+					<button type="submit" class="btn btn-success float-right">submit</button>
+					<p class="text-muted" style="font-size:12px">press this button to submit</p>
+				</div>
+			</div>
+			
+			<!--		{{form.ProgrammingFundamentals|as_crispy_field}}</td>-->
+			<!--		{{form.ObjectOrientedProgramming|as_crispy_field}}</td>-->
+			<!--		{{form.DataStructuresAndAlgorithms|as_crispy_field}}</td>-->
+			<!--		{{form.VisualProgramming|as_crispy_field}}</td>-->
+			<!--		{{form.WebSystemAndTechnologies|as_crispy_field}}</td>-->
+		</form>
+	</div>
+</div>
+{%endblock%}

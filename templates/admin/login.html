@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Log in | Grappelli</title>
+	<meta charset="utf-8">
+	<meta name="robots" content="NONE,NOARCHIVE">
+	<!-- STYLESHEETS -->
+	{%load static%}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+	      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	
+	<link href="{%static '/grappelli/jquery/ui/jquery-ui.min.css' %}" rel="stylesheet" type="text/css" media="screen">
+	<link href="{% static '/grappelli/stylesheets/screen.css'%}" rel="stylesheet" type="text/css" media="all">
+	
+	<link href="{% static '/grappelli/stylesheets/mueller/grid/output.css'%}" rel="stylesheet" type="text/css"
+	      media="screen">
+	
+	
+	<!-- EXTRASTYLES -->
+	
+	<!-- JAVASCRIPTS -->
+	
+	<script type="text/javascript">window.__admin_media_prefix__ = "/static/grappelli/";</script>
+	<script type="text/javascript">window.__admin_utc_offset__ = "0";</script>
+	<script type="text/javascript" charset="utf-8">
+            // GLOBALS
+            var grappelli = {},
+                ADMIN_URL = "/admin/",
+                MODEL_URL_ARRAY = [],
+                DATE_FORMAT = "%Y-%m-%d",
+                TIME_FORMAT = "%H:%M:%S",
+                DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S";
+        
+	
+	
+	
+	
+	
+	
+	
+	</script>
+	<!-- jQuery, jQuery-UI -->
+	<script src="{% static '/grappelli/jquery/jquery.min.js'%}" type="text/javascript"></script>
+	<script src="{% static '/grappelli/jquery/jquery-migrate-3.0.1.min.js'%}" type="text/javascript"></script>
+	<script src="{% static '/grappelli/jquery/ui/jquery-ui.min.js'%}" type="text/javascript"></script>
+	
+	<!-- Grappelli Minified -->
+	<script src="{% static '/grappelli/js/grappelli.min.js' %}" type="text/javascript"></script>
+	
+	<script type="text/javascript" charset="utf-8">
+            (function($) {
+                $(document).ready(function() {
+                    $("#grp-navigation .grp-collapse").grp_collapsible();
+                });
+            })(grp.jQuery);
+        
+	
+	
+	
+	
+	
+	
+	
+	</script>
+	
+	<!-- EXTRAHEAD -->
+	
+	
+	<script type="text/javascript">
+        (function($) {
+            $(window).load(function(){ $('#id_username').focus(); });
+        })(grp.jQuery);
+    
+	
+	
+	
+	
+	
+	
+	
+	</script>
+
+</head>
+<body class="grp-login">
+<div id="container" class="grp-container">
+	
+	
+	<!-- HEADER -->
+	<header id="grp-header" class="">
+		
+		
+		<!-- NAVIGATION -->
+		<div id="grp-navigation">
+			
+			
+			<h1 id="grp-admin-title">
+				
+				
+				Teacher Selection Assistance
+			
+			</h1>
+			
+			
+			<!-- Nav-Global -->
+		
+		</div>
+		
+		
+		<!-- CONTEXT NAVIGATION -->
+		<div id="grp-context-navigation">
+			<nav id="grp-breadcrumbs" class="">
+				<header style="display:none"><h1>Breadcrumbs</h1></header>
+				
+				<ul>
+					<li><a href="/admin/">Home</a></li>
+					
+					<li> › Log in</li>
+				
+				</ul>
+			
+			</nav>
+			<nav id="grp-page-tools">
+				<header style="display:none"><h1>Page Tools</h1></header>
+			
+			</nav>
+		</div>
+	
+	
+	</header>
+	
+	
+	<!-- CONTENT -->
+	<article id="grp-content" class="">
+		
+		<!-- MESSAGES -->
+		
+		
+		<!-- CONTENT TITLE -->
+		<header id="grp-content-title">
+			
+			<h1>Log in</h1>
+		
+		</header>
+		
+		<!-- CONTENT-CONTAINER -->
+		<div id="grp-content-container">
+			
+			<div class="g-d-c g-d-10 g-centered">
+				
+				<form action="/admin/login/?next=/admin/" method="post" novalidate=""><input type="hidden"
+				                                                                             name="csrfmiddlewaretoken"
+				                                                                             value="DoBFzFDFpto87xntcbUl6ddXpg7ew97D3VJBjEisbqV8twIdMfA216Tyaas8hQbV">
+					{%csrf_token%}
+					<fieldset class="grp-module grp-module-login">
+						<h1>
+							<span class="grp-admin-title">Teacher Selection Assistance</span>
+							<span class="grp-current-page">Log in</span>
+						</h1>
+						
+						
+						<div class="module grp-module">
+							
+							{% if form.errors %}
+							<div class="alert alert-danger alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<p class="text-muted"><span>Please correct the following error.</span></p>
+								{% for key, value in form.errors.items %}
+								<span class="fieldWrapper">
+                                          {{key}}:{{ value }}
+                                     </span>
+								{% endfor %}
+							</div>
+							{% endif %}
+							<div class="form-row grp-row">
+								<label for="id_username" class="required">Username</label>
+								<input type="text" name="username" id="id_username">
+							
+							</div>
+							<div class="form-row grp-row grp-connected">
+								<label for="id_password" class="required">Password</label>
+								<input type="password" name="password" id="id_password">
+								<input type="hidden" name="next" value="/admin/">
+							
+							</div>
+						
+						
+						</div>
+					</fieldset>
+					<div class="grp-module grp-submit-row">
+						<ul>
+							<li><input type="submit" class="grp-button grp-default" value="Log in"></li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		
+		</div>
+	
+	</article>
+	
+	<!-- FOOTER -->
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

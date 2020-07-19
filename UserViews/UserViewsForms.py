@@ -31,12 +31,12 @@ class questions(forms.Form):
         return [(answer.id, answer) for answer in Answers.objects.filter(question__in=question)]
 
 
-class testform(forms.ModelForm):
-    class Meta:
-        model = test1
-        fields = [
-            'name', 'address',
-        ]
+# class testform(forms.ModelForm):
+#     class Meta:
+#         model = test1
+#         fields = [
+#             'name', 'address',
+#         ]
 
 
 # class applicationForm(forms.ModelForm):
@@ -100,39 +100,76 @@ class Uapplication(forms.ModelForm):
         ]
 
 
-class UserGrades(forms.Form):
-    speciality = forms.CharField(max_length=1000, help_text="You have entered in the Application..Now Enter Grades",
-                                 disabled=True)
-    NetworkSecurity = forms.ChoiceField(choices=GRADES_CHOICES, label="NS",
+class UserGrades(forms.ModelForm):
+    Speciality = forms.CharField(max_length=1000, label="Speciality",
+                                 help_text="Already set You have entered in the Application..Now Enter Grades",
+                                 disabled=True,
+                                 required=False)
+    NetworkSecurity = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                        choices=GRADES_CHOICES,
+                                        label="NS",
                                         widget=forms.RadioSelect(attrs={}))
-    DataCommunicationAndComputerNetworks = forms.ChoiceField(choices=GRADES_CHOICES, label="DCN",
+    DataCommunicationAndComputerNetworks = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                                             choices=GRADES_CHOICES,
+                                                             label="DCN",
                                                              widget=forms.RadioSelect(attrs={}), )
 
-    WirelessAndMobileCommunication = forms.ChoiceField(choices=GRADES_CHOICES, label="WMC",
+    WirelessAndMobileCommunication = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                                       choices=GRADES_CHOICES,
+                                                       label="WMC",
                                                        widget=forms.RadioSelect(attrs={}))
-    InternetArchitectureAndProtocol = forms.ChoiceField(choices=GRADES_CHOICES, label="IAP",
+    InternetArchitectureAndProtocol = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                                        choices=GRADES_CHOICES,
+                                                        label="IAP",
                                                         widget=forms.RadioSelect(attrs={}))
-    ProgrammingFundamentals = forms.ChoiceField(choices=GRADES_CHOICES, label="PF",
+    ProgrammingFundamentals = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                                choices=GRADES_CHOICES,
+                                                label="PF",
                                                 widget=forms.RadioSelect(attrs={}))
-    ObjectOrientedProgramming = forms.ChoiceField(choices=GRADES_CHOICES, label="OOP",
+    ObjectOrientedProgramming = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                                  choices=GRADES_CHOICES,
+                                                  label="OOP",
                                                   widget=forms.RadioSelect(attrs={}))
-    DataStructuresAndAlgorithms = forms.ChoiceField(choices=GRADES_CHOICES, label="DSA",
+    DataStructuresAndAlgorithms = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                                    choices=GRADES_CHOICES,
+                                                    label="DSA",
                                                     widget=forms.RadioSelect(attrs={}))
-    VisualProgramming = forms.ChoiceField(choices=GRADES_CHOICES, label="VP",
+    VisualProgramming = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                          choices=GRADES_CHOICES,
+                                          label="VP",
                                           widget=forms.RadioSelect(attrs={}))
-    WebSystemAndTechnologies = forms.ChoiceField(choices=GRADES_CHOICES, label="WST",
+    WebSystemAndTechnologies = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                                 choices=GRADES_CHOICES,
+                                                 label="WST",
                                                  widget=forms.RadioSelect(attrs={}))
-    MobileApplicationDevelopment = forms.ChoiceField(choices=GRADES_CHOICES, label="MAD",
+    MobileApplicationDevelopment = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                                     choices=GRADES_CHOICES,
+                                                     label="MAD",
                                                      widget=forms.RadioSelect(attrs={}))
-    CloudComputing = forms.ChoiceField(choices=GRADES_CHOICES, label="CC",
+    CloudComputing = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                       choices=GRADES_CHOICES, label="CC",
                                        widget=forms.RadioSelect(attrs={}))
-    ArtificialIntelligence = forms.ChoiceField(choices=GRADES_CHOICES, label="AI",
+    ArtificialIntelligence = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                               choices=GRADES_CHOICES,
+                                               label="AI",
                                                widget=forms.RadioSelect(attrs={}))
-    DataMining = forms.ChoiceField(choices=GRADES_CHOICES, label="DM",
+    DataMining = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                   choices=GRADES_CHOICES, label="DM",
                                    widget=forms.RadioSelect(attrs={}))
-    CalculusAndAnalyticalGeometry = forms.ChoiceField(choices=GRADES_CHOICES, label="Calculus",
+    CalculusAndAnalyticalGeometry = forms.ChoiceField(help_text="Select Grade you have obtained",
+                                                      choices=GRADES_CHOICES, label="Calculus",
                                                       widget=forms.RadioSelect(attrs={}))
-    LinearAlgebra = forms.ChoiceField(choices=GRADES_CHOICES, label="LA",
+    LinearAlgebra = forms.ChoiceField(help_text="Select Grade you have obtained", choices=GRADES_CHOICES, label="LA",
                                       widget=forms.RadioSelect(attrs={}))
-    DiscreteStructures = forms.ChoiceField(choices=GRADES_CHOICES, label="Discrete",
+    DiscreteStructures = forms.ChoiceField(help_text="Select Grade you have obtained", choices=GRADES_CHOICES,
+                                           label="Discrete",
                                            widget=forms.RadioSelect(attrs={}))
+
+    class Meta:
+        model = ApplicantGradesInformation
+        fields = ['user', 'Speciality', 'NetworkSecurity', 'DataCommunicationAndComputerNetworks',
+                  'InternetArchitectureAndProtocol', 'ProgrammingFundamentals', 'ObjectOrientedProgramming',
+                  'DataStructuresAndAlgorithms',
+                  'VisualProgramming', 'WebSystemAndTechnologies', 'MobileApplicationDevelopment', 'CloudComputing',
+                  'ArtificialIntelligence', 'DataMining', 'CalculusAndAnalyticalGeometry', 'LinearAlgebra',
+                  'DiscreteStructures', 'WirelessAndMobileCommunication']

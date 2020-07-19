@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
 
 from UserViews.models import canAccess, Application
-from .Forms import QuizForm, Add_Questions_to_Quiz, AddingNewQuestions
+from .Forms import QuizForm, AddingNewQuestions
 # Create your views here.
 from .models import Answers, Quiz, Questions
 
@@ -104,26 +104,6 @@ def check_true(IsTrue):
         return False
 
 
-@staff_member_required
-def Add_Questions(request):
-    if request.method == 'POST':
-        form = Add_Questions_to_Quiz(request.POST)
-        if form.is_valid():
-            data = form.save(commit=False)
-            data.save()
-            form.save_m2m()
-            # data.question.add(bc)
-            messages.error(request, "Quiz Added Successfully!!!", extra_tags="success")
-            return redirect('../')
-
-    else:
-        form = Add_Questions_to_Quiz()
-    context1 = {
-        'add': form,
-    }
-    return render(request, 'QuizAdding.html', context1)
-
-
 @csrf_exempt
 @staff_member_required
 def GetQuizData(request):  # ajax validation
@@ -202,6 +182,26 @@ def getapplication(request, slug):
         'app': application,
     }
     return render(request, "app.html", context)
+
+# @staff_member_required
+# def Add_Questions(request):
+#     if request.method == 'POST':
+#         form = Add_Questions_to_Quiz(request.POST)
+#         if form.is_valid():
+#             data = form.save(commit=False)
+#             data.save()
+#             form.save_m2m()
+#             # data.question.add(bc)
+#             messages.error(request, "Quiz Added Successfully!!!", extra_tags="success")
+#             return redirect('../')
+#
+#     else:
+#         form = Add_Questions_to_Quiz()
+#     context1 = {
+#         'add': form,
+#     }
+#     return render(request, 'QuizAdding.html', context1)
+
 
 # def QuestionAdd(request):
 #     if request.method == 'POST':

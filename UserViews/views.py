@@ -3,56 +3,67 @@ import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Permission
-from django.core.exceptions import ValidationError
 from django.db import IntegrityError
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.decorators.csrf import csrf_protect
 
 from InterviewPanel.models import Quiz, Answers, Questions, Category
-# Create your views here.
 from . import UserViewsForms
 from .UserViewsForms import UserGrades
 from .models import Application, grades, canAccess
 
 
 @login_required
-@csrf_exempt
 def UserHome(request):
-    global context
-    if request.method == 'POST':
-        form = UserGrades(request.POST)
-        if form.is_valid():
-            print(form)
-        else:
-            # raise ValidationError("Please Fill Form Correctly")
-            messages.error(request, "Please Fill Form Correctly..Follow the instruction given with Fields!!! ",
-                           extra_tags='danger')
-    else:
-        b = Application.objects.get(user=request.user)
-        speciality = b.Speclization
-        initial = {'speciality': speciality}
-        form = UserGrades(initial=initial)
-        context = {"form": form}
-    return render(request, 'UserViews/Userindex.html', context)
+    return render(request, 'UserViews/Userindex.html')
 
 
 @login_required
 def ApplicationView(request):
     if request.method == 'POST':
         form1 = UserViewsForms.Uapplication(request.POST, request.FILES)
-
         if form1.is_valid():
             x = form1.save(commit=False)
             x.user = request.user
             x.save()
-            messages.success(request, 'Your password was updated successfully!', extra_tags="Success")
-            return redirect('../')
+            messages.success(request, 'Your Application is Submitted Sucecssfully!\n Now you have to Fill Grades Form',
+                             extra_tags="success")
+            return HttpResponseRedirect('../../ApplicantsGrades/')
+        else:
+            print(form1.errors)
     else:
         form1 = UserViewsForms.Uapplication()
-    return render(request, 'UserViews/ApplicationForm.html', {'vv': form1})
+    return render(request, 'UserViews/ApplicationForm.html', {'application': form1})
 
 
+def ObtainedGradesOfApplicant(request):
+    global context
+    b = Application.objects.get(user=request.user)
+    c = get_object_or_404(User, username=request.user)
+    print(c)
+    if request.method == 'POST':
+        form = UserGrades(request.POST)
+        if form.is_valid():
+            x = form.save(commit=False)
+            x.Speciality = b.Speclization
+            x.user = c
+            x.save()
+            messages.success(request, "Saved Successfully!!", extra_tags="success")
+        else:
+            print(form.errors)
+            # raise ValidationError("Please Fill Form Correctly")
+            messages.error(request, "Please Fill Form Correctly..Follow the instruction given with Fields!!! ",
+                           extra_tags='danger')
+    else:
+        speciality = b.Speclization
+        initial = {'Speciality': speciality}
+        form = UserGrades(initial=initial)
+    context = {"form": form}
+    return render(request, "UserViews/GradesInput.html", context)
+
+
+@login_required
 def detailView2(request, user):
     object1 = Application.objects.all()
     flag = 0
@@ -85,6 +96,7 @@ def test(request):
     return render(request, "UserViews/test.html", {'form': z})
 
 
+@login_required
 def Application_update_view(request, id=id):
     obj = get_object_or_404(Application, id=id)
     form = UserViewsForms.Uapplication(request.POST or None, instance=obj)
@@ -98,6 +110,7 @@ def Application_update_view(request, id=id):
     # return redirect('../../')
 
 
+@login_required
 def Application_Delete_view(request, id):
     obj = get_object_or_404(Application, id=id)
     if request.method == "POST":
@@ -241,14 +254,9 @@ def GradeShow(request, slug):
             'grades': list(grades.objects.filter(name=request.user).values()),
             'length': len(grades.objects.filter(name=request.user))
         }
+
     print(context)
     return render(request, "UserViews/Grades.html", context)
-
-
-
-
-
-
 
 # # @permission_required(,login_url='accounts/login' , raise_exception=False)
 # def application(request):
@@ -275,7 +283,6 @@ def GradeShow(request, slug):
 #         'object': obj
 #     }
 #     return render(request, "UserViews/Detailview.html", context)
-    # def get_object(self, **kwargs):
-    #     pk_ = self.kwargs.get("pk")
-    #     return get_object_or_404(Application, pk=pk_)
-
+# def get_object(self, **kwargs):
+#     pk_ = self.kwargs.get("pk")
+#     return get_object_or_404(Application, pk=pk_)

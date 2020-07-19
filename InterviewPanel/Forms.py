@@ -91,30 +91,30 @@ class AddingNewQuestions(forms.Form):
     class Media:
         css = {'all': ('admin/css/base.css', 'admin/css/responsive.css'), }
 
-    # class Meta:
-    #     model = Questions
-    #     fields = [
-    #         'quiz', 'question', 'explanation'
-    #     ]
-
-
-class Add_Questions_to_Quiz(forms.ModelForm):
-    queryset = Questions.objects.all()
-    question = forms.ModelMultipleChoiceField(label="Select Available Questions",
-                                              help_text="Select Question To Add In Quiz!!",
-                                              widget=FilteredSelectMultiple('Questions', is_stacked=False),
-                                              queryset=queryset)
-
-    class Media:
-        css = {'all': ('/static/admin/css/widgets.css', '/static/admin/css/overrides.css', 'admin/css/base.css',
-                       'admin/css/responsive.css'), }
-        js = ('/admin/jsi18n',)
-
     class Meta:
-        model = QuizQuestion
+        model = Questions
         fields = [
-            'quiz', 'question'
+            'quiz', 'question', 'explanation'
         ]
+
+
+# class Add_Questions_to_Quiz(forms.ModelForm):
+#     queryset = Questions.objects.all()
+#     question = forms.ModelMultipleChoiceField(label="Select Available Questions",
+#                                               help_text="Select Question To Add In Quiz!!",
+#                                               widget=FilteredSelectMultiple('Questions', is_stacked=False),
+#                                               queryset=queryset)
+#
+#     class Media:
+#         css = {'all': ('/static/admin/css/widgets.css', '/static/admin/css/overrides.css', 'admin/css/base.css',
+#                        'admin/css/responsive.css'), }
+#         js = ('/admin/jsi18n',)
+#
+#     class Meta:
+#         model = QuizQuestion
+#         fields = [
+#             'quiz', 'question'
+#         ]
 
 #
 # class answers(forms.ModelForm):

@@ -12,6 +12,7 @@ app_name = 'UserViews'
 urlpatterns = [
     path('', views.UserHome, name="UserHome"),
     path('Application/', views.ApplicationView, name="ApplicationSubmission"),
+    path('ApplicantsGrades/', views.ObtainedGradesOfApplicant, name="GradesInput"),
     # path('application/', views.application, name="application"),
     # path('profile/', views.detailView, name='Profile'),
     path('<str:user>', views.detailView2, name='Profile2'),

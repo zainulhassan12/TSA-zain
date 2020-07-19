@@ -8,6 +8,7 @@ border-style: outset;
 border-radius:12px;
 margin-top:1%;
 padding:1%
+
 }
 .ground{
 position:relative;
@@ -57,15 +58,11 @@ margin-bottom: 20px;
 
 /* Style the counter cards */
 .card {
-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
 padding: 10px;
-width:80%;
-height:100%;
 text-align: center;
-background-color:;
+background-color: rgba(245,255,250,0.4);
 }
-
-
 
 .previous {
 background-color: #f1f1f1;
@@ -78,7 +75,10 @@ color: white;
 }
 
 .asteriskField{
-display:none;
+color:red;
+}
+.numberinput
+{
 }
 {%endblock%}
 {%block body%}
@@ -106,71 +106,109 @@ display:none;
 </div>
 {% endfor %}
 {%endif%}
-<div>
+<div class="container ">
+	<h3>Attention!</h3>
+	<hr style="">
+	<p class="text-muted" style="font-size:12px">
+		Fields with <span style="color:red">*</span> are mandatory!
+	</p>
+	<p class=" text-muted text-center" style="font-size:13px;">
+		Please fill the Application according to Your DMCs/Transcripts as Our
+		validation team is there for cross checking.Also other fields of application require correct & integer
+		information.
+	</p>
+	<p class="" style="font-size:12px;color:red">
+		If incorrect or ambiguous information is given you and only you will be responsible for that!!Administration
+		will
+		cancel or delete your Application
+	</p>
+</div>
+
+<div class=" container abc">
 	<form method="POST" enctype="multipart/form-data">
-		<div class="container col-md-10 abc" id="a1">
+		<div class="container col-md-10" id="a1">
 			<strong style="font-size:25px">Primary Information</strong>
 			{% csrf_token %}
 			<div class="form-row">
 				<div class="form-group col-md-5">
-					{{vv.First_Name|as_crispy_field}}
+					<p> {{application.First_Name|as_crispy_field}}</p>
 				</div>
 				<div class="form-group col-md-5">
-					{{vv.Last_Name|as_crispy_field }}
+					<p>{{application.Last_Name|as_crispy_field }}</p>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-4">
-					{{vv.Father_Name|as_crispy_field }}
+					<p>{{application.Father_Name|as_crispy_field }}</p>
 				</div>
 				
 				<div class="form-group col-md-4">
-					{{vv.Email|as_crispy_field }}
+					<p>{{application.Email|as_crispy_field }}</p>
 				</div>
 				<div class="form-group col-md-2">
-					{{vv.Gender|as_crispy_field }}
+					<p>{{application.Gender|as_crispy_field }}</p>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-3">
-					{{vv.Date_of_Birth|as_crispy_field}}
+					<p>{{application.Date_of_Birth|as_crispy_field}}</p>
 				</div>
 				<div style="margin-left:15px" class="form-group col-md-3">
-					{{vv.Age|as_crispy_field}}
-					
+					<p>{{application.Age|as_crispy_field}}</p>
+				
 				</div>
 				<div style="margin-left:15px" class="form-group col-md-3">
-					{{vv.Domicile|as_crispy_field }}
+					<p>{{application.Domicile|as_crispy_field }}</p>
+					<p class="text-muted" style="font-size:12px">Enter the Your Domicile.eg(State of Resident) </p>
 				</div>
 			
 			</div>
 			<div class="form-row">
 				
-				
 				<div class="form-group col-md-4">
-					<label >Phone Number (format: xxxx-xxx-xxxx):</label>
-					<input type="number" name="Phone_no" pattern="/[0-9]{3}-[0-9]{7}/" class="numberinput form-control" required="" id="id_Phone_no">
-<!--					<input type="text" name="phone no" pattern="/[0-9]{3}-[0-9]{7}/" required="field mudt required">-->
-<!--					{{vv.Phone_no|as_crispy_field }}-->
+					<p><label>Phone Number (format: xxxx-xxx-xxxx):</label>
+						<input type="number" name="Phone_no" pattern="/[0-9]{3}-[0-9]{7}/"
+						       class="numberinput form-control"
+						       required="" id="id_Phone_no"></p>
+					<p class="text-muted" style="font-size:12px">Please Enter your Cell phone No.</p>
+					
+					<!--					<input type="text" name="phone no" pattern="/[0-9]{3}-[0-9]{7}/" required="field mudt required">-->
+					<!--					{{application.Phone_no|as_crispy_field }}-->
 				</div>
 				<div class="form-group col-md-4">
-					<label>Land line (format:xxx-xxxxxxx) </label>
-<!--					<input type="text" name="phone no" pattern="/[0-9]{3}-[0-9]{7}/" required="field mudt required">-->
-					<input type="number" name="Land_Line" class="numberinput form-control"  pattern="/[0-9]{3}-[0-9]{7}/"  required="" id="id_Land_Line">
-<!--					{{vv.Land_Line|as_crispy_field }}-->
+					<p>
+						<label>Land line (format:xxx-xxxxxxx) </label>
+						<!--					<input type="text" name="phone no" pattern="/[0-9]{3}-[0-9]{7}/" required="field mudt required">-->
+						<input type="number" name="Land_Line" class="numberinput form-control"
+						       pattern="/[0-9]{3}-[0-9]{7}/"
+						       required="" id="id_Land_Line">
+					</p>
+					<p class="text-muted" style="font-size:12px">Please Enter your Land Line No.</p>
+					
+					<!--					{{application.Land_Line|as_crispy_field }}-->
 				</div>
 			</div>
-			<div style="margin-left:94%;">
-				<button title="Next" id="b1"
-				        class="btn btn-outline-secondary">->>
-				</button>
+			<hr>
+			<div class="row" style="">
+				<div class="col-md-6"></div>
+				
+				<div class="col-md-6 ">
+					
+					<button title="Next" id="b1"
+					        class="btn btn-outline-secondary float-right">->>
+					</button>
+				
+				</div>
+			
 			</div>
 		</div>
 		
 		
-		<div class="container abc" id="a2">
+		<div class="container" id="a2">
 			<strong style="font-size:25px">Study Information</strong>
 			{% csrf_token %}
+			<p class="text-muted" style="font-size:12px">Enter the Marks you obtained in <span style="color:red">Metric, Intermediate & Graduation</span>
+			</p>
 			<div class="form-row">
 				<div class="form-group">
 					<table class="table table-bordered" style="width:auto">
@@ -185,19 +223,19 @@ display:none;
 						<!--&lt;!&ndash;							<th>Grade</th>&ndash;&gt;-->
 						<!--						</tr>-->
 						<tr>
-							<th>{{vv.MatricTotal|as_crispy_field}}</th>
-							<td>{{vv.MatricObtain|as_crispy_field}}</td>
-							<td>{{vv.MatricPercentage|as_crispy_field}}</td>
-							<td>{{vv.MatricSubject|as_crispy_field}}</td>
-							<td>{{vv.MatricGrades|as_crispy_field}}</td>
-							<td>{{vv.MatricYear|as_crispy_field}}</td>
+							<th>{{application.MatricTotal|as_crispy_field}}</th>
+							<td>{{application.MatricObtain|as_crispy_field}}</td>
+							<td>{{application.MatricPercentage|as_crispy_field}}</td>
+							<td>{{application.MatricSubject|as_crispy_field}}</td>
+							<td>{{application.MatricGrades|as_crispy_field}}</td>
+							<td>{{application.MatricYear|as_crispy_field}}</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group">
-					<table class="table table-bordered  expand-sm" style="width:auto;">
+					<table class="table table-bordered table-striped" style="width:auto;">
 						<tr>
 							<strong><label class="label" style="font-size:21px;">Intermediate</label></strong></tr>
 						<!--						</tr>-->
@@ -210,13 +248,13 @@ display:none;
 						<!--							&lt;!&ndash;						<th>Year</th>&ndash;&gt;-->
 						<!--						</tr>-->
 						<tr>
-							<td>{{vv.IntermediateTotal|as_crispy_field}}</td>
-							<td>{{vv.IntermediateObtain|as_crispy_field}}</td>
-							<td>{{vv.IntermediatePercentage|as_crispy_field}}</td>
-							<td>{{vv.IntermediateSubject|as_crispy_field}}</td>
-							<td>{{vv.IntermediateGrades|as_crispy_field}}</td>
-							<td>{{vv.IntermediateYear|as_crispy_field}}</td>
-							<!--						<th>{{vv.IntermediateYear}}</th>-->
+							<td>{{application.IntermediateTotal|as_crispy_field}}</td>
+							<td>{{application.IntermediateObtain|as_crispy_field}}</td>
+							<td>{{application.IntermediatePercentage|as_crispy_field}}</td>
+							<td>{{application.IntermediateSubject|as_crispy_field}}</td>
+							<td>{{application.IntermediateGrades|as_crispy_field}}</td>
+							<td>{{application.IntermediateYear|as_crispy_field}}</td>
+							<!--						<th>{{application.IntermediateYear}}</th>-->
 						</tr>
 					</table>
 				</div>
@@ -236,69 +274,98 @@ display:none;
 						<!--							<th>Grade</th>-->
 						<!--						</tr>-->
 						<tr>
-							<td>{{vv.GraduationTotal|as_crispy_field}}</td>
-							<td>{{vv.GraduationObtain|as_crispy_field}}</td>
-							<td>{{vv.GraduationPercentage|as_crispy_field}}</td>
-							<td>{{vv.GraduationSubject|as_crispy_field}}</td>
-							<td>{{vv.GraduationGrades|as_crispy_field}}</td>
-							<td>{{vv.GraduationYear|as_crispy_field}}</td>
+							<td>{{application.GraduationTotal|as_crispy_field}}</td>
+							<td>{{application.GraduationObtain|as_crispy_field}}</td>
+							<td>{{application.GraduationPercentage|as_crispy_field}}</td>
+							<td>{{application.GraduationSubject|as_crispy_field}}</td>
+							<td>{{application.GraduationGrades|as_crispy_field}}</td>
+							<td>{{application.GraduationYear|as_crispy_field}}</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<div class="row">
-				<div class="column">
+				<div class="col-md-4">
 					<div class="card">
 						<h5>Matric Result</h5>
-						{{vv.Matrics_Result}}
+						<p class="text-muted" style="font-size:12px">Try to Paste PDF file for Best practices</p>
+						<hr>
+						<p>{{application.Matrics_Result}}</p>
 					</div>
 				</div>
-				<div class="column">
+				<div class="col-md-4">
 					<div class="card">
 						<h5>Intermediate Result</h5>
-						{{vv.Intermediate_result}}
+						<p class="text-muted" style="font-size:12px">Try to Paste PDF file for Best practices</p>
+						<hr>
+						<p>{{application.Intermediate_result}}</p>
 					</div>
 				</div>
-				<div class="column">
+				<div class="col-md-4">
 					<div class="card">
 						<h5>Graduation Result</h5>
-						{{vv.Graduations_result}}
+						<p class="text-muted" style="font-size:12px">Try to Paste PDF file for Best practices</p>
+						<hr>
+						<p>{{application.Graduations_result}}</p>
 					</div>
 				</div>
 			</div>
 			<div>
-				<button title="previous" style="margin-top:10px;margin-left;" id="b2" class="btn btn-outline-secondary">
-					<<-
-				</button>
-				<button title="Next" style="margin-top:10px;margin-left:89%;" id="b3" class="btn btn-outline-secondary">
-					->>
-				</button>
+				<div style="margin-top:10px">
+					<hr>
+				</div>
+				<div class="row">
+					
+					<div class="col-md-4 ">
+						<button title="previous" style="" id="b2" class="btn btn-outline-secondary float-left">
+							<<-
+						</button>
+					</div>
+					<div class="col-md-4 ml-auto">
+						<button title="Next" style="" id="b3" class="btn btn-outline-secondary float-right">
+							->>
+						</button>
+					</div>
+				</div>
+			
+			
 			</div>
 		</div>
 		
-		<div class="container col-md-10 abc" id="a3">
+		<div class="container col-md-10 " id="a3">
 			<strong style="font-size:25px">Extra Information</strong>
+			<p class="text-muted" style="font-size:12px">Select appropriate Fields as Instruction are given with
+				fields!!</p>
 			{% csrf_token %}
 			<div class="form-row">
 				
 				<div class="form-group col-md-4">
-					{{vv.Qualify|as_crispy_field }}
-					{{vv.Speclization|as_crispy_field }}
-					{{vv.Master_Specialization|as_crispy_field }}
+					<p>{{application.Qualify|as_crispy_field }}</p>
+					<p>{{application.Speclization|as_crispy_field }}</p>
+					<p>{{application.Master_Specialization|as_crispy_field }}</p>
 				</div>
-				<div style="margin-left:200px" class="form-group col-md-4">
-					{{vv.Image|as_crispy_field }}
+				<div class="col-md-4"></div>
+				<div style="" class="form-group col-md-4">
+					<p>{{application.Image|as_crispy_field }}</p>
 				</div>
 			</div>
 			<div class="form-row">
 				<div class="form-group col-md-4">
-					{{vv.Experience|as_crispy_field }}
+					<p>{{application.Experience|as_crispy_field }}</p>
 				</div>
 			</div>
+			<hr>
+			<p class="text-muted" style="font-size:12px"> If your <span style="color:red">Submit button</span>  is not
+				working..Please Press  <span style="color:red">Verify button</span> Verify button to see Error.! </p>
 			<div class="row">
-				<div class="ml-auto" style="float:left;margin-top:auto">
-					<button title="Verify Your Data" style="" id="b4" class="btn btn-outline-secondary">Verify</button>
-					<button title="Finish" style="" id="b5" class="btn btn-outline-secondary">Submit</button>
+				<div class="ml-auto" style="">
+					<button title="Finish" style="margin-left:3px;" id="b5"
+					        class="btn btn-outline-secondary float-right">
+						Submit
+					</button>
+					<button title="Verify Your Data" style="" id="b4" class="btn btn-outline-secondary float-right">
+						Verify
+					</button>
 				</div>
 			</div>
 		</div>

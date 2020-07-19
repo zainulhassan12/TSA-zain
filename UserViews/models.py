@@ -22,9 +22,9 @@ SPECIALIZATION_CHOICES = [
     {'programming', 'Programming'},
 ]
 QUALIFICATION_CHOICES = [
-    {'PHD', 'phd'},
-    {'Master', 'master'},
-    {'Bachelor', 'bachelor'},
+    {'phd', 'PHD'},
+    {'master', 'Master'},
+    {'bachelor', 'Bachelor'},
 ]
 # # INTEREST_CHOICES = [
 # #     {'please select', 'Please Select'},
@@ -51,28 +51,29 @@ QUALIFICATION_CHOICES = [
 
 MASTER_CHOICES = [
     {'please select', 'Please Select'},
-    {'Networking', 'networking'},
-    {'DatabaseSystems', 'databaseSystems'},
-    {'Information Technology', 'information technology'},
-    {'Machine Learning', 'machine learning'},
-    {'DataScience', 'datascience'},
-    {'Cyber Security', 'cyber security'},
-    {'IT Security Management', 'it security management'},
-    {'Cyber Security and Data Governance', 'cyber security and data governance'},
-    {' Data Analytics and IT Security Management', ' data analytics and it security management'},
-    {' Big Data and Business Intelligence', ' big data and business intelligence'},
-    {' Digital Product Management', ' digital product management'},
-    {' Information Security', ' information security'},
-    {'Master in Information and Communication Security', 'master in Information and communication security'},
-    {'Big Data', 'big Data'},
-    {'Computer Security', 'computer security'},
-    {'Digitization', 'digitization'},
-    {'It Security', 'it security'},
-    {'Networks', 'networks'},
-    {'Virtualization', 'virtualization'},
-    {'Cryptography', 'cryptography'},
-    {'Media Engineering', 'media engineering'},
-    {'Cloud Computing', 'cloud computing'},
+    {'networking', 'Networking'},
+    {'databaseSystems', 'DatabaseSystems'},
+    {'information technology', 'Information Technology'},
+    {'machine learning', 'Machine Learning'},
+    {'dataScience', 'DataScience'},
+    {'cyber security', 'Cyber Security'},
+    {'it security management', 'It Security Management'},
+    {'cyber security and data governance', 'Cyber Security And Data Governance'},
+    {'data analytics and it security management', ' Data Analytics and it Security Management'},
+    {'big data and business intelligence', ' Big Data and Business Intelligence'},
+    {'digital product management', ' Digital Product Management'},
+    {'information security', ' Information Security'},
+    {'master in information and security', ' Master In Information and Security'},
+    {'big data', 'Big Data'},
+    {'computer security', 'Computer Security'},
+    {'digitization', 'Digitization'},
+    {'it security', 'It security'},
+    {'networks', 'Networks'},
+    {'virtualization', 'Virtualization'},
+    {'cryptography', 'Cryptography'},
+    {'media engineering', 'Media Engineering'},
+    {'cloud computing', 'Cloud Computing'},
+    {'none from this list', 'None From This List'}
 
 ]
 
@@ -128,7 +129,8 @@ class Application(models.Model):
                                     help_text="Your Specialization or Field of Expertise.")
     Experience = models.FileField(default="Upload your CV", upload_to='CVs/',
                                   help_text="Paste the PDF file of your CV/ExperienceLetters for best practices ")
-    Master_Specialization = models.CharField(max_length=50, choices=MASTER_CHOICES)
+    Master_Specialization = models.CharField(help_text="Selct Specialization From List", max_length=50,
+                                             choices=MASTER_CHOICES)
 
     def __str__(self):
         return "{0} {1}".format(self.First_Name, self.Last_Name)
@@ -137,13 +139,67 @@ class Application(models.Model):
         return reverse("UserViews:detail", kwargs={"id": self.id})
 
 
-# class UserInformation(models.Model):
+class ApplicantGradesInformation(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,blank=True,null=False)
+    Speciality = models.CharField(max_length=1000,
+                                  help_text="Already set You have entered in the Application..Now Enter Grades",
+                                  blank=True, null=False)
 
+    NetworkSecurity = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                  verbose_name="Network Security")
 
-class test1(models.Model):
-    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
-    name = models.CharField(max_length=20)
-    address = models.CharField(max_length=30)
+    DataCommunicationAndComputerNetworks = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                                       verbose_name="Data Communication & Computer"
+                                                                                    " Networks")
+
+    WirelessAndMobileCommunication = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                                 verbose_name="Wireless & Mobile Communication")
+
+    InternetArchitectureAndProtocol = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                                  verbose_name="Internet Architecture & Protocol")
+
+    ProgrammingFundamentals = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                          verbose_name="Programming Fundamentals")
+
+    ObjectOrientedProgramming = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                            verbose_name="Object oriented programming")
+
+    DataStructuresAndAlgorithms = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                              verbose_name="Data structures & algorithms")
+
+    VisualProgramming = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                    verbose_name="Visual Programming")
+
+    WebSystemAndTechnologies = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                           verbose_name="Web Systems & Technologies")
+
+    MobileApplicationDevelopment = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                               verbose_name="Mobile Application Development")
+
+    CloudComputing = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                 verbose_name="Cloud Computing")
+
+    ArtificialIntelligence = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                         verbose_name="Artificial Intelligence")
+
+    DataMining = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                             verbose_name="Data Mining")
+
+    CalculusAndAnalyticalGeometry = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                                verbose_name="Calculus & Analytical Geometry")
+
+    LinearAlgebra = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                verbose_name="Linear Algebra")
+
+    DiscreteStructures = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                     verbose_name="Discrete Structures")
+
+    class Meta:
+        verbose_name = "Grade Of Applicant"
+        verbose_name_plural = "Grades Of Applicants"
+
+    def __str__(self):
+        return self.Speciality
 
 
 class grades(models.Model):
@@ -152,9 +208,13 @@ class grades(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     category = models.CharField(max_length=100, blank=True)
     total_marks = models.IntegerField()
-    obtained_marks = models.IntegerField()
+    obtained_marks = models.IntegerField(editable=False)
     percentage = models.FloatField()
     timestamp = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Quiz_Grade"
+        verbose_name_plural = "Quizzes_Grades"
 
     def __str__(self):
         return self.name
@@ -163,6 +223,10 @@ class grades(models.Model):
 class canAccess(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     QuizName = models.CharField(max_length=1024, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Quiz_Access"
+        verbose_name_plural = "Quizzes_Access"
 
     def __str__(self):
         return self.QuizName

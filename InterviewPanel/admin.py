@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Questions, Quiz, Category, QuizQuestion
+from .models import Questions, Quiz, Category, Answers
 
 
 # Register your models here.
@@ -53,8 +53,20 @@ class QuizAdmin(admin.ModelAdmin):
     search_fields = ('description', 'category',)
 
 
+class AnswerInline(admin.TabularInline):
+    search_fields = ('answer',)
+    model = Answers
+
+
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('question',)
+    list_filter = ('question',)
+    search_fields = ('question',)
+    inlines = [
+        AnswerInline,
+    ]
+
+
 admin.site.register(Quiz, QuizAdmin)
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Questions)
-
-admin.site.register(QuizQuestion)
+admin.site.register(Questions, QuestionAdmin)

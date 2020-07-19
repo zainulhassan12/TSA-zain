@@ -14,7 +14,7 @@ urlpatterns = [
     path('Quiz/', views.QuizAddingView, name='quiz'),
 
     path('AddQuestion/', views.QuestionAndAnswers, name='AddQuestionsWithAnswers'),
-    path('FinalQuiz/', views.Add_Questions, name="AddQuestionToQuiz"),
+    # path('FinalQuiz/', views.Add_Questions, name="AddQuestionToQuiz"),
     path('<slug:slug>', QuizDetailView.as_view(), name="DetailQuiz"),
     path('ViewQuiz/', QuizListView.as_view(), name="ViewQuiz"),
     path('StartQuiz/<slug:slug>', views.StartQuiz, name="StartQuiz"),
