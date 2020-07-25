@@ -9,36 +9,133 @@
 {%block title%}Home{%endblock%}
 {%block css%}{%endblock%}
 {%block body%}
-	<div style="position:relative;" class="title">
-		Analytics
-	</div>
-	<div class="main">
-		<div class="widget">
-			<div class="title">User Profiles</div>
-			<div class="chart">
-				{{profile}}
-			
+{%load static%}
+<h6 class="text-muted" style="padding:2px"><span>Click the Icons below to Navigate or use NavBar!!</span></h6>
+<div class="container" style="background-color:rgb(232,232,232)">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="card-columns">
+				<div class="card bg-light" style="width:150px;height:200px">
+					<img class="card-img-top" title="Click on This to view Profile."
+					     src="{% static 'images/icons/UserHomeII.jpg'%}" alt="Card image">
+					<div class="card-body">
+						<h6 class="card-title text-muted">View User Side</h6>
+						<a class="stretched-link" href="{%url 'UserViews:UserHome'%}"></a>
+					</div>
+					<p class="text-muted" style="font-size:12px">Click on This to View User side.</p>
+				</div>
+				<div class="card bg-light" style="width:150px;height:200px">
+					<img class="card-img-top" title="Click on This to view Profile."
+					     src="{% static 'images/icons/ViewSite.png'%}" alt="Card image">
+					<div class="card-body">
+						<h6 class="card-title text-muted">View Site</h6>
+						<a class="stretched-link" href="{%url 'index'%}"></a>
+					</div>
+					<p class="text-muted" style="font-size:12px">Click on This to View Site.</p>
+				</div>
+			</div>
+		
+		</div>
+		<div class="col-md-3 ml-auto">
+			<div class="card-columns">
+				<div class="card" style="width:90px;height:90px">
+					<img class="card-img-top" src="{% static 'images/icons/Homes.png'%}" alt="Card image">
+					<div class="card-body">
+						<a class="stretched-link " href="{%url 'InterviewPanel:interhome'%}"></a>
+						<p class="text-muted">Home</p>
+					</div>
+				</div>
+				<!--				<p class="text-muted" style="font-size:12px">Interview Panel Home</p>-->
+				<div class="card" style="width:90px;height:90px">
+					<img class="card-img-top" src="{% static 'images/icons/Admin.jpg'%}" alt="Card image">
+					<div class="card-body">
+						<a class="stretched-link " href="/admin"></a>
+						<p class="text-muted">Admin</p>
+					</div>
+					<!--					<p class="text-muted" style="font-size:12px">Admin Panel</p>-->
+				</div>
 			</div>
 		</div>
-		<div class="widget">
-			<div class="title">Interview Detail</div>
-			<div class="chart">
-				{%csrf_token%}
-				{%for val in ans%}
-				{{val.id}}
-				{{val.question}}
-				{{val.answer}}
-				{{val.is_correct}}
-				{{val.question_id}}
+	</div>
+	
+	<div class="row"><!--		<div class="col-md-3"></div>-->
+		<div class="col-md-8" style="">
+			<div class="card-columns">
+				<div class="card bg-light abc" style="width:130px;height:170px">
+					<img class="card-img-top" title="Click on This to view Profile."
+					     src="{% static 'images/icons/Interview1.jpg'%}" alt="Card image">
+					<div class="card-body">
+						<h6 class="card-title text-muted">Interview</h6>
+						<a class="stretched-link" href="{%url 'InterviewPanel:startInterview'%}"></a>
+					</div>
+					<p class="text-muted" style="font-size:12px">Click on This to Start Interview.</p>
+				</div>
+				<div class="card bg-light" style="width:130px;height:170px">
+					<img class="card-img-top" title="Click on This to view Profile."
+					     src="{% static 'images/icons/Quiz2.png'%}" alt="Card image">
+					<div class="card-body">
+						<h6 class="card-title text-muted">Quiz</h6>
+						<a class="stretched-link" href="{%url 'InterviewPanel:quiz'%}"></a>
+					</div>
+					<p class="text-muted" style="font-size:12px">Click on This to Create Quiz.</p>
+				</div>
+				<div class="card bg-light" style="width:130px;height:170px">
+					<img class="card-img-top" title="Click on This to view Profile."
+					     src="{% static 'images/icons/Question&Aswers2.png  '%}" alt="Card image">
+					<div class="card-body">
+						<h6 class="card-title text-muted">Questions</h6>
+						<a class="stretched-link" href="{%url 'InterviewPanel:AddQuestionsWithAnswers'%}"></a>
+					</div>
+					<p class="text-muted" style="font-size:12px">Click on This to Create Questions.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card-columns">
 				
-				<br>
-				{%endfor%}
+				<div class="card bg-light" style="width:130px;height:170px">
+					<img class="card-img-top" title="Click on This to view Profile."
+					     src="{% static 'images/icons/ViewQuiz.png'%}" alt="Card image">
+					<div class="card-body">
+						<h6 class="card-title text-muted">View Quiz</h6>
+						<a class="stretched-link" href="{%url 'InterviewPanel:ViewQuiz'%}"></a>
+					</div>
+					<p class="text-muted" style="font-size:12px">Click on This to View Quiz.</p>
+				</div>
 			</div>
 		</div>
-		<div class="widget">
-			<div class="title">User Log</div>
-			<div class="chart"></div>
-		</div>
 	</div>
-
+</div>
 {%endblock%}
+
+<!--<div class="card bg-light" style="width:150px;height:200px">-->
+<!--					<div class="card-body">-->
+<!--						<h6 class="card-title">Questions</h6>-->
+<!--						<a class="stretched-link" href="{%url 'InterviewPanel:AddQuestionsWithAnswers'%}"></a>-->
+<!--						<img class="card-img-top" style="width:60px" title="Click on This to view Profile."-->
+<!--						     src="{% static 'images/icons/Question&Aswers2.png  '%}" alt="Card image">-->
+<!--						<p class="card-text ">Click on This to Create Questions.</p>-->
+<!--					</div>-->
+<!--				-->
+<!--				</div>-->
+<!--<div class="row">-->
+<!--		-->
+<!--		<div class="col-md-2"></div>-->
+<!--		<div class="col-md-10">-->
+<!--			<div class="container">-->
+<!--				<div class="card-columns">-->
+<!--					<div class="card bg-light" style="width:150px;height:200px">-->
+<!--						<img class="card-img-top" title="Click on This to view Profile."-->
+<!--						     src="{% static 'images/icons/Question&Aswers2.png  '%}" alt="Card image">-->
+<!--						<div class="card-body">-->
+<!--							<h6 class="card-title text-muted">Questions</h6>-->
+<!--							<a class="stretched-link" href="{%url 'InterviewPanel:AddQuestionsWithAnswers'%}"></a>-->
+<!--						</div>-->
+<!--						<p class="text-muted" style="font-size:12px">Click on This to Create Questions.</p>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			-->
+<!--			</div>-->
+<!--		</div>-->
+<!--		&lt;!&ndash;		<div class="col-md-3"></div>&ndash;&gt;-->
+<!--	</div>-->

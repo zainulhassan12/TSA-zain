@@ -12,6 +12,7 @@ from InterviewPanel.models import Quiz, Answers, Questions, Category
 from . import UserViewsForms
 from .UserViewsForms import UserGrades
 from .models import Application, grades, canAccess
+from sklearn.neural_network import MLPClassifier
 
 
 @login_required
