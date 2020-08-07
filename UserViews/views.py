@@ -12,7 +12,6 @@ from InterviewPanel.models import Quiz, Answers, Questions, Category
 from . import UserViewsForms
 from .UserViewsForms import UserGrades
 from .models import Application, grades, canAccess
-from sklearn.neural_network import MLPClassifier
 
 
 @login_required
@@ -127,15 +126,17 @@ def Application_Delete_view(request, id):
 @login_required
 def QuizPortal(request):
     global context, access
-    try:
-        access = canAccess.objects.get(user=request.user)
-    except canAccess.DoesNotExist:
-        messages.error(request,
-                       message="Probably you have attempted the quiz and removed from access list!! For more info "
-                               "contact ADMIN or Organizer",
-                       extra_tags="danger")
 
-    if request.user.is_authenticated and request.user.has_perm('InterviewPanel.change_quiz') and access:
+    access = canAccess.objects.get(user=request.user)
+    if access:
+        pass
+    else:
+        messages.error(request,
+                           message="Probably you have attempted the quiz and removed from access list!! For more info "
+                                   "contact ADMIN or Organizer",
+                           extra_tags="danger")
+
+    if request.user.is_authenticated and request.user.has_perm('InterviewPanel.change_quiz'):
         print(access)
         quiz = get_object_or_404(Quiz, url=access.QuizName)
         NoOfquestion = Quiz.objects.get(url=access.QuizName).questions_set.all().count()
@@ -146,9 +147,10 @@ def QuizPortal(request):
                 'count': NoOfquestion
             }
     else:
-        # messages.error(request,
-        #                "Permission Denied!! may be you have Already Attempted This Quiz..Check Your Grades Or contact your Admin",
-        #                extra_tags='')
+        messages.error(request,
+                       "Permission Denied!! may be you have Already Attempted This Quiz..Check Your Grades Or contact"
+                       " your Admin!!Or Access is not Assigned to you.",
+                       extra_tags='danger')
         context = {
             'quiz': '1'
         }

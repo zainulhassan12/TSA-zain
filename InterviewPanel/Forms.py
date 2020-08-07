@@ -50,7 +50,8 @@ class QuizForm(forms.ModelForm):
     class Meta:
         model = Quiz
         fields = [
-            'title', 'description', 'Instructions', 'url', 'category', 'answers_at_end', 'single_attempt', 'success_text',
+            'title', 'description', 'Instructions', 'url', 'category', 'answers_at_end', 'single_attempt',
+            'success_text',
             'fail_text'
 
         ]
@@ -97,6 +98,39 @@ class AddingNewQuestions(forms.Form):
             'quiz', 'question', 'explanation'
         ]
 
+
+class InterviewForm(forms.ModelForm):
+    Personality = forms.IntegerField(max_value=10, min_value=0, widget=forms.NumberInput(),
+                                     help_text="Personality Marks__Range(1,10)",
+                                     label="Personality Marks")
+    Dressing_Sense = forms.IntegerField(max_value=10, min_value=0, help_text="Dressing Sense Marks __Range(1,10",
+                                        widget=forms.NumberInput())
+    Communication_Skills = forms.IntegerField(max_value=10, min_value=0,
+                                              help_text="Communication Skills Marks__Range(1,10)",
+                                              widget=forms.NumberInput())
+    InterView_Questions = forms.IntegerField(max_value=10, min_value=0,
+                                             help_text="InterVew Questions  Marks__Range(1,10)",
+                                             widget=forms.NumberInput())
+    total_marks_for_interview = forms.FloatField(required=False)
+
+    class Meta:
+        model = InterviewModel
+        fields = [
+            'user', 'Personality', 'Dressing_Sense', 'Communication_Skills', 'InterView_Questions',
+            'total_marks_for_interview'
+        ]
+
+
+class InterQuestion(forms.ModelForm):
+    Question = forms.CharField(widget=forms.TextInput(), help_text="Question To Ask in Interview", )
+    Explanation = forms.CharField(widget=forms.Textarea(attrs={'rows': 4, }),
+                                  help_text="Explanation For Question")
+
+    class Meta:
+        model = InterviewQuestions
+        fields = [
+            'Question', 'Explanation',
+        ]
 
 # class Add_Questions_to_Quiz(forms.ModelForm):
 #     queryset = Questions.objects.all()

@@ -1,0 +1,33 @@
+{%extends 'basic4.html'%}
+{%load static%}
+{%load crispy_forms_tags%}
+{%block body%}
+<p class="text-muted" style="font-size:12px">Fields With <span style="color:red">*</span> Are Mandatory!</p>
+<p style="font-size:14px;color:red">These Questions Are Related to The Interview Conducting Process.</p>
+<p class="text-muted" style="font-size:13px;">These Questions Are Asked to the Applicant during the InterView </p>
+<div class="container abc">
+	
+	<form id="FormAjax" method="post" style="padding:10px">
+		{%csrf_token%}
+		
+		<div class="row">
+			<div class="col-md-9">
+				{{InterviewQuestions.Question|as_crispy_field}}
+				{{InterviewQuestions.Question.errors}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-7">
+				{{InterviewQuestions.Explanation|as_crispy_field}}
+				{{InterviewQuestions.Explanation.errors}}
+			</div>
+		
+		</div>
+		<div class="row">
+			<div class="col-md-2 ml-auto">
+				<button type="submit" class="btn btn-outline-success">Save</button>
+			</div>
+		</div>
+	</form>
+</div>
+{%endblock%}

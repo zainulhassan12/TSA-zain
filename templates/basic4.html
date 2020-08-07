@@ -299,7 +299,16 @@
 		height: 300px;
 		border: 1px solid #ddd;
 		}
+		.asteriskField{
+		color:red;
+		}
+		.abc{
+		border-style: outset;
+		border-radius:12px;
+		margin-top:1%;
+		padding:1%
 		
+		}
 		{%block css%}
 		
 		{%endblock%}
@@ -316,12 +325,14 @@
 	{%endblock%}
 	
 	
+	
+	
 	</script>
-<style>
-	body{
-	background-color:white;
-	}
-</style>
+	<style>
+		body{
+		background-color:white;
+		}
+	</style>
 </head>
 <body>
 {% if messages %}
@@ -353,14 +364,21 @@
 				<ul>
 					
 					<li>
-						<a href="{%url 'InterviewPanel:interhome'%}">
+						<a href="{%url 'InterviewPanel:InterviewHome'%}">
 							<span><i class="fa fa-group"></i></span>
 							<span>Home</span>
 						</a>
-					</li><li>
+					</li>
+					<li>
 						<a href="{%url 'InterviewPanel:startInterview'%}">
 							<span><i class="fa fa-group"></i></span>
 							<span>Interview</span>
+						</a>
+					</li>
+					<li>
+						<a href="{%url 'InterviewPanel:InterQuestions'%}">
+							<span><i class="fa fa-tachometer"></i></span>
+							<span>InterView Questions</span>
 						</a>
 					</li>
 					<li>
@@ -376,6 +394,7 @@
 							<span>Add Question</span>
 						</a>
 					</li>
+					
 					<!--					<li>-->
 					<!--						<a href="">-->
 					<!--							<span><i class="fa fa-tachometer"></i></span>-->
@@ -391,6 +410,7 @@
 							<span>Start Quiz</span>
 						</a>
 					</li>
+				
 				</ul>
 			</nav>
 		</div>
@@ -405,9 +425,11 @@
 <script>
 	{%block script%}
 	{%endblock%}
+
+
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"

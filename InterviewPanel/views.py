@@ -11,13 +11,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
 
 from UserViews.models import canAccess, Application
-from .Forms import QuizForm, AddingNewQuestions
+from .Forms import QuizForm, AddingNewQuestions, InterviewForm, InterQuestion
 # Create your views here.
-from .models import Answers, Quiz, Questions
+from .models import Answers, Quiz, Questions, InterviewQuestions
 
 
 @staff_member_required
-def interhome(request):
+def InterviewHome(request):
     return render(request, "home.html", )
 
 
@@ -94,7 +94,7 @@ def QuestionAndAnswers(request):
     context = {
         'form': form
     }
-    return render(request, "MasterDetail.html", context)
+    return render(request, "MasterDetailQuiz_Questions.html", context)
 
 
 def check_true(IsTrue):
@@ -183,6 +183,46 @@ def getapplication(request, slug):
     }
     return render(request, "app.html", context)
 
+
+def StartInterview(request, slug):
+    questions_set = list(InterviewQuestions.objects.all().values())
+    if request.method == 'POST':
+        form1 = InterviewForm(request.POST)
+        if form1.is_valid():
+            print("hsdjasgh")
+            s = form1.save(commit=False)
+            s.user = User.objects.get(username=slug)
+            s.total_marks_for_interview = (s.Personality + s.Dressing_Sense + s.Communication_Skills +
+                                           s.InterView_Questions) / 40 * 10
+            s.save()
+            print(s.total_marks_for_interview)
+            messages.success(request, "Interview Results are Saved")
+            return redirect('/inter/interview/')
+        else:
+            print(form1.errors)
+
+    else:
+        form1 = InterviewForm()
+    context = {
+        'InterviewForm': form1,
+        'Questions': questions_set,
+        'name': slug
+    }
+    return render(request, "StartInterview.html", context)
+
+
+def SaveInterviewQuestions(request):
+    if request.method == 'POST':
+        form = InterQuestion(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Saved Successfully!!", extra_tags="success")
+    else:
+        form = InterQuestion()
+    context = {
+        "InterviewQuestions": form
+    }
+    return render(request, "QuestionForInterview.html", context)
 # @staff_member_required
 # def Add_Questions(request):
 #     if request.method == 'POST':

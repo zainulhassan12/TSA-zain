@@ -1,0 +1,102 @@
+{%extends 'basic4.html'%}
+{%load static%}
+{%load crispy_forms_tags%}
+{%block page%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{%endblock%}
+{%block css%}
+.scrollable {
+height:300px;
+overflow-y: scroll;
+}
+{%endblock%}
+{%block body%}
+<!--	{%crispy InterviewForm%}-->
+<div class="container">
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-6">
+			<p class="text-muted">Fields with "<span style="color:red">*</span>" Are Mandatory</p>
+<!--			<p class="text-muted" style="font-size:14px">This is the interview page.Questions set for interview are on-->
+<!--				left side & Evaluation panel is on right.</p>-->
+			<p class="text-muted">For the help of Interviewer"<span style="color:red">Check Boxes</span>" are given.You
+				can Check a question which is already answered by the Applicant.
+				</p>
+			<p class="" style="font-size:12px;color:red">Marks will be Calculated and Saved Automatically.</p>
+		</div>
+	</div>
+	<div id="d1" class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-4">
+			
+			<div class="panel panel-primary">
+				<div class="panel-heading"><b>InterView Questions</b>
+					<p class="float-right"><b>{{name}}</b></p>
+				</div>
+				<div class="panel-body scrollable">
+					<div class="col" style="padding:10px">
+						<p class="float-right" style="font-size:16px;color:gray"><b>{{name}}</b></p>
+						
+						{%for q in Questions%}
+						<label style="font-size:13px">Question?</label>
+						<br>
+						<p><input type="checkbox" value="{{q.Question}}"/> {{q.Question}}</p>
+						
+						<p style="font-size:12px">Explanation==><span class="text-muted">{{q.Explanation}}</span></p>
+						{%endfor%}
+					</div>
+				</div>
+				<div class="panel-footer"><b>
+					<span style="font-size:12px">Question for Interview</span></b>
+					<br>
+					<span style="font-size:11px"></span>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading"><b>Interview Marks</b>
+				</div>
+				<div class="panel-body scrollable">
+					<div class="col" style="padding:10px">
+						<form method="post">
+							{%csrf_token%}
+							<p class="text-muted" style="font-size:12.5px">Total Marks will be <span
+									style="color:red;font-size:13.5px">10</span>.(Aggregated Marks)</p>
+							<table class="table table-bordered table-striped">
+								<!--				<thead class="thead-light">-->
+								<!--				<tr>-->
+								<!--					<th>Personality Marks</th>-->
+								<!--					<th>Dressing Sense</th>-->
+								<!--					<th>Communication Skills</th>-->
+								<!--					<th>InterView Questions</th>-->
+								<!--				</tr>-->
+								<!--				</thead>-->
+								<tbody>
+								<tr>
+									<th>{{InterviewForm.Personality|as_crispy_field}}</th>
+									{{InterviewForm.errors}}
+									<th>{{InterviewForm.Dressing_Sense|as_crispy_field}}</th>
+									<th>{{InterviewForm.Communication_Skills|as_crispy_field}}</th>
+									<th>{{InterviewForm.InterView_Questions|as_crispy_field}}</th>
+								</tr>
+								</tbody>
+							</table>
+							<button type="submit" class="btn btn-primary float-right  ">Save</button>
+						</form>
+					</div>
+				</div>
+				<div class="panel-footer"><b>
+					<span style="font-size:12px">InterView Marks of Applicant. </span></b>
+					<br>
+					<!--					<span style="font-size:11px">Select one to see related information</span>-->
+				</div>
+			</div>
+		</div>
+	
+	</div>
+</div>
+{%endblock%}

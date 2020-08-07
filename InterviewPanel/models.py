@@ -1,5 +1,6 @@
 import re
 
+from django.contrib.auth.models import User
 from django.db import models
 from django.template.defaultfilters import slugify
 
@@ -136,6 +137,50 @@ class Answers(models.Model):
         for q in Answers.objects.filter(question_id=qid).values():
             if q['is_correct']:
                 return q['answer']
+
+
+class InterviewQuestions(models.Model):
+    Question = models.CharField(max_length=1000, verbose_name="Interview Question",
+                                help_text="Question To Ask in Interview")
+    Explanation = models.CharField(max_length=1000, verbose_name="Explanation",
+                                   help_text="Explanation For Question")
+
+    class Meta:
+        verbose_name = "Question For Interview"
+        verbose_name_plural = "Questions For Interview"
+
+    def __str__(self):
+        return self.Question
+
+
+class InterviewModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=False)
+    Personality = models.PositiveIntegerField(help_text="Personality Marks__Range(1,10)",
+                                              verbose_name="Personality Marks",
+                                              )
+    Dressing_Sense = models.PositiveIntegerField(help_text="Dressing Marks__Range(1,10)",
+                                                 verbose_name="Dressing Sense",
+
+                                                 )
+    Communication_Skills = models.PositiveIntegerField(help_text="Communication Skills Marks__Range(1,10)",
+                                                       verbose_name="Communication Skills",
+
+                                                       )
+    InterView_Questions = models.PositiveIntegerField(help_text="Interview Question Marks__Range(1,10)",
+                                                      verbose_name="InterView Questions",
+
+                                                      )
+    total_marks_for_interview = models.FloatField(help_text="Total marks for interview",
+
+                                                  verbose_name="Total Marks",
+                                                  error_messages={'message': 'Its a negative integer field'})
+
+    class Meta:
+        verbose_name = "InterView Result"
+        verbose_name_plural = "Interview Results"
+
+    def __str__(self):
+        return str(self.user)
 
 # class QuizQuestion(models.Model):
 #     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, blank=False)

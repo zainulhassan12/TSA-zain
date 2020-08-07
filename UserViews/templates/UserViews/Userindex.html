@@ -22,62 +22,93 @@ padding:1%
 {%endblock%}
 {%block body%}
 <!--<a href="{%url 'UserViews:category' %}">Grades</a>-->
-
+<h6 class="text-muted">Click The Images Below to Navigate Or Use The Navigation Bar!!!</h6>
 <div class="container" style="background-color:rgb(232,232,232);padding:10px">
-	<h6 class="text-muted">Click The Images Below to Navigate Or Use The Navigation Bar!!!</h6>
-	<div class="card-columns"
-	     style="padding:5px;background-color:rgb(232,232,232)">
-		
-		<div class="card" style="width:110px">
-			<img class="card-img-top" src="{% static 'images/icons/Homes.png'%}" alt="Card image">
-			<div class="card-body">
-				<a class="stretched-link " href="{%url 'index'%}"></a>
-				<p class="text-muted">Home Page</p>
-			</div>
-		</div>
-		<div class="card" style="width:110px">
-			<img class="card-img-top" src="{% static 'images/icons/UserHomeII.jpg'%}" alt="Card image">
-			<div class="card-body">
-				<a class="stretched-link " href="{%url 'UserViews:UserHome'%}"></a>
-				<p class="text-muted">User Home</p>
-			</div>
-		</div>
-	</div>
-	<div class="card-columns "
-	     style="border: 1px solid rgb(232,232,232);background-color:rgb(232,232,232)">
-		<div class="card bg- abc" style="width:169px;">
-			<img class="card-img-top" title="Click on This to view Profile."
-			     src="{% static 'images/icons/ProfileCard.jpg'%}" alt="Card image">
-			<div class="card-body">
-				<h6 class="card-title text-muted">Profile</h6>
-				
-				<a class="stretched-link" href="{%url 'UserViews:Profile2' user%}"></a>
-				<p class="card-text text-muted">Click on This to view Profile.</p>
-			</div>
-		</div>
-		<div class="card bg- abc" style="width:169px;">
-			<img class="card-img-top" src="{% static 'images/icons/ResultII.png'%}" alt="Card image">
-			<div class="card-body">
-				<h6 class="card-title text-muted">Grades</h6>
-				<a class="stretched-link" href="{%url 'UserViews:category' %}"></a>
-				<p class="card-text text-muted">Click on This to view Grades.</p>
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-5">
+			<div class="card-columns">
+				<div class="card bg- abc" style="width:150px;">
+					<img class="card-img-top" title="Click on This to view Profile."
+					     src="{% static 'images/icons/ViewForm.png'%}" alt="Card image">
+					<div class="card-body">
+						<h6 class="card-title text-muted">View Application</h6>
+						<a class="stretched-link" href="{%url 'UserViews:Profile2' user%}"></a>
+					</div>
+				</div>
+				<!--				<p class="card-text text-muted" style="font-size:12px">Click on This to view Application.</p>-->
+				<div class="card bg- abc" style="width:150px;">
+					<img class="card-img-top" src="{% static 'images/icons/ResultII.png'%}" alt="Card image">
+					<div class="card-body">
+						<h6 class="card-title text-muted">View your Grades</h6>
+						<a class="stretched-link" href="{%url 'UserViews:category' %}"></a>
+					</div>
+				</div>
 			
 			</div>
 		</div>
-		<div class="card abc" style="width:169px;">
-			<img class="card-img-top" src="{% static 'images/icons/ApplicatonUs.png'%}" alt="Card image">
-			<div class="card-body">
-				<h6 class="card-title text-muted">Application</h6>
-				<a class="stretched-link" href="{%url 'UserViews:ApplicationSubmission'%}"></a>
-				<p class="card-text text-muted">Click on This to view Application.</p>
+		
+		<div class="col-md-3 ml-auto ">
+			<div class="card-columns">
+				<div class="card" style="width:80px;height:90px">
+					<img class="card-img-top" style="" src="{% static 'images/icons/Homes.png'%}" alt="Card image">
+					<!--					<div class="card-body">-->
+					<a class="stretched-link " href="{%url 'index'%}"></a>
+					<!--					</div>-->
+				
+				</div>
+				<p class="text-muted">Home Page</p>
+				<div class="card" style="width:80px;height:90px">
+					<img class="card-img-top" src="{% static 'images/icons/UserHomeII.jpg'%}" alt="Card image">
+					<div class="card-body">
+						<a class="stretched-link " href="{%url 'UserViews:UserHome'%}"></a>
+						<p class="text-muted">User Home</p>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="card abc" style="width:169px;">
-			<img class="card-img-top" src="{% static 'images/icons/Quiz.png'%}" alt="Card image">
-			<div class="card-body">
-				<h6 class="card-title text-muted">Quiz</h6>
-				<a class="stretched-link" href="{%url 'UserViews:GetQuiz'%}"></a>
-				<p class="card-text text-muted">Click on This to view Quiz Portal.</p>
+	</div>
+	
+	<!--	<div class="card-columns"-->
+	<!--	     style="padding:5px;background-color:rgb(232,232,232)">-->
+	<!--	-->
+	<!--	</div>-->
+	
+	<div class="row" style="">
+		<div class="col-md-1"></div>
+		<div class="col-md-5">
+			<div class="card-columns "
+			     style="">
+				<div class="card abc" style="width:145px;">
+					<img class="card-img-top" src="{% static 'images/icons/ApplicatonUs.png'%}" alt="Card image">
+					<div class="card-body">
+						<h6 class="card-title text-muted">Application</h6>
+						<a class="stretched-link" href="{%url 'UserViews:ApplicationSubmission'%}"></a>
+						<!--						<p class="card-text text-muted">Click on This to view Application.</p>-->
+					</div>
+				</div>
+				<div class="card abc" style="width:145px;">
+					<img class="card-img-top" src="{% static 'images/icons/Quiz.png'%}" alt="Card image">
+					<div class="card-body">
+						<h6 class="card-title text-muted">Quiz</h6>
+						<a class="stretched-link" href="{%url 'UserViews:GetQuiz'%}"></a>
+						<!--						<p class="card-text text-muted">Click on This to view Quiz Portal.</p>-->
+					</div>
+				</div>
+				<div class="card abc" style="width:145px;">
+					<img class="card-img-top" src="{% static 'images/icons/UserInterviewResults.jpg'%}"
+					     alt="Card image">
+					<div class="card-body">
+						<h6 class="card-title text-muted">Interview</h6>
+						<a class="stretched-link" href="#"></a>
+						<!--						<p class="card-text text-muted">Click on This to view Quiz Portal.</p>-->
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card-columns">
+			
 			</div>
 		</div>
 	</div>

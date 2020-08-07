@@ -36,6 +36,7 @@ overflow-y: scroll;
 							   href="{%url 'InterviewPanel:UserForInterview' slug=u.username%}">Grades</a>
 							<a class="btn btn-primary btn-sm" onclick="fun()"
 							   href="{%url 'InterviewPanel:UserApplication' slug=u.id%}">Application</a>
+							<a href="{%url 'InterviewPanel:StartInterview' slug=u.username%}" class="btn btn-primary btn-sm ml-auto" onclick="">StartInterview</a>
 							{%endfor%}
 						</ul>
 					</div>

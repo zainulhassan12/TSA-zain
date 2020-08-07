@@ -10,7 +10,7 @@ app_name = 'InterviewPanel'
 urlpatterns = [
     url(r'^jsi18n/$', django_views.i18n.JavaScriptCatalog.as_view(), name='jsi18n'),
 
-    path('', views.interhome, name='interhome'),
+    path('', views.InterviewHome, name='InterviewHome'),
     path('Quiz/', views.QuizAddingView, name='quiz'),
 
     path('AddQuestion/', views.QuestionAndAnswers, name='AddQuestionsWithAnswers'),
@@ -18,6 +18,8 @@ urlpatterns = [
     path('<slug:slug>', QuizDetailView.as_view(), name="DetailQuiz"),
     path('ViewQuiz/', QuizListView.as_view(), name="ViewQuiz"),
     path('StartQuiz/<slug:slug>', views.StartQuiz, name="StartQuiz"),
+    path('StartInterview/<slug:slug>',views.StartInterview, name="StartInterview"),
+    path('InterviewQuestions/',views.SaveInterviewQuestions,name="InterQuestions"),
     path('interview/', views.InterViewConducting, name="startInterview"),
     path('UserRecord/<slug:slug>', views.getDetails,name="UserForInterview"),
     path('UserApplication/<slug:slug>', views.getapplication,name="UserApplication"),
