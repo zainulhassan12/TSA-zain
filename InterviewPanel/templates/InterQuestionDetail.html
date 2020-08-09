@@ -1,0 +1,53 @@
+{%extends 'basic4.html'%}
+{%block title%}
+{%endblock%}
+{%block css%}
+.content{
+padding:12px;
+
+}
+{%endblock%}
+{%block body%}
+<div class="container abc">
+	{%if question != 0%}
+	<div class="content">
+		<p></p>
+		<div class="heading">
+			<h3 style="text-align:center;">Available questions for interview</h3>
+			<p class="text-muted">These question will be displayed during the Interview for your help.</p>
+			<p class="text-muted">To change or delete any question please use Admin panel.</p>
+			<div style="padding:20px">
+				{%for q in question%}
+				<div class="row">
+					<div class="col">
+						<label><b>Question</b></label>
+						<p>{{q.Question}}</p>
+					</div>
+					<div class="col">
+						<label><b>Explanation</b></label>
+						<p>{{q.Explanation}}</p>
+					</div>
+				</div>
+				
+				{%endfor%}
+			</div>
+		
+		</div>
+	</div>
+	{%else%}
+	<div class="alert alert-">
+		<div class="container">
+			<div class="abc">
+				<div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4>There is no questions to display here. :(</h4>
+					<p>Please add new questions using "Interview Question" link on Navigation bar.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{%endif%}
+{%endblock%}

@@ -1,5 +1,7 @@
 import json
 
+import pandas as pd
+import numpy as np
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import Permission
@@ -9,11 +11,22 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder
 
 from UserViews.models import canAccess, Application
 from .Forms import QuizForm, AddingNewQuestions, InterviewForm, InterQuestion
 # Create your views here.
 from .models import Answers, Quiz, Questions, InterviewQuestions
+
+
+# import seaborn as sns;sns.set()
+# import matplotlib.pyplot as plt
+
+# import seaborn as sns;sns.set()
+# import matplotlib.pyplot as plt
 
 
 @staff_member_required
@@ -38,7 +51,7 @@ def QuizAddingView(request):
     context = {
         'form': form1
     }
-    return render(request, "index.html", context)
+    return render(request, "QuizCreation.html", context)
 
 
 class QuizListView(ListView):
@@ -104,18 +117,7 @@ def check_true(IsTrue):
         return False
 
 
-@csrf_exempt
-@staff_member_required
-def GetQuizData(request):  # ajax validation
-    global quizlist, quiz
-    if request.is_ajax():
-        data = json.loads(request.body)
-        id_ = data['quiz']
-        quiz = Quiz.objects.filter(id=id_)
-    if quiz is not None:
-        quizlist = list(quiz.values())
-    return JsonResponse(quizlist, safe=False)
-
+#
 
 @staff_member_required
 def StartQuiz(request, slug):
@@ -147,7 +149,7 @@ def StartQuiz(request, slug):
     context = {
         'users': users
     }
-    return render(request, 'siting.html', context)
+    return render(request, 'QuizSiting.html', context)
 
 
 def InterViewConducting(request):
@@ -158,7 +160,7 @@ def InterViewConducting(request):
     return render(request, "Interview.html", context)
 
 
-def getDetails(request, slug):
+def GetDetailsForInterview(request, slug):
     grades = User.objects.get(username=slug).grades_set.all().values()
     all_users = list(User.objects.all().values())
     if grades:
@@ -176,12 +178,12 @@ def getDetails(request, slug):
     return render(request, "Interview.html", context)
 
 
-def getapplication(request, slug):
+def GetApplicationForInterview(request, slug):
     application = list(Application.objects.filter(user=slug).all().values())
     context = {
         'app': application,
     }
-    return render(request, "app.html", context)
+    return render(request, "ApplicationInterviewpannel.html", context)
 
 
 def StartInterview(request, slug):
@@ -223,6 +225,109 @@ def SaveInterviewQuestions(request):
         "InterviewQuestions": form
     }
     return render(request, "QuestionForInterview.html", context)
+
+
+def InterviewQuestionDetailView(request):
+    model = list(InterviewQuestions.objects.all().values())
+    if model:
+        context = {
+            'question': model
+        }
+        return render(request, "InterQuestionDetail.html", context)
+    else:
+        context = {
+            'question': 0
+        }
+        return render(request, "InterQuestionDetail.html", context)
+
+
+def RecommenderSystem(request):
+    # loading the dataset
+    pf = (pd.read_csv("C:/Users/zain ul hassan/Desktop/DataSetForFYPfinal.csv"))
+    df = pd.DataFrame(pf.iloc[1:250, :(23)])  # selecting 250 rows and 23 columns from the csv file
+    print(df)
+    # -----------------------
+
+    '''
+    This portion of the code encodes the dataset and we construct training and testing colummns
+
+    '''
+    le = LabelEncoder()  # creating a object for encoding
+    # in ML we cant classify english sentences hence we need to turn them into some numeric representation for the computer to understand
+    X = df.drop('Column22', axis='columns')
+    Y = df['Column22']
+    X = X.apply(LabelEncoder().fit_transform)
+
+    print(X)
+    print(Y)  # without encoding
+    Y = le.fit_transform(Y)
+    print(Y)  # with encoding
+
+    '''
+    ---------------------------------------------------------------------------------
+    '''
+
+    X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.40)
+    # dividing the dataset so that 60 percent is training data and 40 percent in testing data
+
+    # for logistic regression
+    # -------------------------
+    logreg = LogisticRegression(C=1e5)  # model object created
+    logreg.fit(X, Y)  # model learns
+    y_predic_check = logreg.predict(X_test)  # model tested on training set
+    # -------------------------
+    # logistic regression end
+
+    # for naivebyes(another different algorithm) with worse accuracy and f1 scores
+    # --------------------------
+
+    '''
+    classifier=GaussianNB()
+    classifier.fit(X_train,Y_train)
+
+    y_predic_check=classifier.predict(X_test)
+    '''
+    # ----------------
+    # naive_byes_end
+
+    # inverse transform inverses encoding and shows it in a more understandable way
+    print("Predicted Lables : ", le.inverse_transform((y_predic_check)))
+    print("Actual Labels :    ", le.inverse_transform(list(Y_test)))
+
+    # used to identify indivisual training examples or new examples
+    # assume you have to identify a new teacher
+    # You will have to encode the teachers data as encoded above
+    pre = logreg.predict(X_train[:1])
+    print(list(le.inverse_transform(pre)))
+    # ---------------------------------------
+
+    # used for performance evaluation and visual representation of the model
+    conf_mat = confusion_matrix(y_predic_check, Y_test)
+    names = np.unique(y_predic_check)
+    # sns.heatmap(conf_mat, square=True, annot=True, cbar=False, xticklabels=names, yticklabels=names)
+    # plt.xlabel('Truth')
+    # plt.ylabel('Prediction')
+    # b, t = plt.ylim()  # discover the values for bottom and top
+    # b += 0.5  # Add 0.5 to the bottom
+    # t -= 0.5  # Subtract 0.5 from the top
+    # plt.ylim(b, t)  # update the ylim(bottom, top) values
+    # plt.show()
+
+    print("Classification Report : ")
+    print(classification_report(Y_test, y_predic_check))
+
+# @csrf_exempt
+# @staff_member_required
+# def GetQuizData(request):  # ajax validation
+#     global quizlist, quiz
+#     if request.is_ajax():
+#         data = json.loads(request.body)
+#         id_ = data['quiz']
+#         quiz = Quiz.objects.filter(id=id_)
+#     if quiz is not None:
+#         quizlist = list(quiz.values())
+#     return JsonResponse(quizlist, safe=False)
+
 # @staff_member_required
 # def Add_Questions(request):
 #     if request.method == 'POST':
@@ -264,7 +369,7 @@ def SaveInterviewQuestions(request):
 #         'form1': form1,
 #         'form2': form
 #     }
-#     return render(request, "index.html", context)
+#     return render(request, "QuizCreation.html", context)
 # def Questions_Detail_view(request):
 # #     #  Questions Details views
 # #     global ques, QuestionAndAnswers, z, xx, lis, context, quest

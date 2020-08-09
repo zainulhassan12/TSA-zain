@@ -17,6 +17,9 @@
 <div class="container">
 	<form method="post" novalidate>
 		{%csrf_token%}
+		<p class=" form-text text-muted">Fields with <span style="color:red">*</span> are mandatory. </p>
+		<p class=" form-text text-muted" style="font-size:12px"> This is Quiz Creation Form.Fill the Fields and to View
+			a Quiz either use Admin panel or "Start Quiz" Navigation bar link .</p>
 		<div class="row">
 			<div class="col-md-5">
 				{{form.title|as_crispy_field}}
@@ -24,11 +27,12 @@
 			<div class="col-md-3">
 				{{form.category|as_crispy_field}}
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<label for="NewCat">Category: </label>
-				<br>
-				<a href="/admin/InterviewPanel/category/add/" id="NewCat" class="" target="blank"
-				   title="New Category" style="color:black">Add Category</a>
+				<a href="/admin/InterviewPanel/category/add/" id="NewCat" class="btn btn-primary btn-block"
+				   target="blank"
+				   title="Click This to Add a New Category" style="color:white">New Category</a>
+				<p class=" form-text text-muted" style="font-size:12px">Click This to create new Category.</p>
 			
 			</div>
 		</div>
@@ -50,19 +54,19 @@
 		</div>
 		<div class="row">
 			<div class="col-md-4">
-				{{form.answers_at_end|as_crispy_field}}
+				<!--				{{form.answers_at_end|as_crispy_field}}-->
 			
 			</div>
 			
 			<div class="col-md-4">
-				{{form.single_attempt|as_crispy_field}}
+				<!--				{{form.single_attempt|as_crispy_field}}-->
 			</div>
 			<div class="col-md-8">
 				{{form.media}}
 				{{form.questions}}
 			</div>
 		</div>
-		<button type="submit" class="btn btn-outline-success">send</button>
+		<button type="submit" class="btn btn-outline-success">Send</button>
 	</form>
 </div>
 

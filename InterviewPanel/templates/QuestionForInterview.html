@@ -2,11 +2,21 @@
 {%load static%}
 {%load crispy_forms_tags%}
 {%block body%}
-<p class="text-muted" style="font-size:12px">Fields With <span style="color:red">*</span> Are Mandatory!</p>
-<p style="font-size:14px;color:red">These Questions Are Related to The Interview Conducting Process.</p>
-<p class="text-muted" style="font-size:13px;">These Questions Are Asked to the Applicant during the InterView </p>
+<div class="row">
+	<div class="col-md-6">
+		<p class="text-muted" style="font-size:12px">Fields With <span style="color:red">*</span> Are
+			Mandatory!</p>
+		<p style="font-size:14px;color:red">These Questions Are Related to The Interview Conducting Process.</p>
+		<p class="text-muted" style="font-size:13px;">These Questions Are Asked to the Applicant during the
+			InterView </p>
+	</div>
+	<div class="col-md-6 ml-auto">
+		<a href="{%url 'InterviewPanel:ViewInterViewQuestions'%}" class="btn btn-outline-success btn-sm float-right">View
+			Questions</a>
+	</div>
+</div>
+
 <div class="container abc">
-	
 	<form id="FormAjax" method="post" style="padding:10px">
 		{%csrf_token%}
 		

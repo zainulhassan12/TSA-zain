@@ -20,9 +20,10 @@ urlpatterns = [
     path('StartQuiz/<slug:slug>', views.StartQuiz, name="StartQuiz"),
     path('StartInterview/<slug:slug>',views.StartInterview, name="StartInterview"),
     path('InterviewQuestions/',views.SaveInterviewQuestions,name="InterQuestions"),
+    path('InterviewQuestionDetail/',views.InterviewQuestionDetailView,name="ViewInterViewQuestions"),
     path('interview/', views.InterViewConducting, name="startInterview"),
-    path('UserRecord/<slug:slug>', views.getDetails,name="UserForInterview"),
-    path('UserApplication/<slug:slug>', views.getapplication,name="UserApplication"),
+    path('UserRecord/<slug:slug>', views.GetDetailsForInterview, name="UserForInterview"),
+    path('UserApplication/<slug:slug>', views.GetApplicationForInterview, name="UserApplication"),
     re_path(r'^jsi18n/$', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 

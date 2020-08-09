@@ -126,18 +126,16 @@ def Application_Delete_view(request, id):
 @login_required
 def QuizPortal(request):
     global context, access
-
-    access = canAccess.objects.get(user=request.user)
-    if access:
-        pass
-    else:
+    try:
+        access = canAccess.objects.get(user=request.user)
+    except canAccess.DoesNotExist:
         messages.error(request,
-                           message="Probably you have attempted the quiz and removed from access list!! For more info "
-                                   "contact ADMIN or Organizer",
-                           extra_tags="danger")
+                       message="Probably you have attempted the quiz and removed from access list!! For more info "
+                               "contact ADMIN or Organizer",
+                       extra_tags="danger")
 
     if request.user.is_authenticated and request.user.has_perm('InterviewPanel.change_quiz'):
-        print(access)
+        # print(access)
         quiz = get_object_or_404(Quiz, url=access.QuizName)
         NoOfquestion = Quiz.objects.get(url=access.QuizName).questions_set.all().count()
         print(NoOfquestion)
