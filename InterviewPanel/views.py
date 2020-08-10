@@ -316,6 +316,12 @@ def RecommenderSystem(request):
     print("Classification Report : ")
     print(classification_report(Y_test, y_predic_check))
 
+
+
+
+
+
+
 # @csrf_exempt
 # @staff_member_required
 # def GetQuizData(request):  # ajax validation

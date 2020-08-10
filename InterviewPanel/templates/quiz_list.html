@@ -5,12 +5,13 @@
 {%block body%}
 <h2>{% trans "List of quizzes" %}</h2>
     {% if quiz_list %}
-		<table class="table table-light table-striped table-hover table-bordered">
+		<table class="table  table-striped table-hover table-bordered">
 
-		  <thead>
+		  <thead class="thead-dark">
 			<tr>
 			  <th>{% trans "Title" %}</th>
 			  <th>{% trans "Category" %}</th>
+				<th>{% trans "Details"%}</th>
 <!--			  <th>{% trans "Single attempt" %}</th>-->
 			  
 			</tr>

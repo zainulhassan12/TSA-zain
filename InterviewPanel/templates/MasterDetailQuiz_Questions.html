@@ -6,6 +6,8 @@
 {{form.media}}
 <div class="container" style="">
 	<form id="FormAjax">
+		<p class="text-muted">Feilds with <span style="color:red">*</span> are Mandatory!</p>
+		<p class="text-muted form-text" ><span style="color:red"s> Also Add the Options for question.Options can be of any number e.g(2,3,4,5.....)</span> </p>
 		<div class="row">
 			<div class="col-9">
 				{{form.question|as_crispy_field}}
@@ -27,7 +29,8 @@
 	</div>
 	<div class="card custom-card">
 		<div class="card-header">
-			Options
+			Options!
+			<p class="text-muted"><span style="color:red">Click the CheckBox for correct Option.</span></p>
 		</div>
 		<div class="card-body">
 			<div id="OptionInput" class="form-row">

@@ -152,7 +152,7 @@ def QuizPortal(request):
         context = {
             'quiz': '1'
         }
-    return render(request, "UserViews/question_Solving.html", context)
+    return render(request, "UserViews/Quiz_Solving.html", context)
 
 
 def GetQuestions(request, slug):
@@ -174,7 +174,7 @@ def GetQuestions(request, slug):
     else:
         messages.error(request, "Permission Denied!!", extra_tags='danger')
     print(context)
-    return render(request, "UserViews/question.html", context)
+    return render(request, "UserViews/questionsAttemption.html", context)
 
 
 @csrf_protect
@@ -223,7 +223,7 @@ def MarkQuiz(request):
             return JsonResponse(data, status=500)
     else:
         print("error in this")
-    return render(request, "UserViews/question.html")
+    return render(request, "UserViews/questionsAttemption.html")
 
 
 def GradePortal(request):
