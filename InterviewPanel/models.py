@@ -1,6 +1,8 @@
+import os
 import re
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import slugify
 
@@ -151,6 +153,21 @@ class InterviewQuestions(models.Model):
 
     def __str__(self):
         return self.Question
+
+
+def csv_file_validator(value):
+    filename, ext = os.path.splitext(value.name)
+    if str(ext) != '.csv':
+        raise ValidationError("Must be a csv file")
+
+
+class CSVUpload(models.Model):
+    title = models.CharField(max_length=100, verbose_name='Title', blank=False,help_text="Title for your Files.")
+    file = models.FileField(upload_to="Csv Of ApplicantGrades/", blank=True,
+                            help_text="Paste the PDF file of your DMC/Result card for best practices",
+                           )
+    Uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True, help_text="Time of Uploading")
 
 
 class InterviewModel(models.Model):

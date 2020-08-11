@@ -83,6 +83,9 @@ class Uapplication(forms.ModelForm):
                                       years=range(1970, 2020)
                                       )
     )
+    Matrics_Result = forms.FileField(help_text="Please Upload .pdf File For best Pratices.")
+    Graduations_result = forms.FileField(help_text="Please Upload .pdf File For best Pratices.")
+    Intermediate_result = forms.FileField(help_text="Please Upload .pdf File For best Pratices.")
 
     class Meta:
         model = Application
@@ -98,6 +101,24 @@ class Uapplication(forms.ModelForm):
             'Experience',
             'Master_Specialization',
         ]
+
+    def clean_Metric_Result(self, *args, **kwargs):
+        file1 = self.cleaned_data.get("Matrics_Result")
+        if not file1.endswith(".pdf"):
+            raise forms.ValidationError("This is not a Valid File.Must use '.pdf'")
+        return file1
+
+    def clean_Graduations_result(self, *args, **kwargs):
+        file2 = self.cleaned_data.get("Graduations_result")
+        if not file2.endswith(".pdf"):
+            raise forms.ValidationError("This is not a Valid File.Must use '.pdf'")
+        return file2
+
+    def clean_Intermediate_result(self, *args, **kwargs):
+        file3 = self.cleaned_data.get("Intermediate_result")
+        if not file3.endswith(".pdf"):
+            raise forms.ValidationError("This is not a Valid File.Must use '.pdf'")
+        return file3
 
 
 class UserGrades(forms.ModelForm):
@@ -173,3 +194,12 @@ class UserGrades(forms.ModelForm):
                   'VisualProgramming', 'WebSystemAndTechnologies', 'MobileApplicationDevelopment', 'CloudComputing',
                   'ArtificialIntelligence', 'DataMining', 'CalculusAndAnalyticalGeometry', 'LinearAlgebra',
                   'DiscreteStructures', 'WirelessAndMobileCommunication']
+
+# class CSVUploadForm(forms.ModelForm):
+#     # file = forms.FileField(help_text="Upload Csv File", )
+#
+#     class Meta:
+#         model = CSVUpload
+#         fields = [
+#             'user', 'title', 'file', 'Uploaded_by'
+#         ]

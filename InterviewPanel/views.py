@@ -1,23 +1,29 @@
+import csv
 import json
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import Permission
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.http import HttpResponse
 from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView
+from sklearn import preprocessing
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix, classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.models import Sequential
 
-from UserViews.models import canAccess, Application
-from .Forms import QuizForm, AddingNewQuestions, InterviewForm, InterQuestion
+from UserViews.models import canAccess, Application, ApplicantGradesInformation
+from .Forms import QuizForm, AddingNewQuestions, InterviewForm, InterQuestion, CSVUploadForm
 # Create your views here.
 from .models import Answers, Quiz, Questions, InterviewQuestions
 
@@ -317,11 +323,114 @@ def RecommenderSystem(request):
     print(classification_report(Y_test, y_predic_check))
 
 
+def SaveCsvFile(request, ):
+    response = HttpResponse(content_type='text/csv')
+    ColumnNames = Application
+
+    writer = csv.writer(response)
+    writer.writerow(
+        ['Username', 'Fields  of your expertise?', 'Programming Fundamentals', 'Object Oriented Programming',
+         'Data Structures & Algorithms', 'Visual Programming',
+         'Web  System & Technologies', 'Mobile Application Development',
+         'Data Communication & Computer Networking', 'Network Security', 'Wireless And Mobile  Communication',
+         'Internet Architecture & Protocol',
+         'Cloud Computing', 'Artificial Intelligence', 'Data Mining', 'Calculus & analytical geometry',
+         'Linear Algebra', 'Discrete Structures'])
+
+    for member in ApplicantGradesInformation.objects.all().values_list('user', 'Speciality', 'ProgrammingFundamentals',
+                                                                       'ObjectOrientedProgramming',
+                                                                       'DataStructuresAndAlgorithms',
+                                                                       'VisualProgramming', 'WebSystemAndTechnologies',
+                                                                       'MobileApplicationDevelopment',
+                                                                       'DataCommunicationAndComputerNetworks',
+                                                                       'NetworkSecurity',
+                                                                       'WirelessAndMobileCommunication',
+                                                                       'InternetArchitectureAndProtocol',
+                                                                       'CloudComputing',
+                                                                       'ArtificialIntelligence',
+                                                                       'DataMining',
+                                                                       'CalculusAndAnalyticalGeometry',
+                                                                       'LinearAlgebra',
+                                                                       'DiscreteStructures'):
+        writer.writerow(member)
+
+    response['Content-Disposition'] = 'attachment; filename="DataOfApplicants.csv"'
+    return response
 
 
+def systemrecom(request):
+    return render(request, "Recommendations.html")
 
 
+def ActualRecommendation(request):
+    # Global parameters
+    FILE_NAME = "C:/Users/zain ul hassan/PycharmProjects/DjangoProject/TeacherSelection/static/csv/data.csv"
+    CLASS_COL = 22
+    TEST_SIZE = 0.2
+    NUM_INPUTS = 22
+    ACT_HIDDEN = "sigmoid"
+    ACT_OUT = "softmax"
+    ERR_FUNC = "sparse_categorical_crossentropy"
+    NUM_EPOCHS = 500
+    BATCH_SIZE = 10
 
+    # Step#1
+    print("Step#1: Acquiring data")
+    df = pd.read_csv(FILE_NAME, header=0, usecols=[x for x in range(23)])
+    print("> Data acqruired. data.describe()")
+    print(df.describe(), end='\n\n')
+
+    # Step#2
+    print("Step#2: Encoding columns")
+    df = df.apply(preprocessing.LabelEncoder().fit_transform)
+    print("> Columns encoded to integer values. data.describe()")
+    print(df.describe(), end='\n\n')
+
+    # Step#3
+    print("Step#3: Splitting data")
+    x, y = df.iloc[:, :CLASS_COL], df.iloc[:, CLASS_COL]
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=TEST_SIZE)
+    print("> Data splitted. x_train=" + str(x_train.shape) + ", x_test=" + str(x_test.shape) + ", y_train=" + str(
+        y_train.shape) + ", y_test=" + str(y_test.shape), end='\n\n')
+
+    # Step#4
+    print("Step#4: Generating a shallow neural network")
+    model = Sequential()
+    model.add(Dense(22, input_shape=(NUM_INPUTS,), activation=ACT_HIDDEN))
+    model.add(Dense(20, activation=ACT_HIDDEN))
+    model.add(Dense(15, activation=ACT_HIDDEN))
+    model.add(Dense(13, activation=ACT_HIDDEN))
+    model.add(Dense(12, activation=ACT_OUT))
+    model.compile(loss=ERR_FUNC, optimizer='adam', metrics=['accuracy'])
+    print("> Network generated. model.summary()")
+    print(model.summary(), end='\n\n')
+
+    # Step#5
+    print("Step#5: Training the network with " + str(NUM_EPOCHS) + " epochs and " + str(BATCH_SIZE) + " batch size")
+    model.fit(x_train, y_train, epochs=NUM_EPOCHS, batch_size=BATCH_SIZE)
+    _, accuracy = model.evaluate(x_test, y_test)
+    print("> Training finished.")
+    print('> Final accuracy: %.2f' % (accuracy * 100))
+
+    return render(request, 'Recommendations.html')
+
+
+def UploadingFile(request):
+    if request.method == 'POST':
+        form = CSVUploadForm(request.POST)
+        if form.is_valid():
+            z = form.save(commit=False)
+            z.user = request.user
+            z.save()
+        else:
+            print(form.errors)
+
+    else:
+        form = CSVUploadForm()
+    context = {
+        'form': form
+    }
+    return render(request, "Uploading.html", context)
 # @csrf_exempt
 # @staff_member_required
 # def GetQuizData(request):  # ajax validation

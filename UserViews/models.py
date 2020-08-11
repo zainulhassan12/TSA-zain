@@ -140,41 +140,34 @@ class Application(models.Model):
 
 
 class ApplicantGradesInformation(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE,blank=True,null=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=False)
     Speciality = models.CharField(max_length=1000,
                                   help_text="Already set You have entered in the Application..Now Enter Grades",
                                   blank=True, null=False)
+    ProgrammingFundamentals = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                          verbose_name="Programming Fundamentals")
+    ObjectOrientedProgramming = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                            verbose_name="Object oriented programming", )
 
-    NetworkSecurity = models.PositiveIntegerField(help_text="Select Grade you have obtained",
-                                                  verbose_name="Network Security")
-
+    DataStructuresAndAlgorithms = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                              verbose_name="Data structures & algorithms")
+    VisualProgramming = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                    verbose_name="Visual Programming")
+    WebSystemAndTechnologies = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                           verbose_name="Web Systems & Technologies")
+    MobileApplicationDevelopment = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                               verbose_name="Mobile Application Development")
     DataCommunicationAndComputerNetworks = models.PositiveIntegerField(help_text="Select Grade you have obtained",
                                                                        verbose_name="Data Communication & Computer"
                                                                                     " Networks")
+    NetworkSecurity = models.PositiveIntegerField(help_text="Select Grade you have obtained",
+                                                  verbose_name="Network Security")
 
     WirelessAndMobileCommunication = models.PositiveIntegerField(help_text="Select Grade you have obtained",
                                                                  verbose_name="Wireless & Mobile Communication")
 
     InternetArchitectureAndProtocol = models.PositiveIntegerField(help_text="Select Grade you have obtained",
                                                                   verbose_name="Internet Architecture & Protocol")
-
-    ProgrammingFundamentals = models.PositiveIntegerField(help_text="Select Grade you have obtained",
-                                                          verbose_name="Programming Fundamentals")
-
-    ObjectOrientedProgramming = models.PositiveIntegerField(help_text="Select Grade you have obtained",
-                                                            verbose_name="Object oriented programming")
-
-    DataStructuresAndAlgorithms = models.PositiveIntegerField(help_text="Select Grade you have obtained",
-                                                              verbose_name="Data structures & algorithms")
-
-    VisualProgramming = models.PositiveIntegerField(help_text="Select Grade you have obtained",
-                                                    verbose_name="Visual Programming")
-
-    WebSystemAndTechnologies = models.PositiveIntegerField(help_text="Select Grade you have obtained",
-                                                           verbose_name="Web Systems & Technologies")
-
-    MobileApplicationDevelopment = models.PositiveIntegerField(help_text="Select Grade you have obtained",
-                                                               verbose_name="Mobile Application Development")
 
     CloudComputing = models.PositiveIntegerField(help_text="Select Grade you have obtained",
                                                  verbose_name="Cloud Computing")
@@ -230,3 +223,4 @@ class canAccess(models.Model):
 
     def __str__(self):
         return self.QuizName
+

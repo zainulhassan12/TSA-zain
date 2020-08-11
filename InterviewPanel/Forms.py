@@ -132,6 +132,22 @@ class InterQuestion(forms.ModelForm):
             'Question', 'Explanation',
         ]
 
+
+class CSVUploadForm(forms.ModelForm):
+    file = forms.FileField(help_text="Upload Csv File",)
+
+    class Meta:
+        model = CSVUpload
+        fields = [
+            'title', 'file', 'Uploaded_by'
+        ]
+
+    def clean_file(self, *args, **kwargs):
+        file = self.cleaned_data.get("file")
+        if not file.endswith(".csv"):
+            raise forms.ValidationError("This is not a Valid File.Must use '.csv'")
+        return file
+
 # class Add_Questions_to_Quiz(forms.ModelForm):
 #     queryset = Questions.objects.all()
 #     question = forms.ModelMultipleChoiceField(label="Select Available Questions",
