@@ -102,23 +102,23 @@ class Uapplication(forms.ModelForm):
             'Master_Specialization',
         ]
 
-    def clean_Metric_Result(self, *args, **kwargs):
-        file1 = self.cleaned_data.get("Matrics_Result")
-        if not file1.endswith(".pdf"):
-            raise forms.ValidationError("This is not a Valid File.Must use '.pdf'")
-        return file1
-
-    def clean_Graduations_result(self, *args, **kwargs):
-        file2 = self.cleaned_data.get("Graduations_result")
-        if not file2.endswith(".pdf"):
-            raise forms.ValidationError("This is not a Valid File.Must use '.pdf'")
-        return file2
-
-    def clean_Intermediate_result(self, *args, **kwargs):
-        file3 = self.cleaned_data.get("Intermediate_result")
-        if not file3.endswith(".pdf"):
-            raise forms.ValidationError("This is not a Valid File.Must use '.pdf'")
-        return file3
+    # def clean_Metric_Result(self, *args, **kwargs):
+    #     file1 = self.cleaned_data.get("Matrics_Result")
+    #     if not file1.endswith(".pdf"):
+    #         raise forms.ValidationError("This is not a Valid File.Must use '.pdf'")
+    #     return file1
+    #
+    # def clean_Graduations_result(self, *args, **kwargs):
+    #     file2 = self.cleaned_data.get("Graduations_result")
+    #     if not file2.endswith(".pdf"):
+    #         raise forms.ValidationError("This is not a Valid File.Must use '.pdf'")
+    #     return file2
+    #
+    # def clean_Intermediate_result(self, *args, **kwargs):
+    #     file3 = self.cleaned_data.get("Intermediate_result")
+    #     if not file3.endswith(".pdf"):
+    #         raise forms.ValidationError("This is not a Valid File.Must use '.pdf'")
+    #     return file3
 
 
 class UserGrades(forms.ModelForm):

@@ -3,10 +3,11 @@ from django.contrib import admin
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
-from .models import Questions, Quiz, Category, Answers, InterviewModel, InterviewQuestions
-
+from .models import Questions, Quiz, Category, Answers, InterviewModel, InterviewQuestions, CSVUpload
 
 # Register your models here.
+from .views import UploadingFile
+
 
 class CategoryAdmin(admin.ModelAdmin):
     search_fields = ('category',)
@@ -72,3 +73,4 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(Questions, QuestionAdmin)
 admin.site.register(InterviewModel)
 admin.site.register(InterviewQuestions)
+admin.site.register(CSVUpload)

@@ -134,7 +134,7 @@ class InterQuestion(forms.ModelForm):
 
 
 class CSVUploadForm(forms.ModelForm):
-    file = forms.FileField(help_text="Upload Csv File",)
+    # file = forms.FileField(help_text="Upload Csv File", required=False)
 
     class Meta:
         model = CSVUpload
@@ -142,11 +142,11 @@ class CSVUploadForm(forms.ModelForm):
             'title', 'file', 'Uploaded_by'
         ]
 
-    def clean_file(self, *args, **kwargs):
-        file = self.cleaned_data.get("file")
-        if not file.endswith(".csv"):
-            raise forms.ValidationError("This is not a Valid File.Must use '.csv'")
-        return file
+    # def clean_file(self, *args, **kwargs):
+    #     file = self.cleaned_data.get("file")
+    #     if not file.endswith(".csv"):
+    #         raise forms.ValidationError("This is not a Valid File.Must use '.csv'")
+    #     return file
 
 # class Add_Questions_to_Quiz(forms.ModelForm):
 #     queryset = Questions.objects.all()

@@ -359,6 +359,7 @@ def SaveCsvFile(request, ):
 
 
 def systemrecom(request):
+
     return render(request, "Recommendations.html")
 
 
@@ -411,8 +412,11 @@ def ActualRecommendation(request):
     _, accuracy = model.evaluate(x_test, y_test)
     print("> Training finished.")
     print('> Final accuracy: %.2f' % (accuracy * 100))
+    context ={
+        'Acc':accuracy
+    }
 
-    return render(request, 'Recommendations.html')
+    return render(request, 'InterResults.html', context)
 
 
 def UploadingFile(request):

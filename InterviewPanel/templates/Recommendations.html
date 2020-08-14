@@ -1,0 +1,51 @@
+{%extends 'basic4.html'%}
+{%load static%}
+{%load crispy_forms_tags%}
+{%block page%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+{%endblock%}
+{%block css%}
+.scrollable {
+height:300px;
+overflow-y: scroll;
+}
+{%endblock%}
+{%block body%}
+<div class="container">
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-10">
+			
+			<div class="panel panel-primary">
+				<div class="panel-heading"><b>Application</b>
+				</div>
+				<div class="panel-body scrollable">
+					<div class="card ">
+						<div class="card-header text-center">
+							Recommandation system Panel
+						</div>
+						<p class="text-muted"><span style="color:red">Please first upload your file in csv Format to run Algorithms.you have to
+							download the file of user to start systems</span> </p>
+						
+						
+						<div class="card-body">
+						<a href="{%url 'InterviewPanel:recommend'%}" class="btn btn-primary ">Save File</a>
+						</div>
+						<a href="{%url 'InterviewPanel:UploadToSystem' %}">Upload</a>
+						<div class="panel-footer"><b>
+							<span style="font-size:12px">InterView Marks of Applicant. </span></b>
+							<a href="{%url 'InterviewPanel:recommend'%}">Recommendation System</a>
+							<br>
+							<!--					<span style="font-size:11px">Select one to see related information</span>-->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{%endblock%}
